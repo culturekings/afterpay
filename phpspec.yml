@@ -5,4 +5,4 @@ extensions:
       format:
         - clover
       output:
-        clover: coverage.xml
+        clover: coverage_clover.xml
