@@ -45,7 +45,7 @@ class Authorization
     }
 
     /**
-     * @param strubg $secret
+     * @param string $secret
      * @return $this
      */
     public function setSecret($secret)
