@@ -2,6 +2,7 @@
     "name": "culturekings/afterpay",
     "description": "Afterpay API integration",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jared Fraser",
@@ -27,7 +28,8 @@
         "symfony/var-dumper": "^3.1",
         "squizlabs/php_codesniffer": "^2.6",
         "culturekings/symfony2-coding-standard": "^2.10",
-        "sebastian/phpcpd": "^2.0"
+        "sebastian/phpcpd": "^2.0",
+        "satooshi/php-coveralls": "^1.0"
     },
     "autoload": {
         "psr-4": {

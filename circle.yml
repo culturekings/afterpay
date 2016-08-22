@@ -24,7 +24,7 @@ dependencies:
     - composer global config repositories.coding-standard vcs https://github.com/culturekings/Symfony2-coding-standard.git
     # Install dependencies
     - composer dump-autoload
-    - composer install
+    - composer install -o --prefer-dist --no-interaction
 
 
 # Run tests
@@ -32,7 +32,7 @@ dependencies:
 test:
   override:
     - vendor/bin/phpspec run
-    - vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
+    - vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/culturekings/symfony2-coding-standard
     - vendor/bin/phpcs
     - vendor/bin/phpcpd ./src
   post:
