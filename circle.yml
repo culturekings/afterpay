@@ -36,4 +36,4 @@ test:
     - vendor/bin/phpcs
     - vendor/bin/phpcpd ./src
   post:
-    - vendor/bin/coveralls -v -x coverage.xml
+    - vendor/bin/coveralls -v
