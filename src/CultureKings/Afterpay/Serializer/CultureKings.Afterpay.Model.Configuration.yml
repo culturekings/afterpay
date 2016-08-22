@@ -1,0 +1,13 @@
+CultureKings\Afterpay\Model\Configuration:
+  exclusion_policy: NONE
+  properties:
+    type:
+      type: string
+    description:
+      type: string
+    minimumAmount:
+      type: CultureKings\AfterPay\Model\Money
+      serialized_name: minimumAmount
+    maximumAmount:
+      type: CultureKings\AfterPay\Model\Money
+      serialized_name: maximumAmount

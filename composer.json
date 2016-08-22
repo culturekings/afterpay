@@ -1,0 +1,30 @@
+{
+    "name": "culturekings/afterpay",
+    "description": "Afterpay API integration",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jared Fraser",
+            "email": "j.fraser@culturekings.com.au"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "jms/serializer": "^1.2",
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.0",
+        "henrikbjorn/phpspec-code-coverage": "^3.0",
+        "symfony/var-dumper": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "CultureKings\\AfterPay\\": "src/"
+        },
+        "psr-0": {
+            "": "src"
+        }
+    }
+}

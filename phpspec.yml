@@ -1,0 +1,8 @@
+suites:
+    culture_kings_afterpay: CultureKings\Afterpay
+extensions:
+    PhpSpecCodeCoverage\CodeCoverageExtension:
+      format:
+        - clover
+      output:
+        clover: coverage.xml

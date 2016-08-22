@@ -1,0 +1,6 @@
+CultureKings\Afterpay\Model\Money:
+  properties:
+    amount:
+      type: double
+    currency:
+      type: string
