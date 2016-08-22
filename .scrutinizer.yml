@@ -1,36 +1,98 @@
+inherit: true
+
+filter:
+  excluded_paths: [spec/*, vendor/*]
+
 before_commands:
-    - "composer update --prefer-source"
+  - composer install --prefer-source --dev
 
 tools:
-    external_code_coverage: true
-    php_code_coverage: true
-    php_code_sniffer:
+  # PHP Code Coverage
+  php_code_coverage:
+    enabled: true
+    test_command: phpspec
+
+  # PHP Code Sniffer
+  php_code_sniffer:
+    config:
+      standard: PSR2
+
+  # PHP Copy/Paste Detector
+  php_cpd:
+    enabled: true
+    excluded_dirs: [vendor]
+
+  # PHP CS Fixer
+  php_cs_fixer:
+    enabled: true
+    config:
+      level: all
+
+  # PHP Analyzer
+  php_analyzer:
+    enabled: true
+    config:
+      # Checks
+      check_access_control:
         enabled: true
-        config:
-            standard: PSR2
-        filter:
-            paths: ["src/*", "spec/*"]
-    php_cpd:
+      basic_semantic_checks:
         enabled: true
-        excluded_dirs: ["build", "docs", "spec", "vendor"]
-    php_cs_fixer:
+      simplify_boolean_return:
         enabled: true
-        config:
-            level: all
-        filter:
-            paths: ["src/*", "spec/*"]
-    php_loc:
+      dead_assignments:
         enabled: true
-        excluded_dirs: ["build", "docs", "spec", "vendor"]
-    php_mess_detector:
+      typo_checks:
         enabled: true
-        filter:
-            paths: ["src/*"]
-    php_pdepend:
+      check_usage_context:
         enabled: true
-        excluded_dirs: ["build", "docs", "spec", "vendor"]
-    php_analyzer: true
-    php_analyzer:
-        filter:
-            paths: ["src/*", "spec/*"]
-sensiolabs_security_checker: true
+        method_call_on_non_object:
+          enabled: true
+          ignore_null_pointer: true
+        foreach:
+          value_as_reference: true
+          traversable: true
+        missing_argument: true
+        argument_type_checks: strict
+      phpunit_checks:
+        enabled: true
+      parameter_reference_check:
+        enabled: true
+      precedence_checks:
+        enabled: true
+        assignment_in_condition: true
+        comparison_of_bit_result: true
+      reflection_checks:
+        enabled: true
+      checkstyle:
+        enabled: true
+        no_trailing_whitespace: true
+        naming:
+          enabled: false
+      suspicious_code:
+        enabled: true
+        overriding_parameter: true
+        overriding_closure_use: true
+        parameter_closure_use_conflict: true
+        parameter_multiple_times: true
+        non_existent_class_in_instanceof_check: true
+        non_existent_class_in_catch_clause: true
+        assignment_of_null_return: true
+        non_commented_switch_fallthrough: true
+        non_commented_empty_catch_block: true
+        overriding_private_members: true
+        use_statement_alias_conflict: true
+        precedence_in_condition_assignment: true
+      unreachable_code:
+        enabled: true
+      check_variables:
+        enabled: true
+      # Fixes
+      doc_comment_fixes:
+        enabled: true
+      reflection_fixes:
+        enabled: true
+      use_statement_fixes:
+        enabled: true
+        remove_unused: true
+        preserve_multiple: false
+        order_alphabetically: false
