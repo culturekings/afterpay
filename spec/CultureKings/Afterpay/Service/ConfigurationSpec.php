@@ -66,5 +66,7 @@ class ConfigurationSpec extends ObjectBehavior
         $res = $this->get($auth);
         $res->shouldHaveCount(1);
         $res[0]->shouldBeAnInstanceOf(\CultureKings\Afterpay\Model\Configuration::class);
+        $res[0]->getType()->shouldReturn('PAY_BY_INSTALLMENT');
+        $res[0]->getDescription()->shouldReturn('Pay over time');
     }
 }

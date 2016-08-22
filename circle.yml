@@ -23,7 +23,6 @@ dependencies:
     - composer global config github-oauth.github.com $CIRCLE_CI_GITHUB_API_KEY
     - composer global config repositories.coding-standard vcs https://github.com/culturekings/Symfony2-coding-standard.git
     # Install dependencies
-    - composer dump-autoload
     - composer install -o --prefer-dist --no-interaction
 
 
