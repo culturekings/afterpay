@@ -31,11 +31,10 @@ dependencies:
 # https://circleci.com/docs/configuration#running-your-tests
 test:
   override:
-    - chmod -R 777 ./storage
     - mkdir -p $CIRCLE_TEST_REPORTS/phpunit/
-    - ~/.composer/vendor/bin/phpunit -c phpunit.xml --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml --coverage-clover build/logs/clover.xml tests
-    - ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/culturekings/symfony2-coding-standard
-    - ~/.composer/vendor/bin/phpcs
-    - ~/.composer/vendor/bin/phpcpd ./src
+    - vendor/bin/phpunit -c phpunit.xml --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml --coverage-clover build/logs/clover.xml tests
+    - vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/culturekings/symfony2-coding-standard
+    - vendor/bin/phpcs
+    - vendor/bin/phpcpd ./src
   post:
-    - ~/.composer/vendor/bin/coveralls -v
+    - vendor/bin/coveralls -v
