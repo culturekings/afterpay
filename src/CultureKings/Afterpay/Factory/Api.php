@@ -8,13 +8,23 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class Api
+ * @package CultureKings\Afterpay\Factory
+ */
 class Api
 {
+    /**
+     * @param Client|null          $client
+     * @param Serializer|null      $serializer
+     * @param LoggerInterface|null $logger
+     * @return Configuration
+     */
     public static function configuration(
         Client $client = null,
         Serializer $serializer = null,
         LoggerInterface $logger = null
-    ){
+    ) {
         AnnotationRegistry::registerLoader('class_exists');
 
         if ($client === null) {
@@ -27,14 +37,13 @@ class Api
                 ->build();
         }
 
-        $api = new Configuration($client, $serializer, $logger);
-        return $api;
+        return new Configuration($client, $serializer, $logger);
     }
 
+    /**
+     *
+     */
     public static function payments()
     {
-
     }
-
-
 }

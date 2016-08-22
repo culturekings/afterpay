@@ -3,6 +3,7 @@ namespace CultureKings\Afterpay\Model;
 
 /**
  * Class Contact
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Contact
@@ -105,82 +106,90 @@ class Contact
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * @param $line1
+     * @param string $line1
      * @return $this
      */
     public function setLine1($line1)
     {
         $this->line1 = $line1;
+
         return $this;
     }
 
     /**
-     * @param $line2
+     * @param string $line2
      * @return $this
      */
     public function setLine2($line2)
     {
         $this->line2 = $line2;
+
         return $this;
     }
 
     /**
-     * @param $suburb
+     * @param string $suburb
      * @return $this
      */
     public function setSuburb($suburb)
     {
         $this->suburb = $suburb;
+
         return $this;
     }
 
     /**
-     * @param $state
+     * @param string $state
      * @return $this
      */
     public function setState($state)
     {
         $this->state = $state;
+
         return $this;
     }
 
     /**
-     * @param $postcode
+     * @param string $postcode
      * @return $this
      */
     public function setPostcode($postcode)
     {
         $this->postcode = $postcode;
+
         return $this;
     }
 
     /**
-     * @param $countryCode
+     * @param string $countryCode
      * @return $this
      */
     public function setCountryCode($countryCode)
     {
         $this->countryCode = $countryCode;
+
         return $this;
     }
 
     /**
-     * @param $phoneNumber
+     * @param string $phoneNumber
      * @return $this
      */
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+
         return $this;
     }
 }

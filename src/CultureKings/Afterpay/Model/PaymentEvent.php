@@ -6,6 +6,7 @@ use DateTime;
 
 /**
  * Class PaymentEvent
+ *
  * @package CultureKings\Afterpay\Model
  */
 class PaymentEvent
@@ -54,26 +55,29 @@ class PaymentEvent
     public function setCreated(DateTime $created)
     {
         $this->created = $created;
+
         return $this;
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     /**
-     * @param $type
+     * @param string $type
      * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 }

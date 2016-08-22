@@ -3,6 +3,7 @@ namespace CultureKings\Afterpay\Model;
 
 /**
  * Class Discount
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Discount
@@ -34,12 +35,13 @@ class Discount
     }
 
     /**
-     * @param $displayName
+     * @param string $displayName
      * @return $this
      */
     public function setDisplayName($displayName)
     {
         $this->displayName = $displayName;
+
         return $this;
     }
 
@@ -50,6 +52,7 @@ class Discount
     public function setAmount(Money $amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 }

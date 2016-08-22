@@ -5,9 +5,11 @@ namespace spec\CultureKings\Afterpay\Service;
 use CultureKings\Afterpay\Authorization;
 use CultureKings\Afterpay\Service\Configuration;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializerBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ConfigurationSpec
@@ -16,9 +18,8 @@ use Prophecy\Argument;
  */
 class ConfigurationSpec extends ObjectBehavior
 {
-    function let()
+    function let(Client $client)
     {
-        $client = new Client(['base_uri' => 'https://api-sandbox.secure-afterpay.com.au']);
         $serializer = SerializerBuilder::create()
             ->addMetadataDir(__DIR__.'/../../../../src/CultureKings/Afterpay/Serializer')
             ->build();
@@ -30,10 +31,40 @@ class ConfigurationSpec extends ObjectBehavior
         $this->shouldHaveType(Configuration::class);
     }
 
-    function it_can_request_configuration_details()
-    {
-        $auth = new Authorization();
+    function it_can_request_configuration_details(
+        Client $client,
+        Authorization $auth,
+        ResponseInterface $response,
+        Stream $stream
+    ) {
+        $auth->getSecret()->willReturn('sosecret');
+        $auth->getMerchantId()->willReturn('abc123');
+
+        $client->get('/v1/configuration', [
+            'auth' => ['abc123', 'sosecret'],
+        ])->willReturn($response);
+
+        $stream->getContents()->willReturn('[
+            { 
+                "type": "PAY_BY_INSTALLMENT",
+                "description": "Pay over time",
+                "minimumAmount": {
+                     "amount": "0.00",
+                     "currency": "AUD"
+                 },
+                "maximumAmount": {
+                    "amount": "500.00",
+                    "currency": "AUD"
+                }
+            }
+        ]');
+
+        $response->getBody()->willReturn($stream);
+
+        $this->setClient($client);
 
         $res = $this->get($auth);
+        $res->shouldHaveCount(1);
+        $res[0]->shouldBeAnInstanceOf(\CultureKings\Afterpay\Model\Configuration::class);
     }
 }

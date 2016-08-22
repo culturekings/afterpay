@@ -4,6 +4,7 @@ namespace CultureKings\Afterpay\Model;
 
 /**
  * Class OrderDetails
+ *
  * @package CultureKings\Afterpay\Model
  */
 class OrderDetails
@@ -112,6 +113,7 @@ class OrderDetails
     public function setConsumer(Consumer $consumer)
     {
         $this->consumer = $consumer;
+
         return $this;
     }
 
@@ -122,6 +124,7 @@ class OrderDetails
     public function setBilling(Contact $billing)
     {
         $this->billing = $billing;
+
         return $this;
     }
 
@@ -132,6 +135,7 @@ class OrderDetails
     public function setShipping(Contact $shipping)
     {
         $this->shipping = $shipping;
+
         return $this;
     }
 
@@ -142,6 +146,7 @@ class OrderDetails
     public function setCourier(ShippingCourier $courier)
     {
         $this->courier = $courier;
+
         return $this;
     }
 
@@ -152,6 +157,7 @@ class OrderDetails
     public function setItems(array $items)
     {
         $this->items = $items;
+
         return $this;
     }
 
@@ -162,6 +168,7 @@ class OrderDetails
     public function setDiscounts(array $discounts)
     {
         $this->discounts = $discounts;
+
         return $this;
     }
 
@@ -172,6 +179,7 @@ class OrderDetails
     public function setTaxAmount(Money $taxAmount)
     {
         $this->taxAmount = $taxAmount;
+
         return $this;
     }
 
@@ -182,6 +190,7 @@ class OrderDetails
     public function setShippingAmount(Money $shippingAmount)
     {
         $this->shippingAmount = $shippingAmount;
+
         return $this;
     }
 }

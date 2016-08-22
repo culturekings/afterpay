@@ -4,6 +4,7 @@ namespace CultureKings\Afterpay\Model;
 
 /**
  * Class Item
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Item
@@ -58,32 +59,35 @@ class Item
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * @param $SKU
+     * @param string $SKU
      * @return $this
      */
     public function setSKU($SKU)
     {
         $this->sku = $SKU;
+
         return $this;
     }
 
     /**
-     * @param $quantity
+     * @param int $quantity
      * @return $this
      */
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 
@@ -94,6 +98,7 @@ class Item
     public function setPrice(Money $price)
     {
         $this->price = $price;
+
         return $this;
     }
 }

@@ -2,42 +2,56 @@
 namespace CultureKings\Afterpay\Service;
 
 use CultureKings\Afterpay\Authorization;
+use CultureKings\Afterpay\ClientTrait;
 use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
+use CultureKings\Afterpay\SerializerTrait;
 use GuzzleHttp\Client;
 use JMS\Serializer\Serializer;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class Configuration
+ *
  * @package CultureKings\Afterpay\Service
  */
 class Configuration
 {
-    /**
-     * @var Client
-     */
-    protected $client;
-    /**
-     * @var Serializer
-     */
-    protected $serializer;
+    use ClientTrait;
+    use SerializerTrait;
 
+    /**
+     * Configuration constructor.
+     *
+     * @param Client     $client
+     * @param Serializer $serializer
+     */
     public function __construct(
         Client $client,
         Serializer $serializer
     ) {
-        $this->client = $client;
-        $this->serializer = $serializer;
+        $this->setClient($client);
+        $this->setSerializer($serializer);
     }
 
+    /**
+     * @param Authorization $authorization
+     * @return \CultureKings\Afterpay\Model\Configuration[]
+     */
     public function get(Authorization $authorization)
     {
-        $res = $this->client->request('GET', '/v1/configuration', [
-            'auth' => [$authorization->getMerchantId(), $authorization->getSecret()],
-        ]);
+        $res = $this->getClient()->get(
+            '/v1/configuration',
+            [
+                'auth' => [
+                    $authorization->getMerchantId(),
+                    $authorization->getSecret(),
+                ],
+            ]
+        );
 
-        $body = $res->getBody()->getContents();
-
-        return $this->serializer->deserialize($body, sprintf('array<%s>', ConfigurationModel::class), 'json');
+        return $this->getSerializer()->deserialize(
+            $res->getBody()->getContents(),
+            sprintf('array<%s>', ConfigurationModel::class),
+            'json'
+        );
     }
 }

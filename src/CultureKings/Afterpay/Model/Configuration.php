@@ -2,9 +2,9 @@
 
 namespace CultureKings\Afterpay\Model;
 
-
 /**
  * Class Configuration
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Configuration
@@ -59,22 +59,24 @@ class Configuration
     }
 
     /**
-     * @param $type
+     * @param string $type
      * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
     /**
-     * @param $description
+     * @param string $description
      * @return $this
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -85,6 +87,7 @@ class Configuration
     public function setMinimumAmount(Money $minimumAmount)
     {
         $this->minimumAmount = $minimumAmount;
+
         return $this;
     }
 
@@ -95,6 +98,7 @@ class Configuration
     public function setMaximumAmount(Money $maximumAmount)
     {
         $this->maximumAmount = $maximumAmount;
+
         return $this;
     }
 }

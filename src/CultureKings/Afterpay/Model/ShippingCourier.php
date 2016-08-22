@@ -6,6 +6,7 @@ use DateTime;
 
 /**
  * Class ShippingCourier
+ *
  * @package CultureKings\Afterpay\Model
  */
 class ShippingCourier

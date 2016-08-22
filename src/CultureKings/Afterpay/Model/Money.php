@@ -2,15 +2,15 @@
 
 namespace CultureKings\Afterpay\Model;
 
-
 /**
  * Class Money
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Money
 {
     /**
-     * @var float
+     * @var double
      */
     protected $amount;
     /**
@@ -27,12 +27,13 @@ class Money
     }
 
     /**
-     * @param $amount
+     * @param double $amount
      * @return $this
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 
@@ -46,12 +47,13 @@ class Money
     }
 
     /**
-     * @param $currency
+     * @param string $currency
      * @return $this
      */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+
         return $this;
     }
 }

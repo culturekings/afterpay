@@ -4,6 +4,7 @@ namespace CultureKings\Afterpay\Model;
 
 /**
  * Class Consumer
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Consumer
@@ -58,42 +59,46 @@ class Consumer
     }
 
     /**
-     * @param $phoneNumber
+     * @param string $phoneNumber
      * @return $this
      */
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
+
         return $this;
     }
 
     /**
-     * @param $givenNames
+     * @param string $givenNames
      * @return $this
      */
     public function setGivenNames($givenNames)
     {
         $this->givenNames = $givenNames;
+
         return $this;
     }
 
     /**
-     * @param $surname
+     * @param string $surname
      * @return $this
      */
     public function setSurname($surname)
     {
         $this->surname = $surname;
+
         return $this;
     }
 
     /**
-     * @param $email
+     * @param string $email
      * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 }

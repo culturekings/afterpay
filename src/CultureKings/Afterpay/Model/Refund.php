@@ -6,6 +6,7 @@ use DateTime;
 
 /**
  * Class Refund
+ *
  * @package CultureKings\Afterpay\Model
  */
 class Refund
@@ -60,12 +61,13 @@ class Refund
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -76,16 +78,18 @@ class Refund
     public function setRefundedAt(DateTime $refundedAt)
     {
         $this->refundedAt = $refundedAt;
+
         return $this;
     }
 
     /**
-     * @param $merchantReference
+     * @param string $merchantReference
      * @return $this
      */
     public function setMerchantReference($merchantReference)
     {
         $this->merchantReference = $merchantReference;
+
         return $this;
     }
 
@@ -96,6 +100,7 @@ class Refund
     public function setAmount(Money $amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 }

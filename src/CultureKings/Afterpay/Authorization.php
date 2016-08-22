@@ -3,11 +3,18 @@ namespace CultureKings\Afterpay;
 
 /**
  * Class Authorization
+ *
  * @package CultureKings\Afterpay
  */
 class Authorization
 {
+    /**
+     * @var string
+     */
     protected $merchantId;
+    /**
+     * @var string
+     */
     protected $secret;
 
     /**
@@ -19,12 +26,13 @@ class Authorization
     }
 
     /**
-     * @param $merchantId
+     * @param string $merchantId
      * @return $this
      */
     public function setMerchantId($merchantId)
     {
         $this->merchantId = $merchantId;
+
         return $this;
     }
 
@@ -37,14 +45,13 @@ class Authorization
     }
 
     /**
-     * @param $secret
+     * @param strubg $secret
      * @return $this
      */
     public function setSecret($secret)
     {
         $this->secret = $secret;
+
         return $this;
     }
-
-
 }
