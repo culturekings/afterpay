@@ -32,7 +32,7 @@ dependencies:
 test:
   override:
     - vendor/bin/phpspec run
-    - vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/culturekings/symfony2-coding-standard
+    - vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
     - vendor/bin/phpcs
     - vendor/bin/phpcpd ./src
   post:
