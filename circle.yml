@@ -23,14 +23,14 @@ dependencies:
     - composer global config github-oauth.github.com $CIRCLE_CI_GITHUB_API_KEY
     - composer global config repositories.coding-standard vcs https://github.com/culturekings/Symfony2-coding-standard.git
     - >
-        composer global require
-          "phpspec/phpspec": "^3.0"
-          "henrikbjorn/phpspec-code-coverage": "^3.0"
-          "symfony/var-dumper": "^3.1"
-          "squizlabs/php_codesniffer": "^2.6"
-          "culturekings/symfony2-coding-standard": "^2.10"
-          "sebastian/phpcpd": "^2.0"
-          "satooshi/php-coveralls=dev-master"
+      composer global require
+      "phpspec/phpspec": "^3.0"
+      "henrikbjorn/phpspec-code-coverage": "^3.0"
+      "symfony/var-dumper": "^3.1"
+      "squizlabs/php_codesniffer": "^2.6"
+      "culturekings/symfony2-coding-standard": "^2.10"
+      "sebastian/phpcpd": "^2.0"
+      "satooshi/php-coveralls=dev-master"
     # Install dependencies
     - composer dump-autoload
     - composer install -o --no-dev --prefer-dist --no-interaction
