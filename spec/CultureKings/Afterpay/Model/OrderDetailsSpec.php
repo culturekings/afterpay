@@ -92,6 +92,6 @@ class OrderDetailsSpec extends ObjectBehavior
     {
         $this->getMerchant()->shouldReturn(null);
         $this->setMerchant($merchantOptions)->shouldReturn($this);
-        $this->getMerchant()->shouldReturn(null);
+        $this->getMerchant()->shouldReturn($merchantOptions);
     }
 }
