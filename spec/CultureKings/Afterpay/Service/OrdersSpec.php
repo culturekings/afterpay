@@ -107,7 +107,7 @@ class OrdersSpec extends ObjectBehavior
         $serializer->deserialize($json, OrderDetails::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
-        $client->get('orders/abc123', ['auth' => [null,null]])->willReturn($response);
+        $client->get('orders/abc123', Argument::any())->willReturn($response);
 
         $this->get('abc123');
     }
@@ -121,11 +121,11 @@ class OrdersSpec extends ObjectBehavior
     ) {
         $json = '{ "token": "q54l9qd907m6iqqqlcrm5tpbjjsnfo47vsm59gqrfnd2rqefk9hu", "expires": "2016-05-10T13:14:01Z" }';
 
-        $serializer->serialize($orderDetails, OrderDetails::class, 'json')->shouldBeCalled();
+        $serializer->serialize($orderDetails, 'json')->shouldBeCalled();
         $serializer->deserialize($json, OrderToken::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
-        $client->post('orders', ['auth' => [null,null]])->willReturn($response);
+        $client->post('orders', Argument::any())->willReturn($response);
 
         $this->create($orderDetails);
     }
