@@ -66,6 +66,13 @@ class OrderDetailsSpec extends ObjectBehavior
         $this->getDiscounts()->shouldReturn([$discount1, $discount2]);
     }
 
+    function its_total_amount_is_mutable(Money $taxAmount)
+    {
+        $this->getTotalAmount()->shouldReturn(null);
+        $this->setTotalAmount($taxAmount)->shouldReturn($this);
+        $this->getTotalAmount()->shouldReturn($taxAmount);
+    }
+
     function its_tax_amount_is_mutable(Money $taxAmount)
     {
         $this->getTaxAmount()->shouldReturn(null);

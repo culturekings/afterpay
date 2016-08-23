@@ -26,7 +26,7 @@ require 'vendor/autoload.php';
 
 ## Usage
 
-All the documented calls 
+All the Afterpay API calls should be available via similar names in the main API factory.
 
 ### Fetch Configuration
 
@@ -49,8 +49,41 @@ $authorization = new \CultureKings\Afterpay\Authorization(
     'soSecret'
 );
 
-$payments = \CultureKings\Afterpay\Factory\Api::payments($authorization)->list()
+$payments = \CultureKings\Afterpay\Factory\Api::payments($authorization)->listPayments()
 ```
+
+### Create an order
+
+```
+$consumer = new \CultureKings\Afterpay\Model\Consumer();
+$consumer->setEmail('john.doe@culturekings.com.au');
+$consumer->setGivenNames('John');
+$consumer->setSurname('Doe');
+$consumer->setPhoneNumber('0534242323');
+
+$merchantOptions = new \CultureKings\Afterpay\Model\MerchantOptions();
+$merchantOptions->setRedirectConfirmUrl('https://www.merchant.com/confirm');
+$merchantOptions->setRedirectCancelUrl('https://www.merchant.com/cancel');
+
+$totalAmount = new \CultureKings\Afterpay\Model\Money();
+$totalAmount->setAmount(mt_rand(1, 300));
+$totalAmount->setCurrency('AUD');
+
+$orderDetails = new \CultureKings\Afterpay\Model\OrderDetails();
+$orderDetails->setConsumer($consumer);
+$orderDetails->setMerchant($merchantOptions);
+$orderDetails->setTotalAmount($totalAmount);
+
+$orderToken  = \CultureKings\Afterpay\Factory\Api::orders($auth)->create($orderDetails);
+```
+
+### Fetch an order
+
+```$order = \CultureKings\Afterpay\Factory\Api::orders($auth)->get($orderToken->getToken());```
+
+## Exceptions
+
+If a call to Afterpay fails, a `\CultureKings\Afterpay\Exception\ApiException` will be thrown and the error message can be retrieved via the `getErrorResponse` method.
 
 ## Special Thanks
 

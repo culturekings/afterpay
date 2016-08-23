@@ -1,0 +1,14 @@
+CultureKings\Afterpay\Model\ErrorResponse:
+  exclusion_policy: NONE
+  properties:
+    errorCode:
+      type: string
+      serialized_name: errorCode
+    errorId:
+      type: string
+      serialized_name: errorId
+    message:
+      type: string
+    httpStatusCode:
+      type: integer
+      serialized_name: httpStatusCode
