@@ -1,13 +1,12 @@
 <?php
 
-namespace CultureKings\Afterpay;
+namespace CultureKings\Afterpay\Traits;
 
 use GuzzleHttp\Client;
 
 /**
  * Class ClientTrait
- *
- * @package CultureKings\Afterpay
+ * @package CultureKings\Afterpay\Traits
  */
 trait ClientTrait
 {

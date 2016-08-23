@@ -1,5 +1,10 @@
 inherit: true
 
+build:
+  environment:
+    php:
+      version: 5.6.16
+
 filter:
   excluded_paths: [spec/*, vendor/*]
 

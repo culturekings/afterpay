@@ -1,0 +1,11 @@
+CultureKings\Afterpay\Model\PaymentsList:
+  properties:
+    totalResults:
+      type: integer
+      serialized_name: totalResults
+    offset:
+      type: integer
+    limit:
+      type: integer
+    results:
+      type: array<CultureKings\AfterPay\Model\Payment>

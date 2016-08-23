@@ -2,14 +2,15 @@
 
 namespace spec\CultureKings\Afterpay\Service;
 
-use CultureKings\Afterpay\Authorization;
+use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
+use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Service\Configuration;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Stream;
-use JMS\Serializer\SerializerBuilder;
+use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\Stream;
+use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ConfigurationSpec
@@ -18,12 +19,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ConfigurationSpec extends ObjectBehavior
 {
-    function let(Client $client)
+    function let(Client $client, Authorization $auth, SerializerInterface $serializer)
     {
-        $serializer = SerializerBuilder::create()
-            ->addMetadataDir(__DIR__.'/../../../../src/CultureKings/Afterpay/Serializer')
-            ->build();
-        $this->beConstructedWith($client, $serializer, true);
+        $this->beConstructedWith($client, $auth, $serializer);
     }
 
     function it_is_initializable()
@@ -33,40 +31,39 @@ class ConfigurationSpec extends ObjectBehavior
 
     function it_can_request_configuration_details(
         Client $client,
-        Authorization $auth,
-        ResponseInterface $response,
-        Stream $stream
+        Stream $stream,
+        Response $response,
+        SerializerInterface $serializer
     ) {
-        $auth->getSecret()->willReturn('sosecret');
-        $auth->getMerchantId()->willReturn('abc123');
+        $json = '[ {
+  "type" : "PAY_AFTER_DELIVERY",
+  "description" : "Try before you pay",
+  "minimumAmount" : {
+    "amount" : "0.00",
+    "currency" : "AUD"
+  },
+  "maximumAmount" : {
+    "amount" : "999.00",
+    "currency" : "AUD"
+  }
+}, {
+  "type" : "PAY_BY_INSTALLMENT",
+  "description" : "Pay over time",
+  "minimumAmount" : {
+    "amount" : "0.00",
+    "currency" : "AUD"
+  },
+  "maximumAmount" : {
+    "amount" : "999.00",
+    "currency" : "AUD"
+  }
+} ]';
 
-        $client->get('/v1/configuration', [
-            'auth' => ['abc123', 'sosecret'],
-        ])->willReturn($response);
-
-        $stream->getContents()->willReturn('[
-            { 
-                "type": "PAY_BY_INSTALLMENT",
-                "description": "Pay over time",
-                "minimumAmount": {
-                     "amount": "0.00",
-                     "currency": "AUD"
-                 },
-                "maximumAmount": {
-                    "amount": "500.00",
-                    "currency": "AUD"
-                }
-            }
-        ]');
-
+        $serializer->deserialize($json,sprintf('array<%s>', ConfigurationModel::class), 'json')->shouldBeCalled();
+        $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
+        $client->get('configuration', ['auth' => [null,null]])->willReturn($response);
 
-        $this->setClient($client);
-
-        $res = $this->get($auth);
-        $res->shouldHaveCount(1);
-        $res[0]->shouldBeAnInstanceOf(\CultureKings\Afterpay\Model\Configuration::class);
-        $res[0]->getType()->shouldReturn('PAY_BY_INSTALLMENT');
-        $res[0]->getDescription()->shouldReturn('Pay over time');
+        $this->get();
     }
 }

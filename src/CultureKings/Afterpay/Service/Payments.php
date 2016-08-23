@@ -2,7 +2,7 @@
 namespace CultureKings\Afterpay\Service;
 
 use CultureKings\Afterpay\Model\Authorization;
-use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
+use CultureKings\Afterpay\Model\PaymentsList;
 use CultureKings\Afterpay\Traits\AuthorizationTrait;
 use CultureKings\Afterpay\Traits\ClientTrait;
 use CultureKings\Afterpay\Traits\SerializerTrait;
@@ -10,18 +10,18 @@ use GuzzleHttp\Client;
 use JMS\Serializer\SerializerInterface;
 
 /**
- * Class Configuration
+ * Class Payments
  *
  * @package CultureKings\Afterpay\Service
  */
-class Configuration
+class Payments
 {
-    use AuthorizationTrait;
     use ClientTrait;
+    use AuthorizationTrait;
     use SerializerTrait;
 
     /**
-     * Configuration constructor.
+     * Payments constructor.
      * @param Client              $client
      * @param Authorization       $authorization
      * @param SerializerInterface $serializer
@@ -37,12 +37,14 @@ class Configuration
     }
 
     /**
-     * @return array
+     * @return array|\JMS\Serializer\scalar|object
+     *
+     * I would of liked to call this list() but it's a reserved keyword in < php7
      */
-    public function get()
+    public function listPayments()
     {
         $result = $this->getClient()->get(
-            'configuration',
+            'payments',
             [
                 'auth' => [
                     $this->getAuthorization()->getMerchantId(),
@@ -53,7 +55,7 @@ class Configuration
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            sprintf('array<%s>', ConfigurationModel::class),
+            PaymentsList::class,
             'json'
         );
     }

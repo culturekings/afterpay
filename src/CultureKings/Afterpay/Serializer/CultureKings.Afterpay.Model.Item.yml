@@ -1,0 +1,11 @@
+CultureKings\Afterpay\Model\Item:
+  exclusion_policy: NONE
+  properties:
+    name:
+      type: string
+    sku:
+      type: string
+    quantity:
+      type: integer
+    price:
+      type: CultureKings\Afterpay\Model\Money
