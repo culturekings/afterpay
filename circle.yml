@@ -19,6 +19,7 @@ dependencies:
     - ~/.composer/vendor
     - ./vendor
   override:
+    - echo "date.timezone = UTC" > /opt/circleci/php/$(phpenv global)/etc/conf.d/date.ini
     - mkdir -p build/logs
     - composer global config github-oauth.github.com $CIRCLE_CI_GITHUB_API_KEY
     - composer global config repositories.coding-standard vcs https://github.com/culturekings/Symfony2-coding-standard.git
