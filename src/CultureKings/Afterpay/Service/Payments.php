@@ -38,8 +38,10 @@ class Payments
 
     /**
      * @return array|\JMS\Serializer\scalar|object
+     *
+     * I would of liked to call this list() but it's a reserved keyword in < php7
      */
-    public function list()
+    public function listPayments()
     {
         $result = $this->getClient()->get(
             'payments',

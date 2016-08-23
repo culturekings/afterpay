@@ -9,7 +9,7 @@
 # https://circleci.com/docs/configuration#machine-configuration
 machine:
   php:
-    version: 7.0.4
+    version: 5.5
 
 # Setup project dependencies
 # https://circleci.com/docs/configuration#project-specific-dependencies
