@@ -110,7 +110,7 @@ class PaymentsSpec extends ObjectBehavior
         $response->getBody()->willReturn($stream);
         $client->get('payments', ['auth' => [null,null]])->willReturn($response);
 
-        $this->list();
+        $this->listPayments();
 
     }
 }
