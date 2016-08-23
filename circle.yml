@@ -30,7 +30,7 @@ dependencies:
 # https://circleci.com/docs/configuration#running-your-tests
 test:
   override:
-    - vendor/bin/phpspec run
+    - vendor/bin/phpspec run --format=pretty
     - vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
     - vendor/bin/phpcs
     - vendor/bin/phpcpd ./src

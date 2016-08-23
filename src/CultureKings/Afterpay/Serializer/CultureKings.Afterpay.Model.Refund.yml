@@ -1,0 +1,11 @@
+CultureKings\Afterpay\Model\Refund:
+  properties:
+    id:
+      type: string
+    refundedAt:
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+    merchantReference:
+      type: string
+      serialized_name: merchantReference
+    amount:
+      type: CultureKings\Afterpay\Model\Money

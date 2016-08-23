@@ -1,0 +1,11 @@
+CultureKings\Afterpay\Model\ShippingCourier:
+  exclusion_policy: NONE
+  properties:
+    shippedAt:
+      type: DateTime
+    name:
+      type: string
+    tracking:
+      type: string
+    priority:
+      type: string

@@ -1,0 +1,20 @@
+CultureKings\Afterpay\Model\OrderDetails:
+  properties:
+    consumer:
+      type: CultureKings\Afterpay\Model\Consumer
+    billing:
+      type: CultureKings\Afterpay\Model\Contact
+    shipping:
+      type: CultureKings\Afterpay\Model\Contact
+    courier:
+      type: CultureKings\Afterpay\Model\ShippingCourier
+    items:
+      type: array<CultureKings\Afterpay\Model\Item>
+    discounts:
+      type: array<CultureKings\Afterpay\Model\Discount>
+    taxAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: taxAmount
+    shippingAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: shippingAmount

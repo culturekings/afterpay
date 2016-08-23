@@ -1,0 +1,12 @@
+CultureKings\Afterpay\Model\Consumer:
+  exclusion_policy: NONE
+  properties:
+    phoneNumber:
+      type: string
+    givenNames:
+      type: string
+      serialized_name: givenNames
+    surname:
+      type: string
+    email:
+      type: string

@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\CultureKings\Afterpay;
+namespace spec\CultureKings\Afterpay\Model;
 
-use CultureKings\Afterpay\Authorization;
+use CultureKings\Afterpay\Model\Authorization;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -13,9 +13,20 @@ use Prophecy\Argument;
  */
 class AuthorizationSpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith(Authorization::SANDBOX_URI);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType(Authorization::class);
+    }
+
+    function its_endpoint_is_mutable()
+    {
+        $this->setEndpoint(Authorization::PRODUCTION_URI)->shouldReturn($this);
+        $this->getEndpoint()->shouldReturn(Authorization::PRODUCTION_URI);
     }
 
     function its_secret_is_mutable()

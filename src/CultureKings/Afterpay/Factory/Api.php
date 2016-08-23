@@ -1,12 +1,12 @@
 <?php
 namespace CultureKings\Afterpay\Factory;
 
-use CultureKings\Afterpay\Service\Configuration;
+use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Service\Configuration as ConfigurationService;
+use CultureKings\Afterpay\Service\Payments as PaymentsService;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use GuzzleHttp\Client;
-use JMS\Serializer\Serializer;
-use JMS\Serializer\SerializerBuilder;
-use Psr\Log\LoggerInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  * Class Api
@@ -14,36 +14,55 @@ use Psr\Log\LoggerInterface;
  */
 class Api
 {
+
+
     /**
-     * @param Client|null          $client
-     * @param Serializer|null      $serializer
-     * @param LoggerInterface|null $logger
-     * @return Configuration
+     * @param Authorization            $authorization
+     * @param Client|null              $client
+     * @param SerializerInterface|null $serializer
+     * @return ConfigurationService
      */
     public static function configuration(
+        Authorization $authorization,
         Client $client = null,
-        Serializer $serializer = null,
-        LoggerInterface $logger = null
+        SerializerInterface $serializer = null
     ) {
+    
         AnnotationRegistry::registerLoader('class_exists');
 
         if ($client === null) {
-            $client = new Client();
+            $client = new Client(['base_url' => $authorization->getEndpoint()]);
         }
 
         if ($serializer === null) {
-            $serializer = SerializerBuilder::create()
-                ->addMetadataDir(__DIR__.'/../Serializer')
-                ->build();
+            $serializer = SerializerFactory::getSerializer();
         }
 
-        return new Configuration($client, $serializer, $logger);
+        return new ConfigurationService($client, $authorization, $serializer);
     }
 
     /**
-     *
+     * @param Authorization            $authorization
+     * @param Client|null              $client
+     * @param SerializerInterface|null $serializer
+     * @return PaymentsService
      */
-    public static function payments()
-    {
+    public static function payments(
+        Authorization $authorization,
+        Client $client = null,
+        SerializerInterface $serializer = null
+    ) {
+    
+        AnnotationRegistry::registerLoader('class_exists');
+
+        if ($client === null) {
+            $client = new Client(['base_url' => $authorization->getEndpoint()]);
+        }
+
+        if ($serializer === null) {
+            $serializer = SerializerFactory::getSerializer();
+        }
+
+        return new PaymentsService($client, $authorization, $serializer);
     }
 }
