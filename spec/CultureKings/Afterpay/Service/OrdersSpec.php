@@ -118,6 +118,25 @@ class OrdersSpec extends ObjectBehavior
         $this->get('abc123');
     }
 
+    function it_can_handle_when_afterpay_throws_error_on_get(
+        Client $client,
+        SerializerInterface $serializer,
+        ErrorResponse $errorResponse
+    ) {
+        $request = new Request('get', 'test');
+        $stream = new NullStream();
+        $response = new Response('400', [], $stream);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->get('orders/abc123', Argument::any())->willThrow($exception);
+
+        $serializer->serialize(Argument::any(), 'json')->willReturn('{}');
+        $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(ApiException::class)->duringGet('abc123');
+    }
+
     function it_can_create_an_order(
         Client $client,
         Stream $stream,
@@ -136,7 +155,7 @@ class OrdersSpec extends ObjectBehavior
         $this->create($orderDetails);
     }
 
-    function it_can_handle_when_an_afterpay_error_is_thrown(
+    function it_can_handle_when_afterpay_throws_error_on_create(
         Client $client,
         OrderDetails $orderDetails,
         SerializerInterface $serializer,
