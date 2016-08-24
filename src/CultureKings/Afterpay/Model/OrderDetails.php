@@ -36,11 +36,20 @@ class OrderDetails
     /**
      * @var Money
      */
+    protected $totalAmount;
+    /**
+     * @var Money
+     */
     protected $taxAmount;
     /**
      * @var Money
      */
     protected $shippingAmount;
+
+    /**
+     * @var MerchantOptions
+     */
+    protected $merchant;
 
     /**
      * @return Consumer
@@ -88,6 +97,25 @@ class OrderDetails
     public function getDiscounts()
     {
         return $this->discounts;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getTotalAmount()
+    {
+        return $this->totalAmount;
+    }
+
+    /**
+     * @param Money $totalAmount
+     * @return $this
+     */
+    public function setTotalAmount($totalAmount)
+    {
+        $this->totalAmount = $totalAmount;
+
+        return $this;
     }
 
     /**
@@ -190,6 +218,25 @@ class OrderDetails
     public function setShippingAmount(Money $shippingAmount)
     {
         $this->shippingAmount = $shippingAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return MerchantOptions
+     */
+    public function getMerchant()
+    {
+        return $this->merchant;
+    }
+
+    /**
+     * @param MerchantOptions $merchant
+     * @return $this
+     */
+    public function setMerchant(MerchantOptions $merchant)
+    {
+        $this->merchant = $merchant;
 
         return $this;
     }

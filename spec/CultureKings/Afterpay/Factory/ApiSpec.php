@@ -4,6 +4,7 @@ namespace spec\CultureKings\Afterpay\Factory;
 
 use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Service\Configuration;
+use CultureKings\Afterpay\Service\Orders;
 use CultureKings\Afterpay\Service\Payments;
 use PhpSpec\ObjectBehavior;
 
@@ -23,5 +24,11 @@ class ApiSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('payments', [$auth]);
         $this->shouldBeAnInstanceOf(Payments::class);
+    }
+
+    public function it_can_initialise_orders(Authorization $auth)
+    {
+        $this->beConstructedThrough('orders', [$auth]);
+        $this->shouldBeAnInstanceOf(Orders::class);
     }
 }

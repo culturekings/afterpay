@@ -12,9 +12,17 @@ CultureKings\Afterpay\Model\OrderDetails:
       type: array<CultureKings\Afterpay\Model\Item>
     discounts:
       type: array<CultureKings\Afterpay\Model\Discount>
+    totalAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: totalAmount
     taxAmount:
       type: CultureKings\Afterpay\Model\Money
       serialized_name: taxAmount
+    merchantReference:
+      type: string
+    merchant:
+      type: CultureKings\Afterpay\Model\MerchantOptions
+      serialized_name: merchant
     shippingAmount:
       type: CultureKings\Afterpay\Model\Money
       serialized_name: shippingAmount

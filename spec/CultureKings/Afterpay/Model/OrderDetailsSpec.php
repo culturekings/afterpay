@@ -6,6 +6,7 @@ use CultureKings\Afterpay\Model\Consumer;
 use CultureKings\Afterpay\Model\Contact;
 use CultureKings\Afterpay\Model\Discount;
 use CultureKings\Afterpay\Model\Item;
+use CultureKings\Afterpay\Model\MerchantOptions;
 use CultureKings\Afterpay\Model\Money;
 use CultureKings\Afterpay\Model\OrderDetails;
 use CultureKings\Afterpay\Model\ShippingCourier;
@@ -66,6 +67,13 @@ class OrderDetailsSpec extends ObjectBehavior
         $this->getDiscounts()->shouldReturn([$discount1, $discount2]);
     }
 
+    function its_total_amount_is_mutable(Money $taxAmount)
+    {
+        $this->getTotalAmount()->shouldReturn(null);
+        $this->setTotalAmount($taxAmount)->shouldReturn($this);
+        $this->getTotalAmount()->shouldReturn($taxAmount);
+    }
+
     function its_tax_amount_is_mutable(Money $taxAmount)
     {
         $this->getTaxAmount()->shouldReturn(null);
@@ -78,5 +86,12 @@ class OrderDetailsSpec extends ObjectBehavior
         $this->getShippingAmount()->shouldReturn(null);
         $this->setShippingAmount($shippingAmount)->shouldReturn($this);
         $this->getShippingAmount()->shouldReturn($shippingAmount);
+    }
+
+    function its_merchant_options_is_mutable(MerchantOptions $merchantOptions)
+    {
+        $this->getMerchant()->shouldReturn(null);
+        $this->setMerchant($merchantOptions)->shouldReturn($this);
+        $this->getMerchant()->shouldReturn($merchantOptions);
     }
 }
