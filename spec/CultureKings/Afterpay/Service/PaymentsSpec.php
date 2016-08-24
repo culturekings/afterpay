@@ -108,7 +108,7 @@ class PaymentsSpec extends ObjectBehavior
         $serializer->deserialize($json, PaymentsList::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
-        $client->get('payments', ['auth' => [null,null]])->willReturn($response);
+        $client->get('payments', Argument::any())->willReturn($response);
 
         $this->listPayments();
 

@@ -28,31 +28,42 @@ require 'vendor/autoload.php';
 
 All the Afterpay API calls should be available via similar names in the main API factory.
 
-### Fetch Configuration
+### Get Configuration
+
+[Get Configuration Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-configuration)
 
 ```php
 $authorization = new \CultureKings\Afterpay\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
-    '1234',
-    'soSecret'
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
 );
 
 $configuration = \CultureKings\Afterpay\Factory\Api::configuration($authorization)->get()
 ```
 
-### Fetch Payments List
+### List Payments
+
+[List Payments Docs](http://docs.afterpay.com.au/merchant-api-v1.html#list-payments)
 
 ```php
 $authorization = new \CultureKings\Afterpay\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
-    '1234',
-    'soSecret'
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
 );
 
-$payments = \CultureKings\Afterpay\Factory\Api::payments($authorization)->listPayments()
+$payments = \CultureKings\Afterpay\Factory\Api::payments($auth)->listPayments(
+    [
+        'fromCreatedDate' => '2016-01-01T00:00:00.000Z',
+        'limit' => 1
+    ]
+);
 ```
 
-### Create an order
+### Create Order
+
+[Create Order Docs](http://docs.afterpay.com.au/merchant-api-v1.html#create-order)
 
 ```
 $consumer = new \CultureKings\Afterpay\Model\Consumer();
@@ -77,7 +88,9 @@ $orderDetails->setTotalAmount($totalAmount);
 $orderToken  = \CultureKings\Afterpay\Factory\Api::orders($auth)->create($orderDetails);
 ```
 
-### Fetch an order
+### Get Order
+
+[Get Order Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-order)
 
 ```$order = \CultureKings\Afterpay\Factory\Api::orders($auth)->get($orderToken->getToken());```
 

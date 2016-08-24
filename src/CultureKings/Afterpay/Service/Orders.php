@@ -42,7 +42,7 @@ class Orders
 
     /**
      * @param OrderDetails $order
-     * @return OrderToken
+     * @return OrderToken|object
      */
     public function create(OrderDetails $order)
     {
@@ -80,7 +80,7 @@ class Orders
 
     /**
      * @param string $token
-     * @return OrderDetails
+     * @return OrderDetails|object
      */
     public function get($token)
     {
