@@ -54,7 +54,7 @@ class Payment
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return $this
      */
     public function setId($id)
