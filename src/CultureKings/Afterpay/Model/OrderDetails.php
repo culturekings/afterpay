@@ -109,6 +109,7 @@ class OrderDetails
 
     /**
      * @param Money $totalAmount
+     * @return $this
      */
     public function setTotalAmount($totalAmount)
     {

@@ -58,7 +58,7 @@ class Orders
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
                     ],
-                    'body' => $this->getSerializer()->serialize($order, 'json')
+                    'body' => $this->getSerializer()->serialize($order, 'json'),
                 ]
             );
         } catch (ClientException $e) {
@@ -91,7 +91,7 @@ class Orders
                     'auth' => [
                         $this->getAuthorization()->getMerchantId(),
                         $this->getAuthorization()->getSecret(),
-                    ]
+                    ],
                 ]
             );
         } catch (ClientException $e) {

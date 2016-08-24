@@ -68,9 +68,10 @@ class Api
     }
 
     /**
-     * @param Authorization $authorization
-     * @param Client|null $client
+     * @param Authorization            $authorization
+     * @param Client|null              $client
      * @param SerializerInterface|null $serializer
+     * @return OrdersService
      */
     public static function orders(
         Authorization $authorization,
