@@ -51,7 +51,7 @@ class Payments
                     $this->getAuthorization()->getMerchantId(),
                     $this->getAuthorization()->getSecret(),
                 ],
-                'query' => $filters
+                'query' => $filters,
             ]
         );
 
