@@ -1,6 +1,7 @@
 {
     "name": "culturekings/afterpay",
     "description": "Integrate easily with the afterpay.com.au API",
+    "keywords": ["afterpay", "payments", "shopping"],
     "type": "library",
     "license": "MIT",
     "authors": [
