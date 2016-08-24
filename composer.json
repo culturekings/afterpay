@@ -35,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "CultureKings\\AfterPay\\": "src/"
+            "CultureKings\\Afterpay\\": "src/"
         },
         "psr-0": {
             "": "src"
