@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "758bc4f33603c423482b1c9433cb14df",
+    "hash": "fe1dea57dd30abfb53b46432821bba04",
     "content-hash": "4fa98fa63f727e8461c3f0f3c01cd267",
     "packages": [
         {
@@ -425,16 +425,16 @@
         },
         {
             "name": "jms/serializer",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "03dd41f40c7d9dd1eaf0d59c8e31a18f73c3c684"
+                "reference": "705d0b4633b9c44e6253aa18306b3972282cd3a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/03dd41f40c7d9dd1eaf0d59c8e31a18f73c3c684",
-                "reference": "03dd41f40c7d9dd1eaf0d59c8e31a18f73c3c684",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/705d0b4633b9c44e6253aa18306b3972282cd3a3",
+                "reference": "705d0b4633b9c44e6253aa18306b3972282cd3a3",
                 "shasum": ""
             },
             "require": {
@@ -468,7 +468,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -495,7 +495,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2016-08-17 17:28:49"
+            "time": "2016-08-23 17:20:24"
         },
         {
             "name": "nesbot/carbon",

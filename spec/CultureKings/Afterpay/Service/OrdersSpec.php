@@ -2,12 +2,18 @@
 
 namespace spec\CultureKings\Afterpay\Service;
 
+use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\ErrorResponse;
 use CultureKings\Afterpay\Model\OrderDetails;
 use CultureKings\Afterpay\Model\OrderToken;
 use CultureKings\Afterpay\Service\Orders;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\Request;
+use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\NullStream;
 use GuzzleHttp\Stream\Stream;
 use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;
@@ -128,5 +134,25 @@ class OrdersSpec extends ObjectBehavior
         $client->post('orders', Argument::any())->willReturn($response);
 
         $this->create($orderDetails);
+    }
+
+    function it_can_handle_when_an_afterpay_error_is_thrown(
+        Client $client,
+        OrderDetails $orderDetails,
+        SerializerInterface $serializer,
+        ErrorResponse $errorResponse
+    ) {
+        $request = new Request('get', 'test');
+        $stream = new NullStream();
+        $response = new Response('400', [], $stream);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->post('orders', Argument::any())->willThrow($exception);
+
+        $serializer->serialize(Argument::any(), 'json')->willReturn('{}');
+        $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(ApiException::class)->duringCreate($orderDetails);
     }
 }
