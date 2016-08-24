@@ -37,11 +37,12 @@ class Payments
     }
 
     /**
-     * @return array|\JMS\Serializer\scalar|object
+     * @param array $filters
+     * @return array|object
      *
      * I would of liked to call this list() but it's a reserved keyword in < php7
      */
-    public function listPayments()
+    public function listPayments(array $filters = [])
     {
         $result = $this->getClient()->get(
             'payments',
@@ -50,6 +51,7 @@ class Payments
                     $this->getAuthorization()->getMerchantId(),
                     $this->getAuthorization()->getSecret(),
                 ],
+                'query' => $filters
             ]
         );
 
