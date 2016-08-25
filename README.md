@@ -1,7 +1,7 @@
 AfterPay API
 =======================
 
-PHP library to interface with the [Afterpay API](https://docs.afterpay.com.au/) 
+PHP library to interface with the [Afterpay API](http://docs.afterpay.com.au/) 
 
 [![CircleCI](https://circleci.com/gh/culturekings/afterpay.svg?style=svg)](https://circleci.com/gh/culturekings/afterpay)
 
