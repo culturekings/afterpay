@@ -1,6 +1,7 @@
 suites:
     culture_kings_afterpay:
       namespace: CultureKings\Afterpay
+      psr4_prefix: CultureKings\Afterpay
 
 extensions:
     PhpSpecCodeCoverage\CodeCoverageExtension:
