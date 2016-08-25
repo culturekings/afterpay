@@ -65,7 +65,7 @@ $payments = \CultureKings\Afterpay\Factory\Api::payments($auth)->listPayments(
 
 [Create Order Docs](http://docs.afterpay.com.au/merchant-api-v1.html#create-order)
 
-```
+```php
 $consumer = new \CultureKings\Afterpay\Model\Consumer();
 $consumer->setEmail('john.doe@culturekings.com.au');
 $consumer->setGivenNames('John');
@@ -92,7 +92,9 @@ $orderToken  = \CultureKings\Afterpay\Factory\Api::orders($auth)->create($orderD
 
 [Get Order Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-order)
 
-```$order = \CultureKings\Afterpay\Factory\Api::orders($auth)->get($orderToken->getToken());```
+```php
+$order = \CultureKings\Afterpay\Factory\Api::orders($auth)->get($orderToken->getToken());
+```
 
 ## Exceptions
 
