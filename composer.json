@@ -34,11 +34,8 @@
         "satooshi/php-coveralls": "^1.0"
     },
     "autoload": {
-        "psr-4": {
-            "CultureKings\\Afterpay\\": "src/"
-        },
         "psr-0": {
-            "": "src"
+            "CultureKings\\Afterpay\\": "src/"
         }
     }
 }

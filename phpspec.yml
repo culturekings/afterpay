@@ -1,5 +1,7 @@
 suites:
-    culture_kings_afterpay: CultureKings\Afterpay
+    culture_kings_afterpay:
+      namespace: CultureKings\Afterpay
+
 extensions:
     PhpSpecCodeCoverage\CodeCoverageExtension:
       format:
