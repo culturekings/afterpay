@@ -35,29 +35,7 @@ class ConfigurationSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = '[ {
-  "type" : "PAY_AFTER_DELIVERY",
-  "description" : "Try before you pay",
-  "minimumAmount" : {
-    "amount" : "0.00",
-    "currency" : "AUD"
-  },
-  "maximumAmount" : {
-    "amount" : "999.00",
-    "currency" : "AUD"
-  }
-}, {
-  "type" : "PAY_BY_INSTALLMENT",
-  "description" : "Pay over time",
-  "minimumAmount" : {
-    "amount" : "0.00",
-    "currency" : "AUD"
-  },
-  "maximumAmount" : {
-    "amount" : "999.00",
-    "currency" : "AUD"
-  }
-} ]';
+        $json = file_get_contents(__DIR__.'/../expectations/configuration_details.json');
 
         $serializer->deserialize($json,sprintf('array<%s>', ConfigurationModel::class), 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
