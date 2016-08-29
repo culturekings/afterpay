@@ -123,15 +123,25 @@ class Payments
      */
     public function get($id)
     {
-        $result = $this->getClient()->get(
-            sprintf('payments/%s', $id),
-            [
-                'auth' => [
-                    $this->getAuthorization()->getMerchantId(),
-                    $this->getAuthorization()->getSecret(),
-                ],
-            ]
-        );
+        try {
+            $result = $this->getClient()->get(
+                sprintf('payments/%s', $id),
+                [
+                    'auth' => [
+                        $this->getAuthorization()->getMerchantId(),
+                        $this->getAuthorization()->getSecret(),
+                    ],
+                ]
+            );
+        } catch (ClientException $e) {
+            throw new ApiException(
+                $this->getSerializer()->deserialize(
+                    $e->getResponse()->getBody()->getContents(),
+                    ErrorResponse::class,
+                    'json'
+                )
+            );
+        }
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
@@ -143,18 +153,30 @@ class Payments
     /**
      * @param string $token
      * @return Payment|object
+     * @throws ApiException
      */
     public function getByToken($token)
     {
-        $result = $this->getClient()->get(
-            sprintf('payments/token:%s', $token),
-            [
-                'auth' => [
-                    $this->getAuthorization()->getMerchantId(),
-                    $this->getAuthorization()->getSecret(),
-                ],
-            ]
-        );
+        try {
+            $result = $this->getClient()->get(
+                sprintf('payments/token:%s', $token),
+                [
+                    'auth' => [
+                        $this->getAuthorization()->getMerchantId(),
+                        $this->getAuthorization()->getSecret(),
+                    ],
+                ]
+            );
+        } catch (ClientException $e) {
+            throw new ApiException(
+                $this->getSerializer()->deserialize(
+                    $e->getResponse()->getBody()->getContents(),
+                    ErrorResponse::class,
+                    'json'
+                )
+            );
+        }
+
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
