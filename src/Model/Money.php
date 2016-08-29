@@ -19,6 +19,17 @@ class Money
     protected $currency;
 
     /**
+     * Money constructor.
+     * @param float  $amount
+     * @param string $currency
+     */
+    public function __construct($amount = null, $currency = null)
+    {
+        $this->setAmount($amount);
+        $this->setCurrency($currency);
+    }
+
+    /**
      * @return float
      */
     public function getAmount()

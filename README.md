@@ -1,4 +1,4 @@
-[AfterPay API](https://culturekings.github.io/afterpay/)
+[Afterpay API](https://culturekings.github.io/afterpay/)
 =======================
 
 PHP library to interface with the [Afterpay API](http://docs.afterpay.com.au/) 
@@ -57,6 +57,90 @@ $payments = \CultureKings\Afterpay\Factory\Api::payments($auth)->listPayments(
         'fromCreatedDate' => '2016-01-01T00:00:00.000Z',
         'limit' => 1
     ]
+);
+```
+
+### Get Payment
+
+[Get Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->get(
+    PAYMENT_ID
+);
+```
+
+### Get Payment By Token
+
+[Get Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->getByToken(
+    ORDER_TOKEN
+);
+```
+
+### Authorise Payment
+
+[Authorise Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#authorise-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->authorise(
+    ORDER_TOKEN,
+    MERCHANT_REFERENCE,
+    WEBHOOK_EVENT_URL
+);
+```
+
+### Capture Payment
+
+[Capture Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#direct-capture-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->capture(
+    ORDER_TOKEN,
+    MERCHANT_REFERENCE,
+    WEBHOOK_EVENT_URL
+);
+```
+
+### Void Payment
+
+[Void Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#void-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->void(
+    PAYMENT_ID
 );
 ```
 

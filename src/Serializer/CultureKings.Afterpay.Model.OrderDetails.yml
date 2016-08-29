@@ -26,3 +26,6 @@ CultureKings\Afterpay\Model\OrderDetails:
     shippingAmount:
       type: CultureKings\Afterpay\Model\Money
       serialized_name: shippingAmount
+    paymentType:
+      type: string
+      serialized_name: paymentType

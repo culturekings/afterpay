@@ -52,6 +52,11 @@ class OrderDetails
     protected $merchant;
 
     /**
+     * @var string
+     */
+    protected $paymentType;
+
+    /**
      * @return Consumer
      */
     public function getConsumer()
@@ -237,6 +242,25 @@ class OrderDetails
     public function setMerchant(MerchantOptions $merchant)
     {
         $this->merchant = $merchant;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    /**
+     * @param string $paymentType
+     * @return $this
+     */
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
 
         return $this;
     }
