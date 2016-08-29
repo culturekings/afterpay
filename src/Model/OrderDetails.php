@@ -255,7 +255,7 @@ class OrderDetails
     }
 
     /**
-     * @param $paymentType
+     * @param string $paymentType
      * @return $this
      */
     public function setPaymentType($paymentType)
