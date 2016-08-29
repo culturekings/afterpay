@@ -483,4 +483,90 @@ class PaymentsSpec extends ObjectBehavior
 
         $this->shouldThrow(ApiException::class)->duringAuthorise('93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3');
     }
+
+    public function it_can_void_a_payment(
+        Client $client,
+        Stream $stream,
+        Response $response,
+        SerializerInterface $serializer
+    ) {
+        $json = '
+        {
+          "id": "23841566",
+          "token": "93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3",
+          "status": "APPROVED",
+          "created": "2015-03-19T20:34:55.000Z",
+          "totalAmount": {
+            "amount": "131.95",
+            "currency": "AUD"
+          },
+          "merchantReference": "8302333571",
+          "events": [
+            {
+              "created": "2016-06-21T10:00:11Z",
+              "id": "2136442160",
+              "type":"AUTHORISE"
+            },
+            {
+              "created": "2016-06-22T12:00:01Z",
+              "id": "6558959651",
+              "type":"CAPTURE"
+            }
+          ],
+          "refunds": [],
+          "orderDetails": {
+            "consumer": {
+              "phoneNumber": "6121231421",
+              "givenNames": "Jacob",
+              "surname": "Smith"
+            },
+            "billing": {
+              "name": "Jacob Smith",
+              "line1": "65 Church St",
+              "suburb": "Southport",
+              "state": "QLD",
+              "postcode": "4212"
+            },
+            "shipping": {
+              "name": "Jacob Smith",
+              "line1": "65 Church St",
+              "suburb": "Southport",
+              "state": "QLD",
+              "postcode": "4212"
+            },
+            "courier": {},
+            "items": [],
+            "discounts": [],
+            "shippingAmount": {
+              "amount": "0.00",
+              "currency": "AUD"
+            }
+          }
+        }';
+
+        $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
+        $stream->getContents()->willReturn($json);
+        $response->getBody()->willReturn($stream);
+        $client->post('payments/23841566/void', Argument::any())->willReturn($response);
+
+        $this->void('23841566');
+    }
+
+    function it_can_handle_void_error(
+        Client $client,
+        SerializerInterface $serializer,
+        ErrorResponse $errorResponse
+    ) {
+        $request = new Request('get', 'test');
+        $stream = new NullStream();
+        $response = new Response('400', [], $stream);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->post('payments/23841566/void', Argument::any())->willThrow($exception);
+        
+        $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(ApiException::class)->duringVoid('23841566');
+    }
 }
