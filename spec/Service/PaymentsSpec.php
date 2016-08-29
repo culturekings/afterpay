@@ -2,12 +2,17 @@
 
 namespace spec\CultureKings\Afterpay\Service;
 
+use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\ErrorResponse;
 use CultureKings\Afterpay\Model\Payment;
 use CultureKings\Afterpay\Model\PaymentsList;
 use CultureKings\Afterpay\Service\Payments;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\NullStream;
 use GuzzleHttp\Stream\Stream;
 use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;
@@ -186,5 +191,28 @@ class PaymentsSpec extends ObjectBehavior
         $client->post('payments/capture', Argument::any())->willReturn($response);
 
         $this->capture('93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3');
+    }
+
+    function it_can_handle_capture_error(
+        Client $client,
+        SerializerInterface $serializer,
+        ErrorResponse $errorResponse
+    ) {
+        $request = new Request('get', 'test');
+        $stream = new NullStream();
+        $response = new Response('400', [], $stream);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->post('payments/capture', Argument::any())->willThrow($exception);
+
+        $serializer->serialize([
+            'token' => '93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3',
+            'merchantReference' => '',
+            'webhookEventUrl' => ''
+        ], 'json')->shouldBeCalled();
+        $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(ApiException::class)->duringCapture('93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3');
     }
 }
