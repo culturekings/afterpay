@@ -195,13 +195,9 @@ class Payments
     {
         $request = [
             'token' => $orderToken,
+            'merchantReference' => $merchantReference,
+            'webhookEventUrl' => $webhookEventUrl,
         ];
-        if ($merchantReference) {
-            $request['merchantReference'] = $merchantReference;
-        }
-        if ($webhookEventUrl) {
-            $request['webhookEventUrl'] = $webhookEventUrl;
-        }
 
         try {
             $result = $this->getClient()->post(
