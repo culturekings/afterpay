@@ -3,6 +3,7 @@
 namespace spec\CultureKings\Afterpay\Service;
 
 use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\Payment;
 use CultureKings\Afterpay\Model\PaymentsList;
 use CultureKings\Afterpay\Service\Payments;
 use GuzzleHttp\Client;
@@ -112,5 +113,78 @@ class PaymentsSpec extends ObjectBehavior
 
         $this->listPayments();
 
+    }
+
+    public function it_can_capture_a_payment(
+        Client $client,
+        Stream $stream,
+        Response $response,
+        SerializerInterface $serializer
+    ) {
+        $json = '
+        {
+          "id": "23841566",
+          "token": "93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3",
+          "status": "APPROVED",
+          "created": "2015-03-19T20:34:55.000Z",
+          "totalAmount": {
+            "amount": "131.95",
+            "currency": "AUD"
+          },
+          "merchantReference": "8302333571",
+          "events": [
+            {
+              "created": "2016-06-21T10:00:11Z",
+              "id": "2136442160",
+              "type":"AUTHORISE"
+            },
+            {
+              "created": "2016-06-22T12:00:01Z",
+              "id": "6558959651",
+              "type":"CAPTURE"
+            }
+          ],
+          "refunds": [],
+          "orderDetails": {
+            "consumer": {
+              "phoneNumber": "6121231421",
+              "givenNames": "Jacob",
+              "surname": "Smith"
+            },
+            "billing": {
+              "name": "Jacob Smith",
+              "line1": "65 Church St",
+              "suburb": "Southport",
+              "state": "QLD",
+              "postcode": "4212"
+            },
+            "shipping": {
+              "name": "Jacob Smith",
+              "line1": "65 Church St",
+              "suburb": "Southport",
+              "state": "QLD",
+              "postcode": "4212"
+            },
+            "courier": {},
+            "items": [],
+            "discounts": [],
+            "shippingAmount": {
+              "amount": "0.00",
+              "currency": "AUD"
+            }
+          }
+        }';
+
+        $serializer->serialize([
+            'token' => '93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3',
+            'merchantReference' => '',
+            'webhookEventUrl' => ''
+        ], 'json')->shouldBeCalled();
+        $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
+        $stream->getContents()->willReturn($json);
+        $response->getBody()->willReturn($stream);
+        $client->post('payments/capture', Argument::any())->willReturn($response);
+
+        $this->capture('93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3');
     }
 }
