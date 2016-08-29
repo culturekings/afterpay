@@ -94,4 +94,11 @@ class OrderDetailsSpec extends ObjectBehavior
         $this->setMerchant($merchantOptions)->shouldReturn($this);
         $this->getMerchant()->shouldReturn($merchantOptions);
     }
+
+    function its_payment_type_is_mutable()
+    {
+        $this->getPaymentType()->shouldReturn(null);
+        $this->setPaymentType('PAY_BY_INSTALLMENT')->shouldReturn($this);
+        $this->getPaymentType()->shouldReturn('PAY_BY_INSTALLMENT');
+    }
 }

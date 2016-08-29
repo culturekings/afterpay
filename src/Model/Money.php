@@ -18,6 +18,12 @@ class Money
      */
     protected $currency;
 
+    public function __construct($amount = null, $currency = null)
+    {
+        $this->setAmount($amount);
+        $this->setCurrency($currency);
+    }
+
     /**
      * @return float
      */

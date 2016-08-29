@@ -10,7 +10,7 @@ use Prophecy\Argument;
 /**
  * Class DiscountSpec
  * @package spec\CultureKings\Afterpay\Model
- * @mixin \CultureKings\AfterPay\Model\Discount
+ * @mixin \CultureKings\Afterpay\Model\Discount
  */
 class DiscountSpec extends ObjectBehavior
 {

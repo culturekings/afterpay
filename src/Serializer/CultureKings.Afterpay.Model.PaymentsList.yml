@@ -8,4 +8,4 @@ CultureKings\Afterpay\Model\PaymentsList:
     limit:
       type: integer
     results:
-      type: array<CultureKings\AfterPay\Model\Payment>
+      type: array<CultureKings\Afterpay\Model\Payment>

@@ -6,8 +6,8 @@ CultureKings\Afterpay\Model\Configuration:
     description:
       type: string
     minimumAmount:
-      type: CultureKings\AfterPay\Model\Money
+      type: CultureKings\Afterpay\Model\Money
       serialized_name: minimumAmount
     maximumAmount:
-      type: CultureKings\AfterPay\Model\Money
+      type: CultureKings\Afterpay\Model\Money
       serialized_name: maximumAmount
