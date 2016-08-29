@@ -60,6 +60,90 @@ $payments = \CultureKings\Afterpay\Factory\Api::payments($auth)->listPayments(
 );
 ```
 
+### Get Payment
+
+[Get Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->get(
+    PAYMENT_ID
+);
+```
+
+### Get Payment By Token
+
+[Get Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->getByToken(
+    ORDER_TOKEN
+);
+```
+
+### Authorise Payment
+
+[Authorise Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#authorise-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->authorise(
+    ORDER_TOKEN,
+    MERCHANT_REFERENCE,
+    WEBHOOK_EVENT_URL
+);
+```
+
+### Capture Payment
+
+[Capture Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#direct-capture-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->capture(
+    ORDER_TOKEN,
+    MERCHANT_REFERENCE,
+    WEBHOOK_EVENT_URL
+);
+```
+
+### Void Payment
+
+[Void Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#void-payment)
+
+```php
+$authorization = new \CultureKings\Afterpay\Authorization(
+    \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
+    YOUR_MERCHANT_ID,
+    YOUR_SECRET_KEY
+);
+
+$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->void(
+    PAYMENT_ID
+);
+```
+
 ### Create Order
 
 [Create Order Docs](http://docs.afterpay.com.au/merchant-api-v1.html#create-order)
