@@ -1,4 +1,4 @@
-[AfterPay API](https://culturekings.github.io/afterpay/)
+[Afterpay API](https://culturekings.github.io/afterpay/)
 =======================
 
 PHP library to interface with the [Afterpay API](http://docs.afterpay.com.au/) 
