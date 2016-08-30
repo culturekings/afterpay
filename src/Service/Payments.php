@@ -4,8 +4,10 @@ namespace CultureKings\Afterpay\Service;
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Model\ErrorResponse;
+use CultureKings\Afterpay\Model\Money;
 use CultureKings\Afterpay\Model\Payment;
 use CultureKings\Afterpay\Model\PaymentsList;
+use CultureKings\Afterpay\Model\Refund;
 use CultureKings\Afterpay\Traits\AuthorizationTrait;
 use CultureKings\Afterpay\Traits\ClientTrait;
 use CultureKings\Afterpay\Traits\SerializerTrait;
@@ -260,6 +262,49 @@ class Payments
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
             Payment::class,
+            'json'
+        );
+    }
+
+    /**
+     * @param string $paymentId
+     * @return Refund|object
+     */
+    public function refund($paymentId, Money $amount, $merchantReference = '')
+    {
+        $request = [
+            'amount' => $amount,
+            'merchantReference' => $merchantReference,
+        ];
+
+        try {
+            $result = $this->getClient()->post(
+                sprintf('payments/%s/refund', $paymentId),
+                [
+                    'auth' => [
+                        $this->getAuthorization()->getMerchantId(),
+                        $this->getAuthorization()->getSecret(),
+                    ],
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                    'body' => $this->getSerializer()->serialize($request, 'json'),
+                ]
+            );
+        } catch (ClientException $e) {
+            throw new ApiException(
+                $this->getSerializer()->deserialize(
+                    $e->getResponse()->getBody()->getContents(),
+                    ErrorResponse::class,
+                    'json'
+                )
+            );
+        }
+
+        return $this->getSerializer()->deserialize(
+            $result->getBody()->getContents(),
+            Refund::class,
             'json'
         );
     }

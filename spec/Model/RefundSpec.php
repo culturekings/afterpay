@@ -22,9 +22,9 @@ class RefundSpec extends ObjectBehavior
 
     function its_id_is_mutable()
     {
-        $this->getId()->shouldReturn(null);
-        $this->setId('67890123')->shouldReturn($this);
-        $this->getId()->shouldReturn('67890123');
+        $this->getRefundId()->shouldReturn(null);
+        $this->setRefundId('67890123')->shouldReturn($this);
+        $this->getRefundId()->shouldReturn('67890123');
     }
 
     function its_refunded_at_is_mutable(DateTime $refundedAt)
