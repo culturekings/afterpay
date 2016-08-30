@@ -1,0 +1,26 @@
+[
+  {
+    "type": "PAY_AFTER_DELIVERY",
+    "description": "Try before you pay",
+    "minimumAmount": {
+      "amount": "0.00",
+      "currency": "AUD"
+    },
+    "maximumAmount": {
+      "amount": "999.00",
+      "currency": "AUD"
+    }
+  },
+  {
+    "type": "PAY_BY_INSTALLMENT",
+    "description": "Pay over time",
+    "minimumAmount": {
+      "amount": "0.00",
+      "currency": "AUD"
+    },
+    "maximumAmount": {
+      "amount": "999.00",
+      "currency": "AUD"
+    }
+  }
+]

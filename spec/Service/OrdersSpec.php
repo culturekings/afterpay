@@ -42,74 +42,7 @@ class OrdersSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = '
-        {  
-     "token": "q54l9qd907m6iqqqlcrm5tpbjjsnfo47vsm59gqrfnd2rqefk9hu",
-     "expires": "2016-05-10T13:14:01Z",
-     "totalAmount": {  
-        "amount": "10.00",
-        "currency": "AUD"
-     },
-     "consumer": {  
-        "phoneNumber": "0422042042",
-        "givenNames": "Joe",
-        "surname": "Consumer",
-        "email": "test@afterpay.com.au"
-     },
-    "billing": {  
-        "name": "Joe Consumer",
-        "line1": "Unit 1 16 Floor",
-        "line2": "380 LaTrobe Street",
-        "suburb": "Melbourne",
-        "state": "VIC",
-        "postcode": "3000",
-        "countryCode": "AU",
-        "phoneNumber": "0400892011"
-    },
-    "shipping": {  
-        "name": "Joe Consumer",
-        "line1": "Unit 1 16 Floor",
-        "line2": "380 LaTrobe Street",
-        "suburb": "Melbourne",
-        "state": "VIC",
-        "postcode": "3000",
-        "countryCode": "AU",
-        "phoneNumber": "0400892011"
-    },
-    "items":[  
-         {
-             "name": "widget",
-             "sku": "123412234",
-             "quantity": 1,
-             "price": {
-                 "amount": "10.00",
-                 "currency": "AUD"
-             }
-         }
-     ],
-     "discounts": [
-      {
-         "displayName": "10% Off Coupon",
-         "amount": {
-             "amount": "1.00",
-             "currency": "AUD"
-         }
-      }
-    ],
-     "merchant": {
-        "redirectConfirmUrl": "https://www.merchant.com/confirm",
-        "redirectCancelUrl": "https://www.merchant.com/cancel"
-     },
-     "merchantReference": "merchantOrder-1234",
-     "taxAmount": {  
-         "amount": "10.00",
-         "currency": "AUD"
-     },
-     "shippingAmount": {  
-          "amount": "10.00",
-          "currency": "AUD"
-     }
-}';
+        $json = file_get_contents(__DIR__.'/../expectations/order_get_response.json');
         $serializer->deserialize($json, OrderDetails::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
@@ -144,7 +77,7 @@ class OrdersSpec extends ObjectBehavior
         SerializerInterface $serializer,
         OrderDetails $orderDetails
     ) {
-        $json = '{ "token": "q54l9qd907m6iqqqlcrm5tpbjjsnfo47vsm59gqrfnd2rqefk9hu", "expires": "2016-05-10T13:14:01Z" }';
+        $json = file_get_contents(__DIR__.'/../expectations/order_create_response.json');
 
         $serializer->serialize($orderDetails, 'json')->shouldBeCalled();
         $serializer->deserialize($json, OrderToken::class, 'json')->shouldBeCalled();
