@@ -5,8 +5,10 @@ namespace spec\CultureKings\Afterpay\Service;
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Model\ErrorResponse;
+use CultureKings\Afterpay\Model\Money;
 use CultureKings\Afterpay\Model\Payment;
 use CultureKings\Afterpay\Model\PaymentsList;
+use CultureKings\Afterpay\Model\Refund;
 use CultureKings\Afterpay\Service\Payments;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -239,5 +241,57 @@ class PaymentsSpec extends ObjectBehavior
         $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
         $this->shouldThrow(ApiException::class)->duringVoid('23841566');
+    }
+
+    function it_can_refund_a_payment(
+        Client $client,
+        Stream $stream,
+        Response $response,
+        SerializerInterface $serializer
+    ) {
+        $json = file_get_contents(__DIR__.'/../expectations/payments_refund_response.json');
+        $refundAmount = new Money(50.00, 'AUD');
+
+        $serializer->serialize([
+            'amount' => $refundAmount,
+            'merchantReference' => 'my_reference'
+        ], 'json')->shouldBeCalled();
+        $serializer->deserialize($json, Refund::class, 'json')->shouldBeCalled();
+        $stream->getContents()->willReturn($json);
+        $response->getBody()->willReturn($stream);
+        $client->post('payments/23841566/refund', Argument::any())->willReturn($response);
+
+        $this->refund('23841566', $refundAmount, 'my_reference');
+    }
+
+    function it_can_handle_refund_error(
+        Client $client,
+        SerializerInterface $serializer,
+        ErrorResponse $errorResponse
+    ) {
+        $refundAmount = new Money(50.00, 'AUD');
+
+        $request = new Request('get', 'test');
+        $stream = new NullStream();
+        $response = new Response('400', [], $stream);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->post('payments/23841566/refund', Argument::any())->willThrow($exception);
+
+        $serializer->serialize(
+            [
+                'amount' => $refundAmount,
+                'merchantReference' => 'my_reference'
+            ],
+            'json'
+        )->shouldBeCalled();
+
+        $serializer
+            ->deserialize(Argument::any(), ErrorResponse::class, 'json')
+            ->shouldBeCalled()
+            ->willReturn($errorResponse);
+
+        $this->shouldThrow(ApiException::class)->duringRefund('23841566', $refundAmount, 'my_reference');
     }
 }

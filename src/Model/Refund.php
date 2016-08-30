@@ -14,7 +14,7 @@ class Refund
     /**
      * @var string
      */
-    protected $id;
+    protected $refundId;
     /**
      * @var DateTime
      */
@@ -31,9 +31,9 @@ class Refund
     /**
      * @return string
      */
-    public function getId()
+    public function getRefundId()
     {
-        return $this->id;
+        return $this->refundId;
     }
 
     /**
@@ -61,12 +61,12 @@ class Refund
     }
 
     /**
-     * @param string $id
+     * @param string $refundId
      * @return $this
      */
-    public function setId($id)
+    public function setRefundId($refundId)
     {
-        $this->id = $id;
+        $this->refundId = $refundId;
 
         return $this;
     }
