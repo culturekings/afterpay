@@ -30,7 +30,7 @@ class DateTimeHandler implements SubscribingHandlerInterface
 
     /**
      * @param JsonDeserializationVisitor $visitor
-     * @param string|array               $data
+     * @param string                     $data
      * @param array                      $type
      * @return null|Carbon
      */
