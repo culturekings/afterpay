@@ -35,11 +35,11 @@ class Payment
     /**
      * @var PaymentEvent[]
      */
-    protected $events = [];
+    protected $events = [ ];
     /**
      * @var Refund[]
      */
-    protected $refunds = [];
+    protected $refunds = [ ];
     /**
      * @var OrderDetails
      */

@@ -32,7 +32,7 @@ class DateTimeHandler implements SubscribingHandlerInterface
      * @param JsonDeserializationVisitor $visitor
      * @param string|array               $data
      * @param array                      $type
-     * @return null|static
+     * @return null|Carbon
      */
     public function deserializeDateTimeFromJson(JsonDeserializationVisitor $visitor, $data, array $type)
     {

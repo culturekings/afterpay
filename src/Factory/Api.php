@@ -32,7 +32,7 @@ class Api
         AnnotationRegistry::registerLoader('class_exists');
 
         if ($client === null) {
-            $client = new Client(['base_url' => $authorization->getEndpoint()]);
+            $client = new Client([ 'base_url' => $authorization->getEndpoint() ]);
         }
 
         if ($serializer === null) {
@@ -57,7 +57,7 @@ class Api
         AnnotationRegistry::registerLoader('class_exists');
 
         if ($client === null) {
-            $client = new Client(['base_url' => $authorization->getEndpoint()]);
+            $client = new Client([ 'base_url' => $authorization->getEndpoint() ]);
         }
 
         if ($serializer === null) {
@@ -81,7 +81,7 @@ class Api
         AnnotationRegistry::registerLoader('class_exists');
 
         if ($client === null) {
-            $client = new Client(['base_url' => $authorization->getEndpoint()]);
+            $client = new Client([ 'base_url' => $authorization->getEndpoint() ]);
         }
 
         if ($serializer === null) {

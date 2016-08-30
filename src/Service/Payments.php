@@ -49,7 +49,7 @@ class Payments
      *
      * I would of liked to call this list() but it's a reserved keyword in < php7
      */
-    public function listPayments(array $filters = [])
+    public function listPayments(array $filters = [ ])
     {
         $query = new Query($filters);
         $query->setAggregator($query::duplicateAggregator());

@@ -23,7 +23,7 @@ class PaymentsList
     /**
      * @var Payment[]
      */
-    protected $results = [];
+    protected $results = [ ];
 
     /**
      * @return int
