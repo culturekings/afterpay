@@ -50,7 +50,24 @@ class PaymentsSpec extends ObjectBehavior
         $client->get('payments', Argument::any())->willReturn($response);
 
         $this->listPayments();
+    }
 
+    function it_can_handle_list_error(
+        Client $client,
+        SerializerInterface $serializer,
+        ErrorResponse $errorResponse
+    ) {
+        $request = new Request('get', 'test');
+        $stream = new NullStream();
+        $response = new Response('400', [], $stream);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->get('payments', Argument::any())->willThrow($exception);
+        
+        $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(ApiException::class)->duringListPayments();
     }
 
     public function it_can_capture_a_payment(

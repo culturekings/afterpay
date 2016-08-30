@@ -54,16 +54,26 @@ class Payments
         $query = new Query($filters);
         $query->setAggregator($query::duplicateAggregator());
 
-        $result = $this->getClient()->get(
-            'payments',
-            [
-                'auth' => [
-                    $this->getAuthorization()->getMerchantId(),
-                    $this->getAuthorization()->getSecret(),
-                ],
-                'query' => $query,
-            ]
-        );
+        try {
+            $result = $this->getClient()->get(
+                'payments',
+                [
+                    'auth' => [
+                        $this->getAuthorization()->getMerchantId(),
+                        $this->getAuthorization()->getSecret(),
+                    ],
+                    'query' => $query,
+                ]
+            );
+        } catch (ClientException $e) {
+            throw new ApiException(
+                $this->getSerializer()->deserialize(
+                    $e->getResponse()->getBody()->getContents(),
+                    ErrorResponse::class,
+                    'json'
+                )
+            );
+        }
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
