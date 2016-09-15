@@ -1,7 +1,7 @@
 [Afterpay API](https://culturekings.github.io/afterpay/)
 =======================
 
-PHP library to interface with the [Afterpay API](http://docs.afterpay.com.au/) 
+PHP library to interface with the [Afterpay API](http://docs.afterpay.com.au/)
 
 [![Coverage Status](https://coveralls.io/repos/github/culturekings/afterpay/badge.svg)](https://coveralls.io/github/culturekings/afterpay)
 [![CircleCI](https://img.shields.io/circleci/project/culturekings/afterpay.svg?style=svg)](https://circleci.com/gh/culturekings/afterpay)
@@ -32,13 +32,13 @@ All the Afterpay API calls should be available via similar names in the main API
 [Get Configuration Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-configuration)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
 );
 
-$configuration = \CultureKings\Afterpay\Factory\Api::configuration($authorization)->get()
+$configuration = \CultureKings\Afterpay\Factory\Api::configuration($authorization)->get();
 ```
 
 ### List Payments
@@ -46,7 +46,7 @@ $configuration = \CultureKings\Afterpay\Factory\Api::configuration($authorizatio
 [List Payments Docs](http://docs.afterpay.com.au/merchant-api-v1.html#list-payments)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
@@ -65,7 +65,7 @@ $payments = \CultureKings\Afterpay\Factory\Api::payments($auth)->listPayments(
 [Get Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-payment)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
@@ -81,7 +81,7 @@ $payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->get(
 [Get Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-payment)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
@@ -97,7 +97,7 @@ $payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->getByToken(
 [Authorise Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#authorise-payment)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
@@ -115,7 +115,7 @@ $payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->authorise(
 [Capture Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#direct-capture-payment)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
@@ -133,7 +133,7 @@ $payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->capture(
 [Void Payment Docs](http://docs.afterpay.com.au/merchant-api-v1.html#void-payment)
 
 ```php
-$authorization = new \CultureKings\Afterpay\Authorization(
+$authorization = new \CultureKings\Afterpay\Model\Authorization(
     \CultureKings\Afterpay\Model\Authorization::SANDBOX_URI,
     YOUR_MERCHANT_ID,
     YOUR_SECRET_KEY
