@@ -52,7 +52,7 @@ $authorization = new \CultureKings\Afterpay\Model\Authorization(
     YOUR_SECRET_KEY
 );
 
-$payments = \CultureKings\Afterpay\Factory\Api::payments($auth)->listPayments(
+$payments = \CultureKings\Afterpay\Factory\Api::payments($authorization)->listPayments(
     [
         'fromCreatedDate' => '2016-01-01T00:00:00.000Z',
         'limit' => 1
@@ -71,7 +71,7 @@ $authorization = new \CultureKings\Afterpay\Model\Authorization(
     YOUR_SECRET_KEY
 );
 
-$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->get(
+$payment = \CultureKings\Afterpay\Factory\Api::payments($authorization)->get(
     PAYMENT_ID
 );
 ```
@@ -87,7 +87,7 @@ $authorization = new \CultureKings\Afterpay\Model\Authorization(
     YOUR_SECRET_KEY
 );
 
-$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->getByToken(
+$payment = \CultureKings\Afterpay\Factory\Api::payments($authorization)->getByToken(
     ORDER_TOKEN
 );
 ```
@@ -103,7 +103,7 @@ $authorization = new \CultureKings\Afterpay\Model\Authorization(
     YOUR_SECRET_KEY
 );
 
-$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->authorise(
+$payment = \CultureKings\Afterpay\Factory\Api::payments($authorization)->authorise(
     ORDER_TOKEN,
     MERCHANT_REFERENCE,
     WEBHOOK_EVENT_URL
@@ -121,7 +121,7 @@ $authorization = new \CultureKings\Afterpay\Model\Authorization(
     YOUR_SECRET_KEY
 );
 
-$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->capture(
+$payment = \CultureKings\Afterpay\Factory\Api::payments($authorization)->capture(
     ORDER_TOKEN,
     MERCHANT_REFERENCE,
     WEBHOOK_EVENT_URL
@@ -139,7 +139,7 @@ $authorization = new \CultureKings\Afterpay\Model\Authorization(
     YOUR_SECRET_KEY
 );
 
-$payment = \CultureKings\Afterpay\Factory\Api::payments($auth)->void(
+$payment = \CultureKings\Afterpay\Factory\Api::payments($authorization)->void(
     PAYMENT_ID
 );
 ```
@@ -168,7 +168,7 @@ $orderDetails->setConsumer($consumer);
 $orderDetails->setMerchant($merchantOptions);
 $orderDetails->setTotalAmount($totalAmount);
 
-$orderToken  = \CultureKings\Afterpay\Factory\Api::orders($auth)->create($orderDetails);
+$orderToken  = \CultureKings\Afterpay\Factory\Api::orders($authorization)->create($orderDetails);
 ```
 
 ### Get Order
@@ -176,7 +176,7 @@ $orderToken  = \CultureKings\Afterpay\Factory\Api::orders($auth)->create($orderD
 [Get Order Docs](http://docs.afterpay.com.au/merchant-api-v1.html#get-order)
 
 ```php
-$order = \CultureKings\Afterpay\Factory\Api::orders($auth)->get($orderToken->getToken());
+$order = \CultureKings\Afterpay\Factory\Api::orders($authorization)->get($orderToken->getToken());
 ```
 
 ## Exceptions
