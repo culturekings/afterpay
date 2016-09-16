@@ -47,4 +47,11 @@ class RefundSpec extends ObjectBehavior
         $this->setAmount($amount)->shouldReturn($this);
         $this->getAmount()->shouldReturn($amount);
     }
+
+    function its_request_id_is_mutable()
+    {
+        $this->getRequestId()->shouldReturn(null);
+        $this->setRequestId('requestId-1234')->shouldReturn($this);
+        $this->getRequestId()->shouldReturn('requestId-1234');
+    }
 }

@@ -280,13 +280,15 @@ class Payments
      * @param string $paymentId
      * @param Money  $amount
      * @param string $merchantReference
+     * @param string $requestId
      * @return array|\JMS\Serializer\scalar|object
      */
-    public function refund($paymentId, Money $amount, $merchantReference = '')
+    public function refund($paymentId, Money $amount, $merchantReference = '', $requestId = '')
     {
         $request = [
             'amount' => $amount,
             'merchantReference' => $merchantReference,
+            'requestId' => $requestId,
         ];
 
         try {
