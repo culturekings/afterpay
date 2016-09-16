@@ -11,3 +11,6 @@ CultureKings\Afterpay\Model\Refund:
       serialized_name: merchantReference
     amount:
       type: CultureKings\Afterpay\Model\Money
+    requestId:
+      type: string
+      serialized_name: requestId

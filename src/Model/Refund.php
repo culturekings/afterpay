@@ -27,6 +27,10 @@ class Refund
      * @var Money
      */
     protected $amount;
+    /**
+     * @var string
+     */
+    protected $requestId;
 
     /**
      * @return string
@@ -58,6 +62,14 @@ class Refund
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestId()
+    {
+        return $this->requestId;
     }
 
     /**
@@ -100,6 +112,17 @@ class Refund
     public function setAmount(Money $amount)
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+    * @param string $requestId
+    * @return $this
+    */
+    public function setRequestId($requestId)
+    {
+        $this->requestId = $requestId;
 
         return $this;
     }
