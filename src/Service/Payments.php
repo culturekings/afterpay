@@ -288,7 +288,7 @@ class Payments
         $request = [
             'amount' => $amount,
             'merchantReference' => $merchantReference,
-            'requestId' => $requestId
+            'requestId' => $requestId,
         ];
 
         try {
