@@ -64,7 +64,7 @@ class PaymentsSpec extends ObjectBehavior
         $exception = new ClientException('ddssda', $request, $response);
 
         $client->get('payments', Argument::any())->willThrow($exception);
-        
+
         $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
         $this->shouldThrow(ApiException::class)->duringListPayments();
@@ -254,7 +254,7 @@ class PaymentsSpec extends ObjectBehavior
         $exception = new ClientException('ddssda', $request, $response);
 
         $client->post('payments/23841566/void', Argument::any())->willThrow($exception);
-        
+
         $serializer->deserialize(Argument::any(), ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
         $this->shouldThrow(ApiException::class)->duringVoid('23841566');
@@ -271,14 +271,15 @@ class PaymentsSpec extends ObjectBehavior
 
         $serializer->serialize([
             'amount' => $refundAmount,
-            'merchantReference' => 'my_reference'
+            'merchantReference' => 'my_reference',
+            'requestId' => 'my_request_id',
         ], 'json')->shouldBeCalled();
         $serializer->deserialize($json, Refund::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('payments/23841566/refund', Argument::any())->willReturn($response);
 
-        $this->refund('23841566', $refundAmount, 'my_reference');
+        $this->refund('23841566', $refundAmount, 'my_reference', 'my_request_id');
     }
 
     function it_can_handle_refund_error(
@@ -299,7 +300,8 @@ class PaymentsSpec extends ObjectBehavior
         $serializer->serialize(
             [
                 'amount' => $refundAmount,
-                'merchantReference' => 'my_reference'
+                'merchantReference' => 'my_reference',
+                'requestId' => 'my_request_id',
             ],
             'json'
         )->shouldBeCalled();
@@ -309,6 +311,6 @@ class PaymentsSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($errorResponse);
 
-        $this->shouldThrow(ApiException::class)->duringRefund('23841566', $refundAmount, 'my_reference');
+        $this->shouldThrow(ApiException::class)->duringRefund('23841566', $refundAmount, 'my_reference', 'my_request_id');
     }
 }
