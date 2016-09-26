@@ -1,0 +1,8 @@
+CultureKings\Afterpay\Model\Discount:
+  exclusion_policy: NONE
+  properties:
+    displayName:
+      type: string
+      serialized_name: displayName
+    amount:
+      type: CultureKings\Afterpay\Model\Money
