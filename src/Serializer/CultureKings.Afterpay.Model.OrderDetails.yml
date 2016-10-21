@@ -20,6 +20,7 @@ CultureKings\Afterpay\Model\OrderDetails:
       serialized_name: taxAmount
     merchantReference:
       type: string
+      serialized_name: merchantReference
     merchant:
       type: CultureKings\Afterpay\Model\MerchantOptions
       serialized_name: merchant
