@@ -101,4 +101,11 @@ class OrderDetailsSpec extends ObjectBehavior
         $this->setPaymentType('PAY_BY_INSTALLMENT')->shouldReturn($this);
         $this->getPaymentType()->shouldReturn('PAY_BY_INSTALLMENT');
     }
+
+    function its_merchant_reference_is_mutable()
+    {
+        $this->getMerchantReference()->shouldReturn(null);
+        $this->setMerchantReference('merchantOrder-1234')->shouldReturn($this);
+        $this->getMerchantReference()->shouldReturn('merchantOrder-1234');
+    }
 }

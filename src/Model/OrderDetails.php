@@ -57,6 +57,11 @@ class OrderDetails
     protected $paymentType;
 
     /**
+     * @var string
+     */
+    protected $merchantReference;
+
+    /**
      * @return Consumer
      */
     public function getConsumer()
@@ -137,6 +142,14 @@ class OrderDetails
     public function getShippingAmount()
     {
         return $this->shippingAmount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMerchantReference()
+    {
+        return $this->merchantReference;
     }
 
     /**
@@ -261,6 +274,17 @@ class OrderDetails
     public function setPaymentType($paymentType)
     {
         $this->paymentType = $paymentType;
+
+        return $this;
+    }
+
+    /**
+     * @param string $merchantReference
+     * @return $this
+     */
+    public function setMerchantReference($merchantReference)
+    {
+        $this->merchantReference = $merchantReference;
 
         return $this;
     }
