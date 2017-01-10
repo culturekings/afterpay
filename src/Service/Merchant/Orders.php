@@ -1,5 +1,5 @@
 <?php
-namespace CultureKings\Afterpay\Service;
+namespace CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\Authorization;
@@ -16,7 +16,7 @@ use JMS\Serializer\SerializerInterface;
 /**
  * Class Orders
  *
- * @package CultureKings\Afterpay\Service
+ * @package CultureKings\Afterpay\Service\Merchant
  */
 class Orders
 {

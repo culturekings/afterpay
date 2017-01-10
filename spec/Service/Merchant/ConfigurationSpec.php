@@ -4,7 +4,7 @@ namespace spec\CultureKings\Afterpay\Service;
 
 use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
 use CultureKings\Afterpay\Model\Authorization;
-use CultureKings\Afterpay\Service\Configuration;
+use CultureKings\Afterpay\Service\Merchant\Configuration;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Stream\Stream;
@@ -35,7 +35,7 @@ class ConfigurationSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/configuration_details.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/configuration_details.json');
 
         $serializer->deserialize($json,sprintf('array<%s>', ConfigurationModel::class), 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);

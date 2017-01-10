@@ -1,5 +1,5 @@
 <?php
-namespace CultureKings\Afterpay\Service;
+namespace CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
@@ -12,7 +12,7 @@ use JMS\Serializer\SerializerInterface;
 /**
  * Class Configuration
  *
- * @package CultureKings\Afterpay\Service
+ * @package CultureKings\Afterpay\Service\Merchant
  */
 class Configuration
 {

@@ -9,7 +9,7 @@ use CultureKings\Afterpay\Model\Money;
 use CultureKings\Afterpay\Model\Payment;
 use CultureKings\Afterpay\Model\PaymentsList;
 use CultureKings\Afterpay\Model\Refund;
-use CultureKings\Afterpay\Service\Payments;
+use CultureKings\Afterpay\Service\Merchant\Payments;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\Request;
@@ -43,7 +43,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_list_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_list_response.json');
         $serializer->deserialize($json, PaymentsList::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
@@ -76,7 +76,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_get_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_get_response.json');
 
         $serializer->serialize([
             'token' => '93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3',
@@ -120,7 +120,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_get_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_get_response.json');
 
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
@@ -154,7 +154,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_get_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_get_response.json');
 
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
@@ -188,7 +188,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_get_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_get_response.json');
 
         $serializer->serialize([
             'token' => '93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3',
@@ -232,7 +232,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_get_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_get_response.json');
 
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
@@ -266,7 +266,7 @@ class PaymentsSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__.'/../expectations/payments_refund_response.json');
+        $json = file_get_contents(__DIR__ . '/../expectations/payments_refund_response.json');
         $refundAmount = new Money(50.00, 'AUD');
 
         $serializer->serialize([

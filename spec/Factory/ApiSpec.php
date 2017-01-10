@@ -3,9 +3,9 @@
 namespace spec\CultureKings\Afterpay\Factory;
 
 use CultureKings\Afterpay\Model\Authorization;
-use CultureKings\Afterpay\Service\Configuration;
-use CultureKings\Afterpay\Service\Orders;
-use CultureKings\Afterpay\Service\Payments;
+use CultureKings\Afterpay\Service\Merchant\Configuration;
+use CultureKings\Afterpay\Service\Merchant\Orders;
+use CultureKings\Afterpay\Service\Merchant\Payments;
 use PhpSpec\ObjectBehavior;
 
 /**
