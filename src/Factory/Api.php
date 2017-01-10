@@ -12,7 +12,7 @@ use JMS\Serializer\SerializerInterface;
 /**
  * Class Api
  * @package CultureKings\Afterpay\Factory
- * @deprecated
+ * @deprecated Use MerchantApi
  */
 class Api extends MerchantApi
 {
