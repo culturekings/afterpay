@@ -2,6 +2,7 @@
 
 namespace spec\CultureKings\Afterpay\Factory;
 
+use CultureKings\Afterpay\Factory\MerchantApi;
 use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Service\Merchant\Configuration;
 use CultureKings\Afterpay\Service\Merchant\Orders;
@@ -30,5 +31,9 @@ class ApiSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('orders', [$auth]);
         $this->shouldBeAnInstanceOf(Orders::class);
+    }
+
+    public function it_extends_merchant_api() {
+        $this->shouldBeAnInstanceOf(MerchantApi::class);
     }
 }
