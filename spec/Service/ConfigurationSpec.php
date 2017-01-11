@@ -6,7 +6,7 @@ use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
 use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Service\Configuration;
 use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Stream\Stream;
 use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;

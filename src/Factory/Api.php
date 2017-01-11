@@ -28,10 +28,9 @@ class Api
         Client $client = null,
         SerializerInterface $serializer = null
     ) {
-    
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ? : new Client([ 'base_url' => $authorization->getEndpoint() ]);
+        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint() ]);
         $afterpaySerializer = $serializer ? : SerializerFactory::getSerializer();
 
         return new ConfigurationService($afterpayClient, $authorization, $afterpaySerializer);
@@ -51,7 +50,7 @@ class Api
     
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ? : new Client([ 'base_url' => $authorization->getEndpoint() ]);
+        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint() ]);
         $afterpaySerializer = $serializer ? : SerializerFactory::getSerializer();
 
         return new PaymentsService($afterpayClient, $authorization, $afterpaySerializer);
@@ -70,7 +69,7 @@ class Api
     ) {
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ? : new Client([ 'base_url' => $authorization->getEndpoint() ]);
+        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint() ]);
         $afterpaySerializer = $serializer ? : SerializerFactory::getSerializer();
 
         return new OrdersService($afterpayClient, $authorization, $afterpaySerializer);
