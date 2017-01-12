@@ -17,7 +17,7 @@ The recommended way to install is via [Composer](http://getcomposer.org).
 composer require culturekings/afterpay
 ```
 
-Don't forget to include Composer's autoloader if you haven't already:
+Don't forget to include Composer's auto-loader if you haven't already:
 
 ```php
 require 'vendor/autoload.php';
