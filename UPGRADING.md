@@ -4,7 +4,7 @@
 
 * Guzzle has been updated to require guzzlehttp/guzzle 6.0
 * Due to the addition of InStore API the namespaces have changed for the following files to provide separation between the different APIs
-    * `CultureKings\Afterpay\Service\Configuration` -> `CultureKings\Afterpay\Service\Merchant\Configuration`
+    * ```CultureKings\Afterpay\Service\Configuration -> CultureKings\Afterpay\Service\Merchant\Configuration```
     * `CultureKings\Afterpay\Service\Orders` -> `CultureKings\Afterpay\Service\Merchant\Orders`
     * `CultureKings\Afterpay\Service\Payments` -> `CultureKings\Afterpay\Service\Merchant\Payments`
     * `CultureKings\Afterpay\Model\Configuration` -> `CultureKings\Afterpay\Model\Merchant\Configuration`
