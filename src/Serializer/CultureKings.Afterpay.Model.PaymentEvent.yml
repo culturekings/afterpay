@@ -1,8 +1,0 @@
-CultureKings\Afterpay\Model\PaymentEvent:
-  properties:
-    created:
-      type: DateTime<'Y-m-d\TH:i:s.uO'>
-    id:
-      type: string
-    type:
-      type: string

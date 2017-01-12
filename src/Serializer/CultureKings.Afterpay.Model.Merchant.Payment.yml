@@ -1,0 +1,23 @@
+CultureKings\Afterpay\Model\Merchant\Payment:
+  properties:
+    id:
+      type: string
+    token:
+      type: string
+    status:
+      type: string
+    created:
+      type: DateTime
+    merchantReference:
+      type: string
+      serialized_name: merchantReference
+    totalAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: totalAmount
+    events:
+      type: array<CultureKings\Afterpay\Model\Merchant\PaymentEvent>
+    refunds:
+      type: array<CultureKings\Afterpay\Model\Merchant\Refund>
+    orderDetails:
+      type: CultureKings\Afterpay\Model\Merchant\OrderDetails
+      serialized_name: orderDetails

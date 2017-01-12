@@ -1,0 +1,32 @@
+CultureKings\Afterpay\Model\Merchant\OrderDetails:
+  properties:
+    consumer:
+      type: CultureKings\Afterpay\Model\Merchant\Consumer
+    billing:
+      type: CultureKings\Afterpay\Model\Merchant\Contact
+    shipping:
+      type: CultureKings\Afterpay\Model\Merchant\Contact
+    courier:
+      type: CultureKings\Afterpay\Model\Merchant\ShippingCourier
+    items:
+      type: array<CultureKings\Afterpay\Model\Item>
+    discounts:
+      type: array<CultureKings\Afterpay\Model\Merchant\Discount>
+    totalAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: totalAmount
+    taxAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: taxAmount
+    merchantReference:
+      type: string
+      serialized_name: merchantReference
+    merchant:
+      type: CultureKings\Afterpay\Model\Merchant\MerchantOptions
+      serialized_name: merchant
+    shippingAmount:
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: shippingAmount
+    paymentType:
+      type: string
+      serialized_name: paymentType
