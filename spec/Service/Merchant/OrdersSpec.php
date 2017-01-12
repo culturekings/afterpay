@@ -10,8 +10,13 @@ use CultureKings\Afterpay\Model\OrderToken;
 use CultureKings\Afterpay\Service\Merchant\Orders;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+<<<<<<< HEAD:spec/Service/Merchant/OrdersSpec.php
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
+=======
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+>>>>>>> master:spec/Service/OrdersSpec.php
 use GuzzleHttp\Stream\NullStream;
 use GuzzleHttp\Stream\Stream;
 use JMS\Serializer\SerializerInterface;

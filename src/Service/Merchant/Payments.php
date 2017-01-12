@@ -13,7 +13,7 @@ use CultureKings\Afterpay\Traits\ClientTrait;
 use CultureKings\Afterpay\Traits\SerializerTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Query;
+use GuzzleHttp\Psr7;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -48,11 +48,15 @@ class Payments
      * @return array|object
      *
      * I would of liked to call this list() but it's a reserved keyword in < php7
+     *
+     * According to Guzzle GitHub issue #1196 the build_query helper also does
+     * duplicate aggregation.
+     *
+     * @see https://github.com/guzzle/guzzle/issues/1196
      */
     public function listPayments(array $filters = [ ])
     {
-        $query = new Query($filters);
-        $query->setAggregator($query::duplicateAggregator());
+        $query = Psr7\build_query($filters);
 
         try {
             $result = $this->getClient()->get(
