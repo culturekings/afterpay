@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\CultureKings\Afterpay\Service;
+namespace spec\CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\Authorization;
@@ -10,13 +10,8 @@ use CultureKings\Afterpay\Model\OrderToken;
 use CultureKings\Afterpay\Service\Merchant\Orders;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-<<<<<<< HEAD:spec/Service/Merchant/OrdersSpec.php
-use GuzzleHttp\Message\Request;
-use GuzzleHttp\Message\Response;
-=======
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
->>>>>>> master:spec/Service/OrdersSpec.php
 use GuzzleHttp\Stream\NullStream;
 use GuzzleHttp\Stream\Stream;
 use JMS\Serializer\SerializerInterface;
@@ -46,7 +41,7 @@ class OrdersSpec extends ObjectBehavior
         Response $response,
         SerializerInterface $serializer
     ) {
-        $json = file_get_contents(__DIR__ . '/../expectations/order_get_response.json');
+        $json = file_get_contents(__DIR__ . '/../../expectations/order_get_response.json');
         $serializer->deserialize($json, OrderDetails::class, 'json')->shouldBeCalled();
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
@@ -81,7 +76,7 @@ class OrdersSpec extends ObjectBehavior
         SerializerInterface $serializer,
         OrderDetails $orderDetails
     ) {
-        $json = file_get_contents(__DIR__ . '/../expectations/order_create_response.json');
+        $json = file_get_contents(__DIR__ . '/../../expectations/order_create_response.json');
 
         $serializer->serialize($orderDetails, 'json')->shouldBeCalled();
         $serializer->deserialize($json, OrderToken::class, 'json')->shouldBeCalled();
