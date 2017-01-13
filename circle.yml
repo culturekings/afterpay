@@ -36,9 +36,6 @@ stages:
       - type: shell
         name: Install Project Dependencies
         command: php composer.phar install -o --prefer-dist --no-interaction
-  test:
-    workDir: /var/www/html
-    steps:
       - type: shell
         name: Run Tests
         command: vendor/bin/phpspec run --format=pretty
