@@ -39,7 +39,7 @@ class Device
     }
 
     /**
-     * @param $secret
+     * @param string $secret
      *
      * @return $this
      */
@@ -59,7 +59,7 @@ class Device
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return $this
      */
@@ -79,7 +79,7 @@ class Device
     }
 
     /**
-     * @param $attributes
+     * @param array $attributes
      *
      * @return $this
      */

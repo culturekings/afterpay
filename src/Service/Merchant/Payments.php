@@ -275,10 +275,11 @@ class Payments
     }
 
     /**
-     * @param string $paymentId
-     * @param Model\Money  $amount
-     * @param string $merchantReference
-     * @param string $requestId
+     * @param string      $paymentId
+     * @param Model\Money $amount
+     * @param string      $merchantReference
+     * @param string      $requestId
+     *
      * @return array|\JMS\Serializer\scalar|object
      */
     public function refund($paymentId, Model\Money $amount, $merchantReference = '', $requestId = '')

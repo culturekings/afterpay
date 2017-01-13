@@ -1,6 +1,7 @@
 <?php
 namespace CultureKings\Afterpay\Service\InStore;
 
+use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
 use CultureKings\Afterpay\Traits;
 use GuzzleHttp\ClientInterface;
@@ -48,8 +49,14 @@ class Device
                 sprintf('array<%s>', Model\InStore\Device::class),
                 'json'
             );
-        } catch (ClientException $clientException) {
-
+        } catch (ClientException $e) {
+            throw new ApiException(
+                $this->getSerializer()->deserialize(
+                    $e->getResponse()->getBody()->getContents(),
+                    Model\ErrorResponse::class,
+                    'json'
+                )
+            );
         }
     }
 }
