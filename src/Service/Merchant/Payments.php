@@ -96,6 +96,7 @@ class Payments
         ];
 
         try {
+            $requestBody = $this->getSerializer()->serialize($request, 'json');
             $result = $this->getClient()->post(
                 'payments/capture',
                 [
@@ -107,7 +108,7 @@ class Payments
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
                     ],
-                    'body' => $this->getSerializer()->serialize($request, 'json'),
+                    'body' => $requestBody,
                 ]
             );
         } catch (ClientException $e) {
