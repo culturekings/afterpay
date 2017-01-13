@@ -2,12 +2,13 @@
 
 namespace spec\CultureKings\Afterpay\Service\Merchant;
 
-use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Configuration as ConfigurationModel;
 use CultureKings\Afterpay\Service\Merchant\Configuration;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -19,7 +20,7 @@ use Prophecy\Argument;
  */
 class ConfigurationSpec extends ObjectBehavior
 {
-    function let(Client $client, Authorization $auth, SerializerInterface $serializer)
+    function let(ClientInterface $client, Authorization $auth, SerializerInterface $serializer)
     {
         $this->beConstructedWith($client, $auth, $serializer);
     }

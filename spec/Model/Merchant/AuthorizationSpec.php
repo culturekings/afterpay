@@ -1,8 +1,9 @@
 <?php
 
-namespace spec\CultureKings\Afterpay\Model;
+namespace spec\CultureKings\Afterpay\Model\Merchant;
 
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Contacts\AuthorizationInterface;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -21,6 +22,7 @@ class AuthorizationSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(Authorization::class);
+        $this->shouldBeAnInstanceOf(AuthorizationInterface::class);
     }
 
     function its_endpoint_is_mutable()

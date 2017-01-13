@@ -3,7 +3,7 @@
 namespace spec\CultureKings\Afterpay\Factory;
 
 use CultureKings\Afterpay\Factory\MerchantApi;
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Service\Merchant\Configuration;
 use CultureKings\Afterpay\Service\Merchant\Orders;
 use CultureKings\Afterpay\Service\Merchant\Payments;

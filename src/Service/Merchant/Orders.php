@@ -2,14 +2,12 @@
 namespace CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Exception\ApiException;
-use CultureKings\Afterpay\Model\Authorization;
 use CultureKings\Afterpay\Model\ErrorResponse;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Model\Merchant\OrderDetails;
 use CultureKings\Afterpay\Model\Merchant\OrderToken;
-use CultureKings\Afterpay\Traits\AuthorizationTrait;
-use CultureKings\Afterpay\Traits\ClientTrait;
-use CultureKings\Afterpay\Traits\SerializerTrait;
-use GuzzleHttp\Client;
+use CultureKings\Afterpay\Traits;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use JMS\Serializer\SerializerInterface;
 
@@ -20,18 +18,19 @@ use JMS\Serializer\SerializerInterface;
  */
 class Orders
 {
-    use ClientTrait;
-    use AuthorizationTrait;
-    use SerializerTrait;
+    use Traits\ClientTrait;
+    use Traits\AuthorizationTrait;
+    use Traits\SerializerTrait;
 
     /**
-     * Payments constructor.
-     * @param Client              $client
+     * Orders constructor.
+     *
+     * @param ClientInterface     $client
      * @param Authorization       $authorization
      * @param SerializerInterface $serializer
      */
     public function __construct(
-        Client $client,
+        ClientInterface $client,
         Authorization $authorization,
         SerializerInterface $serializer
     ) {

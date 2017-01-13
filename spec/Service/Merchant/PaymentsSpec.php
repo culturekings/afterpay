@@ -3,19 +3,18 @@
 namespace spec\CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Exception\ApiException;
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Model\ErrorResponse;
 use CultureKings\Afterpay\Model\Money;
-use CultureKings\Afterpay\Model\Payment;
-use CultureKings\Afterpay\Model\PaymentsList;
-use CultureKings\Afterpay\Model\Refund;
+use CultureKings\Afterpay\Model\Merchant\Payment;
+use CultureKings\Afterpay\Model\Merchant\PaymentsList;
+use CultureKings\Afterpay\Model\Merchant\Refund;
 use CultureKings\Afterpay\Service\Merchant\Payments;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Stream\NullStream;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -58,8 +57,7 @@ class PaymentsSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -97,8 +95,7 @@ class PaymentsSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -136,8 +133,7 @@ class PaymentsSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -170,8 +166,7 @@ class PaymentsSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -209,8 +204,7 @@ class PaymentsSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -248,8 +242,7 @@ class PaymentsSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -290,8 +283,7 @@ class PaymentsSpec extends ObjectBehavior
         $refundAmount = new Money(50.00, 'AUD');
 
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400', []);
 
         $exception = new ClientException('ddssda', $request, $response);
 

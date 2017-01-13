@@ -1,7 +1,7 @@
 <?php
 namespace CultureKings\Afterpay\Traits;
 
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Contacts\AuthorizationInterface;
 
 /**
  * Class AuthorizationTrait
@@ -10,12 +10,12 @@ use CultureKings\Afterpay\Model\Authorization;
 trait AuthorizationTrait
 {
     /**
-     * @var Authorization
+     * @var AuthorizationInterface
      */
     private $authorization;
 
     /**
-     * @return Authorization
+     * @return AuthorizationInterface
      */
     public function getAuthorization()
     {
@@ -23,9 +23,9 @@ trait AuthorizationTrait
     }
 
     /**
-     * @param Authorization $authorization
+     * @param AuthorizationInterface $authorization
      */
-    public function setAuthorization(Authorization $authorization)
+    public function setAuthorization(AuthorizationInterface $authorization)
     {
         $this->authorization = $authorization;
     }

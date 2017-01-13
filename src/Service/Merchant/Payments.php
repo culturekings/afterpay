@@ -2,16 +2,9 @@
 namespace CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Exception\ApiException;
-use CultureKings\Afterpay\Model\Authorization;
-use CultureKings\Afterpay\Model\ErrorResponse;
-use CultureKings\Afterpay\Model\Money;
-use CultureKings\Afterpay\Model\Payment;
-use CultureKings\Afterpay\Model\PaymentsList;
-use CultureKings\Afterpay\Model\Refund;
-use CultureKings\Afterpay\Traits\AuthorizationTrait;
-use CultureKings\Afterpay\Traits\ClientTrait;
-use CultureKings\Afterpay\Traits\SerializerTrait;
-use GuzzleHttp\Client;
+use CultureKings\Afterpay\Model;
+use CultureKings\Afterpay\Traits;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7;
 use JMS\Serializer\SerializerInterface;
@@ -23,19 +16,20 @@ use JMS\Serializer\SerializerInterface;
  */
 class Payments
 {
-    use ClientTrait;
-    use AuthorizationTrait;
-    use SerializerTrait;
+    use Traits\ClientTrait;
+    use Traits\AuthorizationTrait;
+    use Traits\SerializerTrait;
 
     /**
      * Payments constructor.
-     * @param Client              $client
-     * @param Authorization       $authorization
-     * @param SerializerInterface $serializer
+     *
+     * @param ClientInterface              $client
+     * @param Model\Merchant\Authorization $authorization
+     * @param SerializerInterface          $serializer
      */
     public function __construct(
-        Client $client,
-        Authorization $authorization,
+        ClientInterface $client,
+        Model\Merchant\Authorization $authorization,
         SerializerInterface $serializer
     ) {
         $this->setClient($client);
@@ -73,7 +67,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -81,7 +75,7 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            PaymentsList::class,
+            Model\Merchant\PaymentsList::class,
             'json'
         );
     }
@@ -91,7 +85,7 @@ class Payments
      * @param string $merchantReference
      * @param string $webhookEventUrl
      *
-     * @return Payment|object
+     * @return Model\Merchant\Payment|object
      */
     public function capture($orderToken, $merchantReference = '', $webhookEventUrl = '')
     {
@@ -120,7 +114,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -128,14 +122,14 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            Payment::class,
+            Model\Merchant\Payment::class,
             'json'
         );
     }
 
     /**
      * @param string $id
-     * @return Payment|object
+     * @return Model\Merchant\Payment|object
      */
     public function get($id)
     {
@@ -153,7 +147,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -161,14 +155,14 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            Payment::class,
+            Model\Merchant\Payment::class,
             'json'
         );
     }
 
     /**
      * @param string $token
-     * @return Payment|object
+     * @return Model\Merchant\Payment|object
      * @throws ApiException
      */
     public function getByToken($token)
@@ -187,7 +181,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -196,7 +190,7 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            Payment::class,
+            Model\Merchant\Payment::class,
             'json'
         );
     }
@@ -205,7 +199,7 @@ class Payments
      * @param string $orderToken
      * @param string $merchantReference
      * @param string $webhookEventUrl
-     * @return Payment|object
+     * @return Model\Merchant\Payment|object
      */
     public function authorise($orderToken, $merchantReference = '', $webhookEventUrl = '')
     {
@@ -234,7 +228,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -242,14 +236,14 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            Payment::class,
+            Model\Merchant\Payment::class,
             'json'
         );
     }
 
     /**
      * @param string $paymentId
-     * @return Payment|object
+     * @return Model\Merchant\Payment|object
      */
     public function void($paymentId)
     {
@@ -267,7 +261,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -275,19 +269,19 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            Payment::class,
+            Model\Merchant\Payment::class,
             'json'
         );
     }
 
     /**
      * @param string $paymentId
-     * @param Money  $amount
+     * @param Model\Money  $amount
      * @param string $merchantReference
      * @param string $requestId
      * @return array|\JMS\Serializer\scalar|object
      */
-    public function refund($paymentId, Money $amount, $merchantReference = '', $requestId = '')
+    public function refund($paymentId, Model\Money $amount, $merchantReference = '', $requestId = '')
     {
         $request = [
             'amount' => $amount,
@@ -314,7 +308,7 @@ class Payments
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     $e->getResponse()->getBody()->getContents(),
-                    ErrorResponse::class,
+                    Model\ErrorResponse::class,
                     'json'
                 )
             );
@@ -322,7 +316,7 @@ class Payments
 
         return $this->getSerializer()->deserialize(
             $result->getBody()->getContents(),
-            Refund::class,
+            Model\Merchant\Refund::class,
             'json'
         );
     }

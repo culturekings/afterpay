@@ -1,7 +1,7 @@
 <?php
 namespace CultureKings\Afterpay\Factory;
 
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Service\Merchant\Configuration as ConfigurationService;
 use CultureKings\Afterpay\Service\Merchant\Payments as PaymentsService;
 use CultureKings\Afterpay\Service\Merchant\Orders as OrdersService;

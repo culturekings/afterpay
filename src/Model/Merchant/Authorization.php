@@ -1,12 +1,14 @@
 <?php
-namespace CultureKings\Afterpay\Model;
+namespace CultureKings\Afterpay\Model\Merchant;
+
+use CultureKings\Afterpay\Contacts\AuthorizationInterface;
 
 /**
  * Class Authorization
  *
  * @package CultureKings\Afterpay
  */
-class Authorization
+class Authorization implements AuthorizationInterface
 {
     const PRODUCTION_URI = 'https://api.secure-afterpay.com.au/v1/';
     const SANDBOX_URI = 'https://api-sandbox.secure-afterpay.com.au/v1/';

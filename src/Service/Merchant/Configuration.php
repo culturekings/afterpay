@@ -1,12 +1,10 @@
 <?php
 namespace CultureKings\Afterpay\Service\Merchant;
 
-use CultureKings\Afterpay\Model\Authorization;
-use CultureKings\Afterpay\Model\Configuration as ConfigurationModel;
-use CultureKings\Afterpay\Traits\AuthorizationTrait;
-use CultureKings\Afterpay\Traits\ClientTrait;
-use CultureKings\Afterpay\Traits\SerializerTrait;
-use GuzzleHttp\Client;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Configuration as ConfigurationModel;
+use CultureKings\Afterpay\Traits;
+use GuzzleHttp\ClientInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -16,18 +14,19 @@ use JMS\Serializer\SerializerInterface;
  */
 class Configuration
 {
-    use AuthorizationTrait;
-    use ClientTrait;
-    use SerializerTrait;
+    use Traits\AuthorizationTrait;
+    use Traits\ClientTrait;
+    use Traits\SerializerTrait;
 
     /**
      * Configuration constructor.
-     * @param Client              $client
+     *
+     * @param ClientInterface     $client
      * @param Authorization       $authorization
      * @param SerializerInterface $serializer
      */
     public function __construct(
-        Client $client,
+        ClientInterface $client,
         Authorization $authorization,
         SerializerInterface $serializer
     ) {

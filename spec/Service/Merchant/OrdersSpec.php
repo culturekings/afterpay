@@ -3,7 +3,7 @@
 namespace spec\CultureKings\Afterpay\Service\Merchant;
 
 use CultureKings\Afterpay\Exception\ApiException;
-use CultureKings\Afterpay\Model\Authorization;
+use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Model\ErrorResponse;
 use CultureKings\Afterpay\Model\Merchant\OrderDetails;
 use CultureKings\Afterpay\Model\Merchant\OrderToken;
@@ -12,8 +12,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Stream\NullStream;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Psr7\Stream;
+
+
 use JMS\Serializer\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -56,8 +57,7 @@ class OrdersSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
@@ -94,8 +94,7 @@ class OrdersSpec extends ObjectBehavior
         ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
-        $stream = new NullStream();
-        $response = new Response('400', [], $stream);
+        $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
