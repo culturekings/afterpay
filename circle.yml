@@ -46,4 +46,6 @@ stages:
           vendor/bin/phpcs
       - type: shell
         name: Update Code Coverage
-        command: vendor/bin/coveralls -v -x coverage_clover.xml
+        command: |
+          mkdir -p build/logs
+          vendor/bin/coveralls -v -x coverage_clover.xml
