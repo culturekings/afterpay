@@ -24,7 +24,7 @@ stages:
         name: Install PHP Extensions
         command: |
           pecl install xdebug
-          docker-php-ext-install xdebug zip
+          docker-php-ext-enable xdebug
       - type: shell
         name: Install Composer
         command: |
