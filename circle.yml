@@ -22,7 +22,9 @@ stages:
       - type: checkout
       - type: shell
         name: Install PHP Extensions
-        command: docker-php-ext-install xdebug zip
+        command: |
+          pecl install xdebug
+          docker-php-ext-install xdebug zip
       - type: shell
         name: Install Composer
         command: |
