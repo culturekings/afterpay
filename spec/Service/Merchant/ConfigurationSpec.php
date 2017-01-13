@@ -6,7 +6,6 @@ use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Model\Merchant\Configuration as ConfigurationModel;
 use CultureKings\Afterpay\Service\Merchant\Configuration;
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializerInterface;
@@ -20,7 +19,7 @@ use Prophecy\Argument;
  */
 class ConfigurationSpec extends ObjectBehavior
 {
-    function let(ClientInterface $client, Authorization $auth, SerializerInterface $serializer)
+    function let(Client $client, Authorization $auth, SerializerInterface $serializer)
     {
         $this->beConstructedWith($client, $auth, $serializer);
     }
@@ -39,7 +38,7 @@ class ConfigurationSpec extends ObjectBehavior
         $json = file_get_contents(__DIR__ . '/../../expectations/configuration_details.json');
 
         $serializer->deserialize($json,sprintf('array<%s>', ConfigurationModel::class), 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->get('configuration', ['auth' => [null,null]])->willReturn($response);
 

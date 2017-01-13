@@ -28,7 +28,7 @@ class Device
     /**
      * @var array $attributes
      */
-    protected $attributes = [];
+    protected $attributes;
 
     /**
      * @return string

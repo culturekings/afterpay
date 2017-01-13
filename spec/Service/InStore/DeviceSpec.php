@@ -4,7 +4,6 @@ namespace spec\CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay;
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializerInterface;
@@ -17,7 +16,7 @@ use Prophecy\Argument;
  */
 class DeviceSpec extends ObjectBehavior
 {
-    function let(Afterpay\Model\InStore\Authorization $auth, ClientInterface $client, SerializerInterface $serializer)
+    function let(Afterpay\Model\InStore\Authorization $auth, Client $client, SerializerInterface $serializer)
     {
         $this->beConstructedWith($auth, $client, $serializer);
     }

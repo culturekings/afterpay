@@ -4,7 +4,7 @@ namespace CultureKings\Afterpay\Service\Merchant;
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
 use CultureKings\Afterpay\Traits;
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7;
 use JMS\Serializer\SerializerInterface;
@@ -23,12 +23,12 @@ class Payments
     /**
      * Payments constructor.
      *
-     * @param ClientInterface              $client
+     * @param Client                       $client
      * @param Model\Merchant\Authorization $authorization
      * @param SerializerInterface          $serializer
      */
     public function __construct(
-        ClientInterface $client,
+        Client $client,
         Model\Merchant\Authorization $authorization,
         SerializerInterface $serializer
     ) {
@@ -74,7 +74,7 @@ class Payments
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\PaymentsList::class,
             'json'
         );
@@ -121,7 +121,7 @@ class Payments
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\Payment::class,
             'json'
         );
@@ -154,7 +154,7 @@ class Payments
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\Payment::class,
             'json'
         );
@@ -189,7 +189,7 @@ class Payments
 
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\Payment::class,
             'json'
         );
@@ -235,7 +235,7 @@ class Payments
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\Payment::class,
             'json'
         );
@@ -268,7 +268,7 @@ class Payments
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\Payment::class,
             'json'
         );
@@ -316,7 +316,7 @@ class Payments
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             Model\Merchant\Refund::class,
             'json'
         );

@@ -51,7 +51,7 @@ class Configuration
         );
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             sprintf('array<%s>', ConfigurationModel::class),
             'json'
         );

@@ -44,7 +44,7 @@ class PaymentsSpec extends ObjectBehavior
     ) {
         $json = file_get_contents(__DIR__ . '/../../expectations/payments_list_response.json');
         $serializer->deserialize($json, PaymentsList::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->get('payments', Argument::any())->willReturn($response);
 
@@ -82,7 +82,7 @@ class PaymentsSpec extends ObjectBehavior
             'webhookEventUrl' => ''
         ], 'json')->shouldBeCalled();
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('payments/capture', Argument::any())->willReturn($response);
 
@@ -120,7 +120,7 @@ class PaymentsSpec extends ObjectBehavior
         $json = file_get_contents(__DIR__ . '/../../expectations/payments_get_response.json');
 
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->get('payments/23841566', Argument::any())->willReturn($response);
 
@@ -153,7 +153,7 @@ class PaymentsSpec extends ObjectBehavior
         $json = file_get_contents(__DIR__ . '/../../expectations/payments_get_response.json');
 
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->get('payments/token:93jq77q54bi4a3sptj99ar1pshs1i20tqu9ufnjo6bdk296m1di3', Argument::any())->willReturn($response);
 
@@ -191,7 +191,7 @@ class PaymentsSpec extends ObjectBehavior
             'webhookEventUrl' => ''
         ], 'json')->shouldBeCalled();
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('payments', Argument::any())->willReturn($response);
 
@@ -229,7 +229,7 @@ class PaymentsSpec extends ObjectBehavior
         $json = file_get_contents(__DIR__ . '/../../expectations/payments_get_response.json');
 
         $serializer->deserialize($json, Payment::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('payments/23841566/void', Argument::any())->willReturn($response);
 
@@ -268,7 +268,7 @@ class PaymentsSpec extends ObjectBehavior
             'requestId' => 'my_request_id',
         ], 'json')->shouldBeCalled();
         $serializer->deserialize($json, Refund::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('payments/23841566/refund', Argument::any())->willReturn($response);
 

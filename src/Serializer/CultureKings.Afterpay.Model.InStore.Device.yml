@@ -1,0 +1,12 @@
+CultureKings\Afterpay\Model\InStore\Device:
+  exclusion_policy: ALL
+  properties:
+    secret:
+      expose: true
+      type: string
+    name:
+      expose: true
+      type: string
+    attributes:
+      expose: true
+      type: array

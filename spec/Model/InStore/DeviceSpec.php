@@ -35,7 +35,7 @@ class DeviceSpec extends ObjectBehavior
 
     function its_attributes_are_mutable()
     {
-        $this->getAttributes()->shouldReturn([]);
+        $this->getAttributes()->shouldReturn(null);
         $this->setAttributes(['terminal' => 'NCR', 'hardwareId' => '678678'])->shouldReturn($this);
         $this->getAttributes()->shouldReturn(['terminal' => 'NCR', 'hardwareId' => '678678']);
     }

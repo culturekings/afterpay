@@ -2,7 +2,7 @@
 
 namespace CultureKings\Afterpay\Traits;
 
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 
 /**
  * Class ClientTrait
@@ -16,7 +16,7 @@ trait ClientTrait
     private $client;
 
     /**
-     * @return ClientInterface
+     * @return Client
      */
     public function getClient()
     {
@@ -24,9 +24,9 @@ trait ClientTrait
     }
 
     /**
-     * @param ClientInterface $client
+     * @param Client $client
      */
-    public function setClient(ClientInterface $client)
+    public function setClient(Client $client)
     {
         $this->client = $client;
     }

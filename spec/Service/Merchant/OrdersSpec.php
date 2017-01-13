@@ -44,7 +44,7 @@ class OrdersSpec extends ObjectBehavior
     ) {
         $json = file_get_contents(__DIR__ . '/../../expectations/order_get_response.json');
         $serializer->deserialize($json, OrderDetails::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->get('orders/abc123', Argument::any())->willReturn($response);
 
@@ -80,7 +80,7 @@ class OrdersSpec extends ObjectBehavior
 
         $serializer->serialize($orderDetails, 'json')->shouldBeCalled();
         $serializer->deserialize($json, OrderToken::class, 'json')->shouldBeCalled();
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('orders', Argument::any())->willReturn($response);
 

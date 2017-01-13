@@ -7,7 +7,7 @@ use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Model\Merchant\OrderDetails;
 use CultureKings\Afterpay\Model\Merchant\OrderToken;
 use CultureKings\Afterpay\Traits;
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use JMS\Serializer\SerializerInterface;
 
@@ -25,12 +25,12 @@ class Orders
     /**
      * Orders constructor.
      *
-     * @param ClientInterface     $client
+     * @param Client              $client
      * @param Authorization       $authorization
      * @param SerializerInterface $serializer
      */
     public function __construct(
-        ClientInterface $client,
+        Client $client,
         Authorization $authorization,
         SerializerInterface $serializer
     ) {
@@ -71,7 +71,7 @@ class Orders
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             OrderToken::class,
             'json'
         );
@@ -104,7 +104,7 @@ class Orders
         }
 
         return $this->getSerializer()->deserialize(
-            $result->getBody()->getContents(),
+            (string) $result->getBody(),
             OrderDetails::class,
             'json'
         );
