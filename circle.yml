@@ -14,7 +14,7 @@ containerInfo:
       - APP_DEBUG=true
 stages:
   build:
-    workDir: /code
+    workDir: /var/www/html
     steps:
       - type: shell
         name: Install System Packages
