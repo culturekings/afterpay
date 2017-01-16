@@ -19,7 +19,7 @@ stages:
       - type: checkout
       - type: shell
         name: Install Project Dependencies
-        command: php composer.phar install -o --prefer-dist --no-interaction
+        command: composer install -o --prefer-dist --no-interaction
       - type: shell
         name: Run Tests
         command: vendor/bin/phpspec run --format=pretty
