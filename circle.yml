@@ -8,7 +8,7 @@
 version: 2
 executorType: docker
 containerInfo:
-  - image: culturekings/php-composer
+  - image: culturekings/php-ci
     env:
       - APP_ENV=local
       - APP_DEBUG=true
