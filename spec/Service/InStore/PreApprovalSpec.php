@@ -46,7 +46,7 @@ class PreApprovalSpec extends ObjectBehavior
     ) {
         $json = file_get_contents(__DIR__ . '/../../expectations/preapproval_enquire_response.json');
 
-        $serializer->serialize('testcode', 'json')->shouldBeCalled();
+        $serializer->serialize(['preApprovalCode' => 'testcode'], 'json')->shouldBeCalled();
         $serializer->deserialize($json, Afterpay\Model\InStore\PreApproval::class, 'json')->shouldBeCalled();
 
         $stream->getContents()->willReturn($json);
@@ -73,7 +73,7 @@ class PreApprovalSpec extends ObjectBehavior
 
         $client->post('preapprovals/enquire', Argument::any())->willThrow($exception);
 
-        $serializer->serialize('testcode', 'json')->shouldBeCalled();
+        $serializer->serialize(['preApprovalCode' => 'testcode'], 'json')->shouldBeCalled();
         $serializer->deserialize(Argument::any(), Afterpay\Model\ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
         $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringEnquiry('testcode');
