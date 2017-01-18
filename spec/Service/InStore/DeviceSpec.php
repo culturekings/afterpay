@@ -4,6 +4,7 @@ namespace spec\CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay;
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializationContext;
@@ -33,15 +34,16 @@ class DeviceSpec extends ObjectBehavior
      * @param Response|\PhpSpec\Wrapper\Collaborator                      $response
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
      * @param Afterpay\Model\InStore\Device|\PhpSpec\Wrapper\Collaborator $device
+     * @param HandlerStack|\PhpSpec\Wrapper\Collaborator                  $stack
      */
     function it_can_activate_a_device(
         Client $client,
         Stream $stream,
         Response $response,
         SerializerInterface $serializer,
-        Afterpay\Model\InStore\Device $device
+        Afterpay\Model\InStore\Device $device,
+        HandlerStack $stack
     ) {
-
         $json = file_get_contents(__DIR__ . '/../../expectations/device_activation_response.json');
 
         $device->setName('POS1234');
@@ -55,17 +57,25 @@ class DeviceSpec extends ObjectBehavior
         $response->getBody()->willReturn($stream);
         $client->post('devices/activate', Argument::any())->willReturn($response);
 
-        $this->activate($device);
+        $this->activate($device, $stack);
     }
 
+    /**
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param Stream|\PhpSpec\Wrapper\Collaborator                        $stream
+     * @param Response|\PhpSpec\Wrapper\Collaborator                      $response
+     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
+     * @param Afterpay\Model\InStore\Device|\PhpSpec\Wrapper\Collaborator $device
+     * @param HandlerStack|\PhpSpec\Wrapper\Collaborator                  $stack
+     */
     function it_can_generate_a_device_token(
         Client $client,
         Stream $stream,
         Response $response,
         SerializerInterface $serializer,
-        Afterpay\Model\InStore\Device $device
+        Afterpay\Model\InStore\Device $device,
+        HandlerStack $stack
     ) {
-
         $json = file_get_contents(__DIR__ . '/../../expectations/generate_device_token_response.json');
 
         $device->setDeviceId(1234);
@@ -78,6 +88,6 @@ class DeviceSpec extends ObjectBehavior
         $response->getBody()->willReturn($stream);
         $client->post('devices/1234/token', Argument::any())->willReturn($response);
 
-        $this->createToken($device);
+        $this->createToken($device, $stack);
     }
 }
