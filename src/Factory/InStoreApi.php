@@ -55,13 +55,22 @@ class InStoreApi
     }
 
     /**
-     * @param Authorization $authorization
-     * @param Client|null   $client
+     * @param Authorization            $authorization
+     * @param Client|null              $client
+     * @param SerializerInterface|null $serializer
+     *
+     * @return Service\InStore\Order
      */
     public static function order(
         Authorization $authorization,
-        Client $client = null
+        Client $client = null,
+        SerializerInterface $serializer = null
     ) {
-        echo 'here';
+        AnnotationRegistry::registerLoader('class_exists');
+
+        $afterpayClient = $client ?: new Client([ 'base_uri' => $authorization->getEndpoint() ]);
+        $afterpaySerializer = $serializer ?: SerializerFactory::getSerializer();
+
+        return new Service\InStore\Order($authorization, $afterpayClient, $afterpaySerializer);
     }
 }
