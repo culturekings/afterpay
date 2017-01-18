@@ -41,7 +41,7 @@ class DeviceSpec extends ObjectBehavior
         $device->setAttributes(['terminal' => 'NCR', 'hardwareId' => '67878']);
 
         $serializer->serialize($device, 'json')->shouldBeCalled();
-        $serializer->deserialize($json, sprintf('array<%s>', Afterpay\Model\InStore\Device::class), 'json')->shouldBeCalled();
+        $serializer->deserialize($json, Afterpay\Model\InStore\Device::class, 'json')->shouldBeCalled();
 
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);

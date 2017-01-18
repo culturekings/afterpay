@@ -1,12 +1,24 @@
 CultureKings\Afterpay\Model\InStore\Device:
   exclusion_policy: ALL
   properties:
+    deviceId:
+      expose: true
+      type: int
+      serialized_name: deviceId
+      groups: [ createToken ]
+    key:
+      expose: true
+      type: string
+      groups: [ createToken ]
     secret:
       expose: true
       type: string
+      groups: [ activateDevice ]
     name:
       expose: true
       type: string
+      groups: [ activateDevice ]
     attributes:
       expose: true
       type: array
+      groups: [ activateDevice ]

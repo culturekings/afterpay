@@ -9,11 +9,11 @@ namespace CultureKings\Afterpay\Model\InStore;
 class Device
 {
     /**
-     * @var
+     * @var int
      */
     protected $deviceId;
     /**
-     * @var
+     * @var string
      */
     protected $key;
 
@@ -29,6 +29,44 @@ class Device
      * @var array $attributes
      */
     protected $attributes;
+
+    /**
+     * @param int $deviceId
+     * @return $this
+     */
+    public function setDeviceId($deviceId)
+    {
+        $this->deviceId = $deviceId;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeviceId()
+    {
+        return $this->deviceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return Device
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+
+        return $this;
+    }
 
     /**
      * @return string

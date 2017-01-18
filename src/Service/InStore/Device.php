@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -37,30 +38,33 @@ class Device
 
     /**
      * @param Model\InStore\Device $device
+     * @param HandlerStack|null    $stack
      *
-     * @return array|\JMS\Serializer\scalar|object
+     * @return array|\JMS\Serializer\scalar|Model\InStore\Device
      */
-    public function activate(Model\InStore\Device $device)
+    public function activate(Model\InStore\Device $device, HandlerStack $stack = null)
     {
         try {
-            $stack = HandlerStack::create();
-
-            $stack->push(Middleware::tap(function (Request $request) {
-                dump((string) $request->getBody());
-            }));
-
-            $result = $this->getClient()->post('devices/activate', [
+            $params = [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
-                'body' => $this->getSerializer()->serialize($device, 'json'),
-                'handler' => $stack,
-            ]);
+                'body' => $this->getSerializer()->serialize(
+                    $device,
+                    'json',
+                    SerializationContext::create()->setGroups(['activateDevice'])
+                ),
+            ];
+            if ($stack !== null) {
+                $params['handler'] = $stack;
+            }
+
+            $result = $this->getClient()->post('devices/activate', $params);
 
             return $this->getSerializer()->deserialize(
-                $result->getBody()->getContents(),
-                sprintf('array<%s>', Model\InStore\Device::class),
+                (string)$result->getBody()->getContents(),
+                Model\InStore\Device::class,
                 'json'
             );
         } catch (ClientException $e) {
@@ -75,22 +79,34 @@ class Device
     }
 
     /**
-     * @return array|\JMS\Serializer\scalar|object
+     * @param Model\InStore\Device $device
+     * @param HandlerStack|null    $stack
+     *
+     * @return array|\JMS\Serializer\scalar|Model\InStore\DeviceToken
      */
-    public function createToken()
+    public function createToken(Model\InStore\Device $device, HandlerStack $stack = null)
     {
         try {
-            $result = $this->getClient()->post('devices/123/token', [
+            $params = [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
-                'body' => $this->getSerializer()->serialize($device, 'json'),
-            ]);
+                'body' => $this->getSerializer()->serialize(
+                    $device,
+                    'json',
+                    SerializationContext::create()->setGroups(['createToken'])
+                ),
+            ];
+            if ($stack !== null) {
+                $params['handler'] = $stack;
+            }
+
+            $result = $this->getClient()->post(sprintf('devices/%d/token', $device->getDeviceId()), $params);
 
             return $this->getSerializer()->deserialize(
                 $result->getBody()->getContents(),
-                sprintf('array<%s>', Model\InStore\Device::class),
+                Model\InStore\DeviceToken::class,
                 'json'
             );
         } catch (ClientException $e) {

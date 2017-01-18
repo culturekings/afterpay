@@ -18,6 +18,15 @@ class Authorization implements AuthorizationInterface
     protected $endpoint;
 
     /**
+     * Authorization constructor.
+     * @param null $endpoint
+     */
+    public function __construct($endpoint = null)
+    {
+        $this->setEndpoint($endpoint);
+    }
+
+    /**
      * @return string
      */
     public function getEndpoint()
