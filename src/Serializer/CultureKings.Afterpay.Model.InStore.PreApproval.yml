@@ -1,0 +1,8 @@
+CultureKings\Afterpay\Model\InStore\PreApproval:
+  exclusion_policy: ALL
+  properties:
+    preApprovalCode:
+      expose: true
+      type: string
+      serialized_name: preApprovalCode
+      groups: [ preApproval ]

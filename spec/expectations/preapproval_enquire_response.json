@@ -1,0 +1,11 @@
+{
+  "amount": {
+    "amount": "115.00",
+    "currency": "AUD"
+  },
+  "minimum": {
+    "amount": "50.00",
+    "currency": "AUD"
+  },
+  "expiresAt": "2015-07-17T00:00:00.000Z"
+}

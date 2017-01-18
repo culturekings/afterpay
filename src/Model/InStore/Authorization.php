@@ -18,6 +18,21 @@ class Authorization implements AuthorizationInterface
     protected $endpoint;
 
     /**
+     * @var string
+     */
+    protected $deviceToken;
+
+    /**
+     * @var string
+     */
+    protected $operator;
+
+    /**
+     * @var string
+     */
+    protected $userAgent;
+
+    /**
      * Authorization constructor.
      * @param null $endpoint
      */
@@ -42,6 +57,66 @@ class Authorization implements AuthorizationInterface
     public function setEndpoint($endpoint)
     {
         $this->endpoint = $endpoint;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeviceToken()
+    {
+        return $this->deviceToken;
+    }
+
+    /**
+     * @param string $deviceToken
+     *
+     * @return Authorization
+     */
+    public function setDeviceToken($deviceToken)
+    {
+        $this->deviceToken = $deviceToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+    /**
+     * @param string $operator
+     *
+     * @return Authorization
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
+    }
+
+    /**
+     * @param string $userAgent
+     *
+     * @return Authorization
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = $userAgent;
 
         return $this;
     }

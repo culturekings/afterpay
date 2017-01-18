@@ -7,8 +7,6 @@ use CultureKings\Afterpay\Traits;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\CultureKings\Afterpay\Model;
+namespace spec\CultureKings\Afterpay\Model\Merchant;
 
 use CultureKings\Afterpay\Model\Merchant\PaymentEvent;
 use DateTime;

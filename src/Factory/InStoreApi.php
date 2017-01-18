@@ -2,7 +2,7 @@
 namespace CultureKings\Afterpay\Factory;
 
 use CultureKings\Afterpay\Model\InStore\Authorization;
-use CultureKings\Afterpay\Service\InStore\Device as DeviceService;
+use CultureKings\Afterpay\Service;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -19,31 +19,39 @@ class InStoreApi
      * @param ClientInterface|null     $client
      * @param SerializerInterface|null $serializer
      *
-     * @return DeviceService
+     * @return Service\InStore\Device
      */
     public static function device(
         Authorization $authorization,
         ClientInterface $client = null,
         SerializerInterface $serializer = null
     ) {
-
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ?: new Client(['base_uri' => $authorization->getEndpoint()]);
+        $afterpayClient = $client ?: new Client([ 'base_uri' => $authorization->getEndpoint() ]);
         $afterpaySerializer = $serializer ?: SerializerFactory::getSerializer();
 
-        return new DeviceService($authorization, $afterpayClient, $afterpaySerializer);
+        return new Service\InStore\Device($authorization, $afterpayClient, $afterpaySerializer);
     }
 
     /**
-     * @param Authorization $authorization
-     * @param Client|null   $client
+     * @param Authorization            $authorization
+     * @param Client|null              $client
+     * @param SerializerInterface|null $serializer
+     *
+     * @return Service\InStore\PreApproval
      */
     public static function preapproval(
         Authorization $authorization,
-        Client $client = null
+        Client $client = null,
+        SerializerInterface $serializer = null
     ) {
-        echo 'here';
+        AnnotationRegistry::registerLoader('class_exists');
+
+        $afterpayClient = $client ?: new Client([ 'base_uri' => $authorization->getEndpoint() ]);
+        $afterpaySerializer = $serializer ?: SerializerFactory::getSerializer();
+
+        return new Service\InStore\PreApproval($authorization, $afterpayClient, $afterpaySerializer);
     }
 
     /**
