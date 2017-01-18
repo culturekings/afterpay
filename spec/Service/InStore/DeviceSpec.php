@@ -4,7 +4,9 @@ namespace spec\CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use JMS\Serializer\SerializationContext;
@@ -62,6 +64,31 @@ class DeviceSpec extends ObjectBehavior
 
     /**
      * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
+     * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator  $errorResponse
+     * @param Afterpay\Model\InStore\Device|\PhpSpec\Wrapper\Collaborator $device
+     */
+    function it_can_handle_device_activation_error(
+        Client $client,
+        SerializerInterface $serializer,
+        Afterpay\Model\ErrorResponse $errorResponse,
+        Afterpay\Model\InStore\Device $device
+    ) {
+        $request = new Request('get', 'test');
+        $response = new Response('400');
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->post('devices/activate', Argument::any())->willThrow($exception);
+
+        $serializer->serialize($device, 'json', SerializationContext::create()->setGroups(['activateDevice']))->shouldBeCalled();
+        $serializer->deserialize(Argument::any(), Afterpay\Model\ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringActivate($device);
+    }
+
+    /**
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
      * @param Stream|\PhpSpec\Wrapper\Collaborator                        $stream
      * @param Response|\PhpSpec\Wrapper\Collaborator                      $response
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
@@ -78,7 +105,6 @@ class DeviceSpec extends ObjectBehavior
     ) {
         $json = file_get_contents(__DIR__ . '/../../expectations/generate_device_token_response.json');
 
-        $device->setDeviceId(1234);
         $device->getDeviceId()->willReturn(1234);
 
         $serializer->serialize($device, 'json', SerializationContext::create()->setGroups(['createToken']))->shouldBeCalled();
@@ -89,5 +115,26 @@ class DeviceSpec extends ObjectBehavior
         $client->post('devices/1234/token', Argument::any())->willReturn($response);
 
         $this->createToken($device, $stack);
+    }
+
+    function it_can_handle_device_token_error(
+        Client $client,
+        SerializerInterface $serializer,
+        Afterpay\Model\ErrorResponse $errorResponse,
+        Afterpay\Model\InStore\Device $device
+    ) {
+        $request = new Request('get', 'test');
+        $response = new Response('400');
+
+        $device->getDeviceId()->willReturn(1234);
+
+        $exception = new ClientException('ddssda', $request, $response);
+
+        $client->post('devices/1234/token', Argument::any())->willThrow($exception);
+
+        $serializer->serialize($device, 'json', SerializationContext::create()->setGroups(['createToken']))->shouldBeCalled();
+        $serializer->deserialize(Argument::any(), Afterpay\Model\ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
+
+        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringCreateToken($device);
     }
 }
