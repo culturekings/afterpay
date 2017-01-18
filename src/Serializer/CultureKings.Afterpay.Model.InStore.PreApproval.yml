@@ -6,3 +6,13 @@ CultureKings\Afterpay\Model\InStore\PreApproval:
       type: string
       serialized_name: preApprovalCode
       groups: [ preApproval ]
+    minimum:
+      expose: true
+      type: CultureKings\Afterpay\Model\Money
+    amount:
+      expose: true
+      type: CultureKings\Afterpay\Model\Money
+    expiresAt:
+      expose: true
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: expiresAt

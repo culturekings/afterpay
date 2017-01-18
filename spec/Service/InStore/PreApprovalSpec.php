@@ -35,7 +35,6 @@ class PreApprovalSpec extends ObjectBehavior
      * @param Stream|\PhpSpec\Wrapper\Collaborator                             $stream
      * @param Response|\PhpSpec\Wrapper\Collaborator                           $response
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator                $serializer
-     * @param Afterpay\Model\InStore\PreApproval|\PhpSpec\Wrapper\Collaborator $preApproval
      * @param HandlerStack|\PhpSpec\Wrapper\Collaborator                       $stack
      */
     function it_can_enquiry_a_preapproval(
@@ -43,32 +42,29 @@ class PreApprovalSpec extends ObjectBehavior
         Stream $stream,
         Response $response,
         SerializerInterface $serializer,
-        Afterpay\Model\InStore\PreApproval $preApproval,
         HandlerStack $stack
     ) {
-        $json = file_get_contents(__DIR__ . '/../../expectations/device_activation_response.json');
+        $json = file_get_contents(__DIR__ . '/../../expectations/preapproval_enquire_response.json');
 
-        $serializer->serialize($preApproval, 'json', SerializationContext::create()->setGroups(['preApproval']))->shouldBeCalled();
-        $serializer->deserialize($json, Afterpay\Model\InStore\Device::class, 'json')->shouldBeCalled();
+        $serializer->serialize('testcode', 'json')->shouldBeCalled();
+        $serializer->deserialize($json, Afterpay\Model\InStore\PreApproval::class, 'json')->shouldBeCalled();
 
         $stream->getContents()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('preapprovals/enquire', Argument::any())->willReturn($response);
 
-        $this->enquiry($preApproval, $stack);
+        $this->enquiry('testcode', $stack);
     }
 
     /**
      * @param Client|\PhpSpec\Wrapper\Collaborator                             $client
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator                $serializer
      * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator       $errorResponse
-     * @param Afterpay\Model\InStore\PreApproval|\PhpSpec\Wrapper\Collaborator $preApproval
      */
     function it_can_handle_preapproval_enquiry_error(
         Client $client,
         SerializerInterface $serializer,
-        Afterpay\Model\ErrorResponse $errorResponse,
-        Afterpay\Model\InStore\PreApproval $preApproval
+        Afterpay\Model\ErrorResponse $errorResponse
     ) {
         $request = new Request('get', 'test');
         $response = new Response('400');
@@ -77,9 +73,9 @@ class PreApprovalSpec extends ObjectBehavior
 
         $client->post('preapprovals/enquire', Argument::any())->willThrow($exception);
 
-        $serializer->serialize($preApproval, 'json', SerializationContext::create()->setGroups(['preApproval']))->shouldBeCalled();
+        $serializer->serialize('testcode', 'json')->shouldBeCalled();
         $serializer->deserialize(Argument::any(), Afterpay\Model\ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
-        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringEnquiry($preApproval);
+        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringEnquiry('testcode');
     }
 }

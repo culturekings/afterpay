@@ -20,13 +20,6 @@ class PreApprovalSpec extends ObjectBehavior
         $this->shouldHaveType(PreApproval::class);
     }
 
-    function its_preapproval_code_is_mutable()
-    {
-        $this->getPreApprovalCode()->shouldReturn(null);
-        $this->setPreApprovalCode('C10WFS8DV3')->shouldReturn($this);
-        $this->getPreApprovalCode()->shouldReturn('C10WFS8DV3');
-    }
-
     /**
      * @param Money|\PhpSpec\Wrapper\Collaborator $money
      */
@@ -47,6 +40,9 @@ class PreApprovalSpec extends ObjectBehavior
         $this->getAmount()->shouldReturn($money);
     }
 
+    /**
+     * @param \DateTime|\PhpSpec\Wrapper\Collaborator $expiresAt
+     */
     function its_expires_at_is_mutable(\DateTime $expiresAt)
     {
         $this->getExpiresAt()->shouldReturn(null);

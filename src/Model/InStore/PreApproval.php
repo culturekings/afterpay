@@ -9,7 +9,6 @@ use CultureKings\Afterpay\Model\Money;
  */
 class PreApproval
 {
-    protected $preApprovalCode;
     /**
      * @var Money
      */
@@ -22,26 +21,6 @@ class PreApproval
      * @var \DateTimeInterface
      */
     protected $expiresAt;
-
-    /**
-     * @return mixed
-     */
-    public function getPreApprovalCode()
-    {
-        return $this->preApprovalCode;
-    }
-
-    /**
-     * @param mixed $preApprovalCode
-     *
-     * @return PreApproval
-     */
-    public function setPreApprovalCode($preApprovalCode)
-    {
-        $this->preApprovalCode = $preApprovalCode;
-
-        return $this;
-    }
 
     /**
      * @return Money

@@ -36,12 +36,12 @@ class PreApproval
     }
 
     /**
-     * @param Model\InStore\PreApproval $preApproval
-     * @param HandlerStack|null         $stack
+     * @param string            $preApprovalCode
+     * @param HandlerStack|null $stack
      *
      * @return array|\JMS\Serializer\scalar|object
      */
-    public function enquiry(Model\InStore\PreApproval $preApproval, HandlerStack $stack = null)
+    public function enquiry($preApprovalCode, HandlerStack $stack = null)
     {
         try {
             $params = [
@@ -53,9 +53,8 @@ class PreApproval
                     'User-Agent' => $this->getAuthorization()->getUserAgent()
                 ],
                 'body' => $this->getSerializer()->serialize(
-                    $preApproval,
-                    'json',
-                    SerializationContext::create()->setGroups(['preApproval'])
+                    ['preApprovalCode' => $preApprovalCode],
+                    'json'
                 ),
             ];
             if ($stack !== null) {
@@ -66,7 +65,7 @@ class PreApproval
 
             return $this->getSerializer()->deserialize(
                 (string) $result->getBody()->getContents(),
-                Model\InStore\Device::class,
+                Model\InStore\PreApproval::class,
                 'json'
             );
         } catch (ClientException $e) {
