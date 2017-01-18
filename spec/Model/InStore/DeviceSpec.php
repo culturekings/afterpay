@@ -39,4 +39,18 @@ class DeviceSpec extends ObjectBehavior
         $this->setAttributes(['terminal' => 'NCR', 'hardwareId' => '678678'])->shouldReturn($this);
         $this->getAttributes()->shouldReturn(['terminal' => 'NCR', 'hardwareId' => '678678']);
     }
+
+    function its_device_id_is_mutable()
+    {
+        $this->getDeviceId()->shouldReturn(null);
+        $this->setDeviceId(1234)->shouldReturn($this);
+        $this->getDeviceId()->shouldReturn(1234);
+    }
+
+    function its_key_is_mutable()
+    {
+        $this->getKey()->shouldReturn(null);
+        $this->setKey('abc1234')->shouldReturn($this);
+        $this->getKey()->shouldReturn('abc1234');
+    }
 }
