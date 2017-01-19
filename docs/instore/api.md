@@ -158,6 +158,31 @@ try {
 }
 ```
 
+## Customer
+
+### Invite
+
+[Invite Docs](http://docs.afterpay.com.au/instore-api-v1.html#invite)
+
+```php
+try {
+    $money = new \CultureKings\Afterpay\Model\Money();
+    $money->setAmount(ORDER_AMOUNT);
+    $money->setCurrency('AUD');
+
+    $inviteModel = new \CultureKings\Afterpay\Model\InStore\Invite();
+    $inviteModel->setMobile(MOBILE_NUMBER);
+    $inviteModel->setExpectedAmount($money);
+    
+    // returns true on success otherwise an exception should be thrown
+    $invite = \CultureKings\Afterpay\Factory\InStoreApi::customer($authorization)->invite($inviteModel);
+       
+} catch (\CultureKings\Afterpay\Exception\ApiException $e) {
+    print_r($e->getErrorResponse());
+}
+```
+
+
 ## Exceptions
 
 If a call to Afterpay fails, a `\CultureKings\Afterpay\Exception\ApiException` will be thrown and the error message can be retrieved via the `getErrorResponse` method.
