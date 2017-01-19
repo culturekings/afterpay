@@ -6,7 +6,7 @@ use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
 use CultureKings\Afterpay\Traits;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\HandlerStack;
 use JMS\Serializer\SerializerInterface;
 
@@ -67,7 +67,7 @@ class Order
                 Model\InStore\Order::class,
                 'json'
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     (string) $e->getResponse()->getBody(),
@@ -111,7 +111,7 @@ class Order
                 Model\InStore\Reversal::class,
                 'json'
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     (string) $e->getResponse()->getBody(),

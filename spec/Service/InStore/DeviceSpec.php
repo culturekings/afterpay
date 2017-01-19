@@ -55,7 +55,7 @@ class DeviceSpec extends ObjectBehavior
         $serializer->serialize($device, 'json', SerializationContext::create()->setGroups(['activateDevice']))->shouldBeCalled();
         $serializer->deserialize($json, Afterpay\Model\InStore\Device::class, 'json')->shouldBeCalled();
 
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('devices/activate', Argument::any())->willReturn($response);
 
@@ -110,7 +110,7 @@ class DeviceSpec extends ObjectBehavior
         $serializer->serialize($device, 'json', SerializationContext::create()->setGroups(['createToken']))->shouldBeCalled();
         $serializer->deserialize($json, Afterpay\Model\InStore\DeviceToken::class, 'json')->shouldBeCalled();
 
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('devices/1234/token', Argument::any())->willReturn($response);
 

@@ -6,9 +6,8 @@ use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
 use CultureKings\Afterpay\Traits;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\HandlerStack;
-use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -64,14 +63,14 @@ class PreApproval
             $result = $this->getClient()->post('preapprovals/enquire', $params);
 
             return $this->getSerializer()->deserialize(
-                (string) $result->getBody()->getContents(),
+                (string) $result->getBody(),
                 Model\InStore\PreApproval::class,
                 'json'
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
-                    $e->getResponse()->getBody()->getContents(),
+                    (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
                 )

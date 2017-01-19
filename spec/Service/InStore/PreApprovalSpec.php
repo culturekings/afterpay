@@ -49,7 +49,7 @@ class PreApprovalSpec extends ObjectBehavior
         $serializer->serialize(['preApprovalCode' => 'testcode'], 'json')->shouldBeCalled();
         $serializer->deserialize($json, Afterpay\Model\InStore\PreApproval::class, 'json')->shouldBeCalled();
 
-        $stream->getContents()->willReturn($json);
+        $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
         $client->post('preapprovals/enquire', Argument::any())->willReturn($response);
 

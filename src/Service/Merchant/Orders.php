@@ -8,7 +8,7 @@ use CultureKings\Afterpay\Model\Merchant\OrderDetails;
 use CultureKings\Afterpay\Model\Merchant\OrderToken;
 use CultureKings\Afterpay\Traits;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\BadResponseException;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -60,10 +60,10 @@ class Orders
                     'body' => $this->getSerializer()->serialize($order, 'json'),
                 ]
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
-                    $e->getResponse()->getBody()->getContents(),
+                    (string) $e->getResponse()->getBody(),
                     ErrorResponse::class,
                     'json'
                 )
@@ -93,10 +93,10 @@ class Orders
                     ],
                 ]
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
-                    $e->getResponse()->getBody()->getContents(),
+                    (string) $e->getResponse()->getBody(),
                     ErrorResponse::class,
                     'json'
                 )

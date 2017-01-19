@@ -5,6 +5,7 @@ use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
 use CultureKings\Afterpay\Traits;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\HandlerStack;
 use JMS\Serializer\SerializerInterface;
@@ -66,7 +67,7 @@ class Refund
                 Model\InStore\Refund::class,
                 'json'
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     (string) $e->getResponse()->getBody(),
@@ -110,7 +111,7 @@ class Refund
                 Model\InStore\Reversal::class,
                 'json'
             );
-        } catch (ClientException $e) {
+        } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     (string) $e->getResponse()->getBody(),
