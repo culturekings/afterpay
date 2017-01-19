@@ -27,7 +27,7 @@ class InStoreApiSpec extends ObjectBehavior
     public function it_can_initialise_preapproval(Authorization $auth)
     {
         $this->beConstructedThrough('preapproval', [$auth]);
-        //$this->shouldBeAnInstanceOf(Service\InStore\Device::class);
+        $this->shouldBeAnInstanceOf(Service\InStore\PreApproval::class);
     }
 
     /**
@@ -36,6 +36,6 @@ class InStoreApiSpec extends ObjectBehavior
     public function it_can_initialise_order(Authorization $auth)
     {
         $this->beConstructedThrough('order', [$auth]);
-        //$this->shouldBeAnInstanceOf(Service\InStore\Device::class);
+        $this->shouldBeAnInstanceOf(Service\InStore\Order::class);
     }
 }
