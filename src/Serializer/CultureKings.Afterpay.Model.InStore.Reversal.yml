@@ -1,4 +1,4 @@
-CultureKings\Afterpay\Model\InStore\OrderReversal:
+CultureKings\Afterpay\Model\InStore\Reversal:
   exclusion_policy: ALL
   properties:
     reverseId:

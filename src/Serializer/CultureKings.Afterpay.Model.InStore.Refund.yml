@@ -1,0 +1,20 @@
+CultureKings\Afterpay\Model\InStore\Refund:
+  exclusion_policy: ALL
+  properties:
+    requestId:
+      type: string
+      serialized_name: requestId
+    requestedAt:
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: requestedAt
+    merchantReference:
+      type: string
+      serialized_name: merchantReference
+    orderId:
+      type: string
+      serialized_name: orderId
+    orderMerchantReference:
+      type: string
+      serialized_name: orderMerchantReference
+    amount:
+      type: CultureKings\Afterpay\Model\Money
