@@ -64,14 +64,14 @@ class Order
             $result = $this->getClient()->post('orders', $params);
 
             return $this->getSerializer()->deserialize(
-                (string) $result->getBody()->getContents(),
+                (string) $result->getBody(),
                 Model\InStore\Order::class,
                 'json'
             );
         } catch (ClientException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
-                    $e->getResponse()->getBody()->getContents(),
+                    (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
                 )

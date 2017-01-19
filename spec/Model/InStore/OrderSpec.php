@@ -54,9 +54,9 @@ class OrderSpec extends ObjectBehavior
      */
     function its_requested_at_is_mutable(\DateTime $dateTime)
     {
-        $this->getRequestAt()->shouldReturn(null);
-        $this->setRequestAt($dateTime)->shouldReturn($this);
-        $this->getRequestAt()->shouldReturn($dateTime);
+        $this->getRequestedAt()->shouldReturn(null);
+        $this->setRequestedAt($dateTime)->shouldReturn($this);
+        $this->getRequestedAt()->shouldReturn($dateTime);
     }
 
     function its_merchant_reference_is_mutable()

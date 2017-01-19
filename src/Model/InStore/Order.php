@@ -25,7 +25,7 @@ class Order
     /**
      * @var \DateTimeInterface
      */
-    protected $requestAt;
+    protected $requestedAt;
     /**
      * @var string
      */
@@ -106,19 +106,21 @@ class Order
     /**
      * @return \DateTimeInterface
      */
-    public function getRequestAt()
+    public function getRequestedAt()
     {
-        return $this->requestAt;
+        return $this->requestedAt;
     }
 
+
+
     /**
-     * @param \DateTimeInterface $requestAt
+     * @param \DateTimeInterface $requestedAt
      *
      * @return Order
      */
-    public function setRequestAt(\DateTimeInterface $requestAt)
+    public function setRequestedAt(\DateTimeInterface $requestedAt)
     {
-        $this->requestAt = $requestAt;
+        $this->requestedAt = $requestedAt;
 
         return $this;
     }

@@ -15,7 +15,7 @@ CultureKings\Afterpay\Model\InStore\Order:
       serialized_name: requestId
     requestedAt:
       expose: true
-      type: string
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
       serialized_name: requestedAt
     merchantReference:
       expose: true
