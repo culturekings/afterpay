@@ -2,16 +2,16 @@
 
 namespace spec\CultureKings\Afterpay\Model\InStore;
 
-use CultureKings\Afterpay\Model\InStore\OrderReversal;
+use CultureKings\Afterpay\Model\InStore\Reversal;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
- * Class OrderReversalSpec
+ * Class ReversalSpec
  * @package spec\CultureKings\Afterpay\Model\InStore
- * @mixin OrderReversal
+ * @mixin Reversal
  */
-class OrderReversalSpec extends ObjectBehavior
+class ReversalSpec extends ObjectBehavior
 {
     function let()
     {
@@ -20,7 +20,7 @@ class OrderReversalSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(OrderReversal::class);
+        $this->shouldHaveType(Reversal::class);
     }
 
     function its_reverse_id_is_mutable()

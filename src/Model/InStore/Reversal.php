@@ -2,10 +2,10 @@
 namespace CultureKings\Afterpay\Model\InStore;
 
 /**
- * Class OrderReversal
+ * Class Reversal
  * @package CultureKings\Afterpay\Model\InStore
  */
-class OrderReversal
+class Reversal
 {
     /**
      * @var string
@@ -35,7 +35,7 @@ class OrderReversal
     /**
      * @param string $reverseId
      *
-     * @return OrderReversal
+     * @return Reversal
      */
     public function setReverseId($reverseId)
     {
@@ -55,7 +55,7 @@ class OrderReversal
     /**
      * @param \DateTimeInterface $reversedAt
      *
-     * @return OrderReversal
+     * @return Reversal
      */
     public function setReversedAt(\DateTimeInterface $reversedAt)
     {
@@ -75,7 +75,7 @@ class OrderReversal
     /**
      * @param \DateTimeInterface $requestedAt
      *
-     * @return OrderReversal
+     * @return Reversal
      */
     public function setRequestedAt(\DateTimeInterface $requestedAt)
     {
@@ -95,7 +95,7 @@ class OrderReversal
     /**
      * @param string $reversingRequestId
      *
-     * @return OrderReversal
+     * @return Reversal
      */
     public function setReversingRequestId($reversingRequestId)
     {

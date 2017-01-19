@@ -15,10 +15,10 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
- * Class OrderSpec
+ * Class RefundSpec
  * @package spec\CultureKings\Afterpay\Service\InStore
  */
-class OrderSpec extends ObjectBehavior
+class RefundSpec extends ObjectBehavior
 {
     function let(Afterpay\Model\InStore\Authorization $auth, Client $client, SerializerInterface $serializer)
     {
@@ -27,60 +27,60 @@ class OrderSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(Afterpay\Service\InStore\Order::class);
+        $this->shouldHaveType(Afterpay\Service\InStore\Refund::class);
     }
 
     /**
-     * @param Client|\PhpSpec\Wrapper\Collaborator                       $client
-     * @param Stream|\PhpSpec\Wrapper\Collaborator                       $stream
-     * @param Response|\PhpSpec\Wrapper\Collaborator                     $response
-     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator          $serializer
-     * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator $order
-     * @param HandlerStack|\PhpSpec\Wrapper\Collaborator                 $stack
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param Stream|\PhpSpec\Wrapper\Collaborator                        $stream
+     * @param Response|\PhpSpec\Wrapper\Collaborator                      $response
+     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
+     * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator $refund
+     * @param HandlerStack|\PhpSpec\Wrapper\Collaborator                  $stack
      */
-    function it_can_create_an_order(
+    function it_can_refund_an_order(
         Client $client,
         Stream $stream,
         Response $response,
         SerializerInterface $serializer,
-        Afterpay\Model\InStore\Order $order,
+        Afterpay\Model\InStore\Refund $refund,
         HandlerStack $stack
     ) {
-        $json = file_get_contents(__DIR__ . '/../../expectations/create_order_response.json');
+        $json = file_get_contents(__DIR__ . '/../../expectations/refund_order_response.json');
 
-        $serializer->serialize($order, 'json')->shouldBeCalled();
-        $serializer->deserialize($json, Afterpay\Model\InStore\Order::class, 'json')->shouldBeCalled();
+        $serializer->serialize($refund, 'json')->shouldBeCalled();
+        $serializer->deserialize($json, Afterpay\Model\InStore\Refund::class, 'json')->shouldBeCalled();
 
         $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
-        $client->post('orders', Argument::any())->willReturn($response);
+        $client->post('refunds', Argument::any())->willReturn($response);
 
-        $this->create($order, $stack);
+        $this->create($refund, $stack);
     }
 
     /**
-     * @param Client|\PhpSpec\Wrapper\Collaborator                       $client
-     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator          $serializer
-     * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator $errorResponse
-     * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator $order
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
+     * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator  $errorResponse
+     * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator $refund
      */
-    function it_can_handle_create_order_error(
+    function it_can_handle_create_refund_error(
         Client $client,
         SerializerInterface $serializer,
         Afterpay\Model\ErrorResponse $errorResponse,
-        Afterpay\Model\InStore\Order $order
+        Afterpay\Model\InStore\Refund $refund
     ) {
         $request = new Request('get', 'test');
         $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
-        $client->post('orders', Argument::any())->willThrow($exception);
+        $client->post('refunds', Argument::any())->willThrow($exception);
 
-        $serializer->serialize($order, 'json')->shouldBeCalled();
+        $serializer->serialize($refund, 'json')->shouldBeCalled();
         $serializer->deserialize(Argument::any(), Afterpay\Model\ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
-        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringCreate($order);
+        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringCreate($refund);
     }
 
     /**
@@ -88,51 +88,51 @@ class OrderSpec extends ObjectBehavior
      * @param Stream|\PhpSpec\Wrapper\Collaborator                          $stream
      * @param Response|\PhpSpec\Wrapper\Collaborator                        $response
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator             $serializer
-     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $orderReversal
+     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $refundReversal
      * @param HandlerStack|\PhpSpec\Wrapper\Collaborator                    $stack
      */
-    function it_can_reverse_an_order(
+    function it_can_reverse_a_refund(
         Client $client,
         Stream $stream,
         Response $response,
         SerializerInterface $serializer,
-        Afterpay\Model\InStore\Reversal $orderReversal,
+        Afterpay\Model\InStore\Reversal $refundReversal,
         HandlerStack $stack
     ) {
-        $json = file_get_contents(__DIR__ . '/../../expectations/order_reverse_response.json');
+        $json = file_get_contents(__DIR__ . '/../../expectations/refund_order_response.json');
 
-        $serializer->serialize($orderReversal, 'json')->shouldBeCalled();
+        $serializer->serialize($refundReversal, 'json')->shouldBeCalled();
         $serializer->deserialize($json, Afterpay\Model\InStore\Reversal::class, 'json')->shouldBeCalled();
 
         $stream->__toString()->willReturn($json);
         $response->getBody()->willReturn($stream);
-        $client->post('orders/reverse', Argument::any())->willReturn($response);
+        $client->post('refunds/reverse', Argument::any())->willReturn($response);
 
-        $this->reverse($orderReversal, $stack);
+        $this->reverse($refundReversal, $stack);
     }
 
     /**
      * @param Client|\PhpSpec\Wrapper\Collaborator                          $client
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator             $serializer
      * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator    $errorResponse
-     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $orderReversal
+     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $refund
      */
-    function it_can_handle_reverse_order_error(
+    function it_can_handle_refund_reversal_error(
         Client $client,
         SerializerInterface $serializer,
         Afterpay\Model\ErrorResponse $errorResponse,
-        Afterpay\Model\InStore\Reversal $orderReversal
+        Afterpay\Model\InStore\Reversal $refund
     ) {
         $request = new Request('get', 'test');
         $response = new Response('400');
 
         $exception = new ClientException('ddssda', $request, $response);
 
-        $client->post('orders/reverse', Argument::any())->willThrow($exception);
+        $client->post('refunds/reverse', Argument::any())->willThrow($exception);
 
-        $serializer->serialize($orderReversal, 'json')->shouldBeCalled();
+        $serializer->serialize($refund, 'json')->shouldBeCalled();
         $serializer->deserialize(Argument::any(), Afterpay\Model\ErrorResponse::class, 'json')->shouldBeCalled()->willReturn($errorResponse);
 
-        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringReverse($orderReversal);
+        $this->shouldThrow(Afterpay\Exception\ApiException::class)->duringReverse($refund);
     }
 }

@@ -73,4 +73,24 @@ class InStoreApi
 
         return new Service\InStore\Order($authorization, $afterpayClient, $afterpaySerializer);
     }
+
+    /**
+     * @param Authorization            $authorization
+     * @param Client|null              $client
+     * @param SerializerInterface|null $serializer
+     *
+     * @return Service\InStore\Refund
+     */
+    public static function refund(
+        Authorization $authorization,
+        Client $client = null,
+        SerializerInterface $serializer = null
+    ) {
+        AnnotationRegistry::registerLoader('class_exists');
+
+        $afterpayClient = $client ?: new Client([ 'base_uri' => $authorization->getEndpoint() ]);
+        $afterpaySerializer = $serializer ?: SerializerFactory::getSerializer();
+
+        return new Service\InStore\Refund($authorization, $afterpayClient, $afterpaySerializer);
+    }
 }

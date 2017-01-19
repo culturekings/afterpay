@@ -1,5 +1,4 @@
 <?php
-
 namespace CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay\Exception\ApiException;
@@ -11,10 +10,10 @@ use GuzzleHttp\HandlerStack;
 use JMS\Serializer\SerializerInterface;
 
 /**
- * Class Order
+ * Class Refund
  * @package CultureKings\Afterpay\Service\InStore
  */
-class Order
+class Refund
 {
     use Traits\ClientTrait;
     use Traits\AuthorizationTrait;
@@ -35,12 +34,12 @@ class Order
     }
 
     /**
-     * @param Model\InStore\Order $order
-     * @param HandlerStack|null   $stack
+     * @param Model\InStore\Refund $refund
+     * @param HandlerStack|null    $stack
      *
      * @return array|\JMS\Serializer\scalar|object
      */
-    public function create(Model\InStore\Order $order, HandlerStack $stack = null)
+    public function create(Model\InStore\Refund $refund, HandlerStack $stack = null)
     {
         try {
             $params = [
@@ -52,7 +51,7 @@ class Order
                     'User-Agent' => $this->getAuthorization()->getUserAgent()
                 ],
                 'body' => $this->getSerializer()->serialize(
-                    $order,
+                    $refund,
                     'json'
                 ),
             ];
@@ -60,11 +59,11 @@ class Order
                 $params['handler'] = $stack;
             }
 
-            $result = $this->getClient()->post('orders', $params);
+            $result = $this->getClient()->post('refunds', $params);
 
             return $this->getSerializer()->deserialize(
                 (string) $result->getBody(),
-                Model\InStore\Order::class,
+                Model\InStore\Refund::class,
                 'json'
             );
         } catch (ClientException $e) {
@@ -79,12 +78,12 @@ class Order
     }
 
     /**
-     * @param Model\InStore\Reversal $orderReversal
+     * @param Model\InStore\Reversal $reversal
      * @param HandlerStack|null      $stack
      *
-     * @return array|\JMS\Serializer\scalar|object
+     * @return array|\JMS\Serializer\scalar|Model\InStore\Reversal
      */
-    public function reverse(Model\InStore\Reversal $orderReversal, HandlerStack $stack = null)
+    public function reverse(Model\InStore\Reversal $reversal, HandlerStack $stack = null)
     {
         try {
             $params = [
@@ -96,7 +95,7 @@ class Order
                     'User-Agent' => $this->getAuthorization()->getUserAgent()
                 ],
                 'body' => $this->getSerializer()->serialize(
-                    $orderReversal,
+                    $reversal,
                     'json'
                 ),
             ];
@@ -104,7 +103,7 @@ class Order
                 $params['handler'] = $stack;
             }
 
-            $result = $this->getClient()->post('orders/reverse', $params);
+            $result = $this->getClient()->post('refunds/reverse', $params);
 
             return $this->getSerializer()->deserialize(
                 (string) $result->getBody(),
