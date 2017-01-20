@@ -7,6 +7,7 @@
     * ```CultureKings\Afterpay\Service\Configuration -> CultureKings\Afterpay\Service\Merchant\Configuration```
     * ```CultureKings\Afterpay\Service\Orders -> CultureKings\Afterpay\Service\Merchant\Orders```
     * ```CultureKings\Afterpay\Service\Payments -> CultureKings\Afterpay\Service\Merchant\Payments```
+    * ```CultureKings\Afterpay\Model\Authorization -> CultureKings\Afterpay\Model\Merchant\Authorization```
     * ```CultureKings\Afterpay\Model\Configuration -> CultureKings\Afterpay\Model\Merchant\Configuration```
     * ```CultureKings\Afterpay\Model\Consumer -> CultureKings\Afterpay\Model\Merchant\Consumer```
     * ```CultureKings\Afterpay\Model\Contact -> CultureKings\Afterpay\Model\Merchant\Contact```
