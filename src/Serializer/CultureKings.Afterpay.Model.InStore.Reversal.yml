@@ -1,0 +1,19 @@
+CultureKings\Afterpay\Model\InStore\Reversal:
+  exclusion_policy: ALL
+  properties:
+    reverseId:
+      expose: true
+      type: string
+      serialized_name: reverseId
+    requestedAt:
+      expose: true
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: requestedAt
+    reversedAt:
+      expose: true
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: reversedAt
+    reversingRequestId:
+      expose: true
+      type: string
+      serialized_name: reversingRequestId

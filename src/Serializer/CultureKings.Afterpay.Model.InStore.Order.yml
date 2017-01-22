@@ -1,0 +1,35 @@
+CultureKings\Afterpay\Model\InStore\Order:
+  exclusion_policy: ALL
+  properties:
+    orderId:
+      expose: true
+      type: integer
+      serialized_name: orderId
+    orderedAt:
+      expose: true
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: orderedAt
+    requestId:
+      expose: true
+      type: string
+      serialized_name: requestId
+    requestedAt:
+      expose: true
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: requestedAt
+    merchantReference:
+      expose: true
+      type: string
+      serialized_name: merchantReference
+    preApprovalCode:
+      expose: true
+      type: string
+      serialized_name: preApprovalCode
+    amount:
+      expose: true
+      type: CultureKings\Afterpay\Model\Money
+    orderItems:
+      expose: true
+      type: array<CultureKings\Afterpay\Model\Item>
+      serialized_name: orderItems
+

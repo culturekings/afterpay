@@ -4,6 +4,7 @@ namespace spec\CultureKings\Afterpay\Handler;
 
 use CultureKings\Afterpay\Handler\DateTimeHandler;
 use JMS\Serializer\JsonDeserializationVisitor;
+use JMS\Serializer\JsonSerializationVisitor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -29,5 +30,12 @@ class DateTimeHandlerSpec extends ObjectBehavior
     function it_does_not_try_to_create_a_date_from_null(JsonDeserializationVisitor $visitor)
     {
         $this->deserializeDateTimeFromJson($visitor, null, [])->shouldReturn(null);
+    }
+
+    function it_can_serialize_a_datetime(JsonSerializationVisitor $visitor)
+    {
+        $dateTime = new \DateTime('2017-01-01');
+        $res = $this->serializeDateTimeToJson($visitor, $dateTime, ['params' => ['\Y Y \m m \d d']]);
+        $res->shouldEqual('Y 2017 m 01 d 01');
     }
 }

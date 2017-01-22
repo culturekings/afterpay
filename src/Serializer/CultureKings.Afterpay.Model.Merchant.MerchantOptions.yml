@@ -1,0 +1,9 @@
+CultureKings\Afterpay\Model\Merchant\MerchantOptions:
+  exclusion_policy: NONE
+  properties:
+    redirectConfirmUrl:
+      type: string
+      serialized_name: redirectConfirmUrl
+    redirectCancelUrl:
+      type: string
+      serialized_name: redirectCancelUrl

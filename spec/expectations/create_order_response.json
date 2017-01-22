@@ -1,0 +1,32 @@
+{
+  "orderId":"100012",
+  "orderedAt":"2015-07-14T10:08:15.456Z",
+  "requestId":"61cdad2d-8e10-42ec-a97b-8712dd7a8ca9",
+  "requestedAt":"2015-07-14T10:08:14.123Z",
+  "preApprovalCode":"12FA1G3C2E9D",
+  "amount": {
+    "amount": "15.00",
+    "currency": "AUD"
+  },
+  "merchantReference": "123987",
+  "orderItems": [
+    {
+      "name": "widget",
+      "sku": "123412234",
+      "quantity": 1,
+      "price": {
+        "amount": "10.00",
+        "currency": "AUD"
+      }
+    },
+    {
+      "name": "blob",
+      "sku": "123324u4",
+      "quantity": 1,
+      "price": {
+        "amount": "5.00",
+        "currency": "AUD"
+      }
+    }
+  ]
+}

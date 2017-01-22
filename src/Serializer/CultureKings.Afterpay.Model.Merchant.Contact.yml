@@ -1,0 +1,21 @@
+CultureKings\Afterpay\Model\Merchant\Contact:
+  exclusion_policy: NONE
+  properties:
+    name:
+      type: string
+    line1:
+      type: string
+    line2:
+      type: string
+    suburb:
+      type: string
+    state:
+      type: string
+    postcode:
+      type: string
+    countryCode:
+      type: string
+      serialized_name: countryCode
+    phoneNumber:
+      type: string
+      serialized_name: phoneNumber

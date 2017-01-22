@@ -1,0 +1,10 @@
+CultureKings\Afterpay\Model\InStore\DeviceToken:
+  exclusion_policy: ALL
+  properties:
+    token:
+      expose: true
+      type: string
+    expiresIn:
+      expose: true
+      type: int
+      serialized_name: expiresIn

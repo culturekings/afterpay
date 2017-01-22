@@ -1,0 +1,6 @@
+CultureKings\Afterpay\Model\Merchant\OrderToken:
+  properties:
+    token:
+      type: string
+    expires:
+      type: DateTime

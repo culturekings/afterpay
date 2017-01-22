@@ -1,0 +1,13 @@
+{
+  "refundId": "100016",
+  "refundedAt": "2015-07-14T10:08:15.456Z",
+  "requestId": "7c4bdcd7-09b2-4a2d-a7cb-5017b621d6f7",
+  "requestedAt": "2015-07-14T10:08:14.123Z",
+  "merchantReference": "123987",
+  "orderId": "100015",
+  "orderMerchantReference": "100012",
+  "amount": {
+    "amount": "10.00",
+    "currency": "AUD"
+  }
+}

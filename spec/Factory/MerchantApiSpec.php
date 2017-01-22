@@ -2,38 +2,31 @@
 
 namespace spec\CultureKings\Afterpay\Factory;
 
-use CultureKings\Afterpay\Factory\MerchantApi;
 use CultureKings\Afterpay\Model\Merchant\Authorization;
-use CultureKings\Afterpay\Service\Merchant\Configuration;
-use CultureKings\Afterpay\Service\Merchant\Orders;
-use CultureKings\Afterpay\Service\Merchant\Payments;
+use CultureKings\Afterpay\Service;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class ApiSpec
+ * Class MerchantApiSpec
  * @package spec\CultureKings\Afterpay\Factory
  */
-class ApiSpec extends ObjectBehavior
+class MerchantApiSpec extends ObjectBehavior
 {
     public function it_can_initialise_configuration(Authorization $auth)
     {
         $this->beConstructedThrough('configuration', [$auth]);
-        $this->shouldBeAnInstanceOf(Configuration::class);
+        $this->shouldBeAnInstanceOf(Service\Merchant\Configuration::class);
     }
 
     public function it_can_initialise_payments(Authorization $auth)
     {
         $this->beConstructedThrough('payments', [$auth]);
-        $this->shouldBeAnInstanceOf(Payments::class);
+        $this->shouldBeAnInstanceOf(Service\Merchant\Payments::class);
     }
 
     public function it_can_initialise_orders(Authorization $auth)
     {
         $this->beConstructedThrough('orders', [$auth]);
-        $this->shouldBeAnInstanceOf(Orders::class);
-    }
-
-    public function it_extends_merchant_api() {
-        $this->shouldBeAnInstanceOf(MerchantApi::class);
+        $this->shouldBeAnInstanceOf(Service\Merchant\Orders::class);
     }
 }

@@ -1,0 +1,11 @@
+CultureKings\Afterpay\Model\InStore\Invite:
+  exclusion_policy: ALL
+  properties:
+    mobile:
+      expose: true
+      type: string
+      serialized_name: mobile
+    expectedAmount:
+      expose: true
+      type: CultureKings\Afterpay\Model\Money
+      serialized_name: expectedAmount
