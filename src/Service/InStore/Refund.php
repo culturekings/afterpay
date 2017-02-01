@@ -73,7 +73,8 @@ class Refund
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
     }
@@ -117,7 +118,8 @@ class Refund
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
     }

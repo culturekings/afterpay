@@ -70,7 +70,8 @@ class Customer
                     (string) $e->getResponse()->getBody(),
                     ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 

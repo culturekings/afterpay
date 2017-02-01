@@ -71,7 +71,8 @@ class Device
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
     }
@@ -113,7 +114,8 @@ class Device
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
     }

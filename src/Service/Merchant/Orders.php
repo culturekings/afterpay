@@ -66,7 +66,8 @@ class Orders
                     (string) $e->getResponse()->getBody(),
                     ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -99,7 +100,8 @@ class Orders
                     (string) $e->getResponse()->getBody(),
                     ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 

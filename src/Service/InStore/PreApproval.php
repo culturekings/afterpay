@@ -73,7 +73,8 @@ class PreApproval
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
     }
