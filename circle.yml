@@ -22,7 +22,9 @@ stages:
         command: composer install -o --no-suggest --no-interaction --no-progress --prefer-dist
       - type: shell
         name: Run Tests
-        command: vendor/bin/phpspec run --format=pretty
+        command: |
+          mkdir -p /tmp/testresults/phpspec
+          vendor/bin/phpspec run --format=junit > /tmp/testresults/phpspec/junit.xml
       - type: shell
         name: Run Coding Standards
         command: |
