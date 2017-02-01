@@ -25,12 +25,14 @@ stages:
         command: |
           mkdir -p build/tests/phpspec
           vendor/bin/phpspec run --format=junit > build/tests/phpspec/junit.xml
+          cat build/tests/phpspec/junit.xml
       - type: shell
         name: Run Coding Standards
         command: |
           mkdir -p build/tests/phpcs
           vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
           vendor/bin/phpcs --report-junit=build/tests/phpcs/junit.xml
+          cat build/tests/phpcs/junit.xml
       - type: shell
         name: Update Code Coverage
         command: |
