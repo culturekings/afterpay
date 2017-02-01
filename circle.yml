@@ -26,10 +26,13 @@ stages:
       - type: shell
         name: Run Coding Standards
         command: |
+          mkdir -p /tmp/testresults/phpcs
           vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
-          vendor/bin/phpcs
+          vendor/bin/phpcs --report-junit=/tmp/testresults/phpcs/junit.xml
       - type: shell
         name: Update Code Coverage
         command: |
           mkdir -p build/logs
           vendor/bin/coveralls -v -x coverage_clover.xml
+      - type: test-results-store
+        path: /tmp/testresults/
