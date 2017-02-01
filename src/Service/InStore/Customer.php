@@ -1,7 +1,6 @@
 <?php
 namespace CultureKings\Afterpay\Service\InStore;
 
-
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model\ErrorResponse;
 use CultureKings\Afterpay\Model;
@@ -51,7 +50,7 @@ class Customer
                     'Content-Type' => 'application/json',
                     'Authorization' => sprintf('Bearer %s', $this->getAuthorization()->getDeviceToken()),
                     'Operator' => $this->getAuthorization()->getOperator(),
-                    'User-Agent' => $this->getAuthorization()->getUserAgent()
+                    'User-Agent' => $this->getAuthorization()->getUserAgent(),
                 ],
                 'body' => $this->getSerializer()->serialize($invite, 'json'),
             ];

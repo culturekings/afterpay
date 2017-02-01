@@ -67,36 +67,40 @@ class ShippingCourier
     public function setShippedAt(DateTime $shippedAt)
     {
         $this->shippedAt = $shippedAt;
+
         return $this;
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * @param $tracking
+     * @param string $tracking
      * @return $this
      */
     public function setTracking($tracking)
     {
         $this->tracking = $tracking;
+
         return $this;
     }
 
     /**
-     * @param $priority
+     * @param string $priority
      * @return $this
      */
     public function setPriority($priority)
     {
         $this->priority = $priority;
+
         return $this;
     }
 }

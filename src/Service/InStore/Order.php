@@ -1,5 +1,4 @@
 <?php
-
 namespace CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay\Exception\ApiException;
@@ -49,7 +48,7 @@ class Order
                     'Content-Type' => 'application/json',
                     'Authorization' => sprintf('Bearer %s', $this->getAuthorization()->getDeviceToken()),
                     'Operator' => $this->getAuthorization()->getOperator(),
-                    'User-Agent' => $this->getAuthorization()->getUserAgent()
+                    'User-Agent' => $this->getAuthorization()->getUserAgent(),
                 ],
                 'body' => $this->getSerializer()->serialize(
                     $order,
@@ -94,7 +93,7 @@ class Order
                     'Content-Type' => 'application/json',
                     'Authorization' => sprintf('Bearer %s', $this->getAuthorization()->getDeviceToken()),
                     'Operator' => $this->getAuthorization()->getOperator(),
-                    'User-Agent' => $this->getAuthorization()->getUserAgent()
+                    'User-Agent' => $this->getAuthorization()->getUserAgent(),
                 ],
                 'body' => $this->getSerializer()->serialize(
                     $orderReversal,

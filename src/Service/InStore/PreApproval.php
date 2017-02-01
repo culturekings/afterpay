@@ -49,7 +49,7 @@ class PreApproval
                     'Content-Type' => 'application/json',
                     'Authorization' => sprintf('Bearer %s', $this->getAuthorization()->getDeviceToken()),
                     'Operator' => $this->getAuthorization()->getOperator(),
-                    'User-Agent' => $this->getAuthorization()->getUserAgent()
+                    'User-Agent' => $this->getAuthorization()->getUserAgent(),
                 ],
                 'body' => $this->getSerializer()->serialize(
                     ['preApprovalCode' => $preApprovalCode],
