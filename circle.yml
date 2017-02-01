@@ -44,3 +44,5 @@ stages:
         command: |
           mkdir -p build/logs
           vendor/bin/coveralls -v -x coverage_clover.xml
+      - type: test-results-store
+        path: build/tests/
