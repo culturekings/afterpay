@@ -26,6 +26,9 @@ stages:
           mkdir -p build/tests/phpspec
           vendor/bin/phpspec run --format=junit > build/tests/phpspec/junit.xml
           cat build/tests/phpspec/junit.xml
+      - type: artifacts-store
+        path: build/tests/phpspec
+        destination: phpspec
       - type: shell
         name: Run Coding Standards
         command: |
@@ -33,10 +36,11 @@ stages:
           vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
           vendor/bin/phpcs --report-junit=build/tests/phpcs/junit.xml
           cat build/tests/phpcs/junit.xml
+      - type: artifacts-store
+        path: build/tests/phpcs
+        destination: phpcs
       - type: shell
         name: Update Code Coverage
         command: |
           mkdir -p build/logs
           vendor/bin/coveralls -v -x coverage_clover.xml
-      - type: test-results-store
-        path: build/tests
