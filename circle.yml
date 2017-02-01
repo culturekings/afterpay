@@ -23,12 +23,12 @@ stages:
       - type: shell
         name: Run Tests
         command: |
-          mkdir -p /tmp/testresults/phpspec
+          mkdir -p build/tests/phpspec
           vendor/bin/phpspec run --format=junit > /tmp/testresults/phpspec/junit.xml
       - type: shell
         name: Run Coding Standards
         command: |
-          mkdir -p /tmp/testresults/phpcs
+          mkdir -p build/tests/phpcs
           vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
           vendor/bin/phpcs --report-junit=/tmp/testresults/phpcs/junit.xml
       - type: shell
@@ -37,4 +37,4 @@ stages:
           mkdir -p build/logs
           vendor/bin/coveralls -v -x coverage_clover.xml
       - type: test-results-store
-        path: /tmp/testresults/
+        path: build/tests
