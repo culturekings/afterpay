@@ -3,37 +3,16 @@ namespace CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
-use CultureKings\Afterpay\Traits;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\HandlerStack;
 use JMS\Serializer\SerializationContext;
-use JMS\Serializer\SerializerInterface;
 
 /**
  * Class Device
  * @package CultureKings\Afterpay\Service\InStore
  */
-class Device
+class Device extends AbstractService
 {
-    use Traits\ClientTrait;
-    use Traits\AuthorizationTrait;
-    use Traits\SerializerTrait;
-
-    /**
-     * Device constructor.
-     *
-     * @param Model\InStore\Authorization $auth
-     * @param Client                      $client
-     * @param SerializerInterface         $serializer
-     */
-    public function __construct(Model\InStore\Authorization $auth, Client $client, SerializerInterface $serializer)
-    {
-        $this->setAuthorization($auth);
-        $this->setClient($client);
-        $this->setSerializer($serializer);
-    }
-
     /**
      * @param Model\InStore\Device $device
      * @param HandlerStack|null    $stack

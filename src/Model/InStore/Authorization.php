@@ -11,6 +11,7 @@ class Authorization implements AuthorizationInterface
 {
     const PRODUCTION_URI = 'https://posapi.secure-afterpay.com.au/v1/';
     const SANDBOX_URI = 'https://posapi-sandbox.secure-afterpay.com.au/v1/';
+    const REQUEST_TIMEOUT_SECONDS = 30;
 
     /**
      * @var string
