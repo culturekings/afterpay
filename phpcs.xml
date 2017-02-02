@@ -4,14 +4,6 @@
 
     <file>src</file>
 
-    <exclude-pattern>*.css</exclude-pattern>
-    <exclude-pattern>*.html</exclude-pattern>
-    <exclude-pattern>*.js</exclude-pattern>
-    <exclude-pattern>*.sh</exclude-pattern>
-    <exclude-pattern>*/spec/*</exclude-pattern>
-    <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
-
     <arg name="report" value="full"/>
     <arg name="colors"/>
     <arg value="np"/>

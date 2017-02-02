@@ -3,62 +3,34 @@ namespace CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
-use CultureKings\Afterpay\Traits;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
-use JMS\Serializer\SerializerInterface;
 
 /**
  * Class Refund
  * @package CultureKings\Afterpay\Service\InStore
  */
-class Refund
+class Refund extends AbstractService
 {
-    use Traits\ClientTrait;
-    use Traits\AuthorizationTrait;
-    use Traits\SerializerTrait;
-
-    /**
-     * Device constructor.
-     *
-     * @param Model\InStore\Authorization $auth
-     * @param Client                      $client
-     * @param SerializerInterface         $serializer
-     */
-    public function __construct(Model\InStore\Authorization $auth, Client $client, SerializerInterface $serializer)
-    {
-        $this->setAuthorization($auth);
-        $this->setClient($client);
-        $this->setSerializer($serializer);
-    }
+    const ERROR_CONFLICT = 409;
+    const ERROR_INVALID_ORDER_MERCHANT_REFERENCE = 412;
+    const ERROR_PRECONDITION_FAILED = 412;
+    const ERROR_INVALID_AMOUNT = 412;
 
     /**
      * @param Model\InStore\Refund $refund
      * @param HandlerStack|null    $stack
      *
-     * @return array|\JMS\Serializer\scalar|object
+     * @return Model\InStore\Refund|array|\JMS\Serializer\scalar|object
      */
     public function create(Model\InStore\Refund $refund, HandlerStack $stack = null)
     {
         try {
-            $params = [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                    'Authorization' => sprintf('Bearer %s', $this->getAuthorization()->getDeviceToken()),
-                    'Operator' => $this->getAuthorization()->getOperator(),
-                    'User-Agent' => $this->getAuthorization()->getUserAgent()
-                ],
-                'body' => $this->getSerializer()->serialize(
-                    $refund,
-                    'json'
-                ),
-            ];
-            if ($stack !== null) {
-                $params['handler'] = $stack;
-            }
+            $params = $this->generateParams(
+                $refund,
+                $stack
+            );
 
             $result = $this->getClient()->post('refunds', $params);
 
@@ -67,13 +39,14 @@ class Refund
                 Model\InStore\Refund::class,
                 'json'
             );
-        } catch (BadResponseException $e) {
+        } catch (BadResponseException $exception) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
-                    (string) $e->getResponse()->getBody(),
+                    (string) $exception->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $exception
             );
         }
     }
@@ -87,22 +60,10 @@ class Refund
     public function reverse(Model\InStore\Reversal $reversal, HandlerStack $stack = null)
     {
         try {
-            $params = [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                    'Authorization' => sprintf('Bearer %s', $this->getAuthorization()->getDeviceToken()),
-                    'Operator' => $this->getAuthorization()->getOperator(),
-                    'User-Agent' => $this->getAuthorization()->getUserAgent()
-                ],
-                'body' => $this->getSerializer()->serialize(
-                    $reversal,
-                    'json'
-                ),
-            ];
-            if ($stack !== null) {
-                $params['handler'] = $stack;
-            }
+            $params = $this->generateParams(
+                $reversal,
+                $stack
+            );
 
             $result = $this->getClient()->post('refunds/reverse', $params);
 
@@ -111,14 +72,54 @@ class Refund
                 Model\InStore\Reversal::class,
                 'json'
             );
-        } catch (BadResponseException $e) {
+        } catch (RequestException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
+    }
+
+    /**
+     * Helper method to automatically attempt to reverse a refund if an error occurs.
+     *
+     * Refund reversal model does not have to be passed in and will be automatically generated if not.
+     *
+     * @param Model\InStore\Refund        $refund
+     * @param Model\InStore\Reversal|null $refundReversal
+     * @param HandlerStack|null           $stack
+     *
+     * @return array|\JMS\Serializer\scalar|object
+     */
+    public function createOrReverse(
+        Model\InStore\Refund $refund,
+        Model\InStore\Reversal $refundReversal = null,
+        HandlerStack $stack = null
+    ) {
+        try {
+            return $this->create($refund, $stack);
+        } catch (ApiException $e) {
+            // http://docs.afterpay.com.au/instore-api-v1.html#create-refund
+            // Should a success or error response (with exception to 409 conflict) not be received,
+            // the POS should queue the request ID for reversal
+            if ($e->getErrorResponse()->getErrorCode() == self::ERROR_CONFLICT) {
+                throw $e;
+            }
+        } catch (RequestException $e) {
+            // a timeout or other exception has occurred. attempt a reversal
+        }
+
+        $now = new \DateTime();
+        if ($refundReversal === null) {
+            $refundReversal = new Model\InStore\Reversal();
+            $refundReversal->setReversingRequestId($refund->getRequestId());
+            $refundReversal->setRequestedAt($now);
+        }
+
+        return $this->reverse($refundReversal, $stack);
     }
 }

@@ -70,7 +70,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -118,7 +119,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -151,7 +153,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -185,7 +188,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -232,7 +236,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -265,7 +270,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 
@@ -313,7 +319,8 @@ class Payments
                     (string) $e->getResponse()->getBody(),
                     Model\ErrorResponse::class,
                     'json'
-                )
+                ),
+                $e
             );
         }
 

@@ -25,7 +25,7 @@ class DeviceToken
     }
 
     /**
-     * @param $token
+     * @param string $token
      *
      * @return $this
      */
@@ -45,7 +45,7 @@ class DeviceToken
     }
 
     /**
-     * @param $expiresIn
+     * @param int $expiresIn
      *
      * @return $this
      */

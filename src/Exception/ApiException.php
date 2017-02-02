@@ -18,14 +18,21 @@ class ApiException extends RuntimeException
 
     /**
      * ApiException constructor.
-     * @param ErrorResponse|object $errorResponse
-     * @param string               $message
-     * @param int                  $code
-     * @param Exception|null       $previous
+     *
+     * @param ErrorResponse    $errorResponse
+     * @param Exception|string $message
+     * @param int              $code
+     * @param Exception|null   $previous
      */
     public function __construct(ErrorResponse $errorResponse, $message = "", $code = 0, Exception $previous = null)
     {
         $this->errorResponse = $errorResponse;
+
+        //allow minimal construction
+        if ($message instanceof Exception) {
+            $previous = $message;
+            $message = $previous->getMessage();
+        }
 
         parent::__construct($message, $code, $previous);
     }
