@@ -199,7 +199,6 @@ class RefundSpec extends ObjectBehavior
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator             $serializer
      * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator    $errorResponse
      * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator   $refund
-     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $refundReversal
      * @param Stream|\PhpSpec\Wrapper\Collaborator                          $stream
      * @param Response|\PhpSpec\Wrapper\Collaborator                        $reversalResponse
      */
@@ -208,10 +207,10 @@ class RefundSpec extends ObjectBehavior
         SerializerInterface $serializer,
         Afterpay\Model\ErrorResponse $errorResponse,
         Afterpay\Model\InStore\Refund $refund,
-        Afterpay\Model\InStore\Reversal $refundReversal,
         Stream $stream,
         Response $reversalResponse
     ) {
+        $refundReversal = new Afterpay\Model\InStore\Reversal();
         $errorResponse->getErrorCode()->shouldBeCalled()->willReturn(Afterpay\Service\InStore\Refund::ERROR_INVALID_AMOUNT);
         $request = new Request('get', 'test');
         $response = new Response('400');
@@ -235,24 +234,24 @@ class RefundSpec extends ObjectBehavior
         $res = $this->createOrReverse($refund, $refundReversal);
 
         $res->shouldBeAnInstanceOf(Afterpay\Model\InStore\Reversal::class);
+        $res->getErrorReason()->shouldBeAnInstanceOf(Afterpay\Model\ErrorResponse::class);
     }
 
     /**
-     * @param Client|\PhpSpec\Wrapper\Collaborator                          $client
-     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator             $serializer
-     * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator   $refund
-     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $refundReversal
-     * @param Stream|\PhpSpec\Wrapper\Collaborator                          $stream
-     * @param Response|\PhpSpec\Wrapper\Collaborator                        $reversalResponse
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator           $serializer
+     * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator $refund
+     * @param Stream|\PhpSpec\Wrapper\Collaborator                        $stream
+     * @param Response|\PhpSpec\Wrapper\Collaborator                      $reversalResponse
      */
     function it_will_attempt_a_reversal_when_a_server_error_is_returned_with_createOrReverse(
         Client $client,
         SerializerInterface $serializer,
         Afterpay\Model\InStore\Refund $refund,
-        Afterpay\Model\InStore\Reversal $refundReversal,
         Stream $stream,
         Response $reversalResponse
     ) {
+        $refundReversal = new Afterpay\Model\InStore\Reversal();
         $request = new Request('get', 'test');
         $response = new Response('400');
 
@@ -274,5 +273,6 @@ class RefundSpec extends ObjectBehavior
         $res = $this->createOrReverse($refund, $refundReversal);
 
         $res->shouldBeAnInstanceOf(Afterpay\Model\InStore\Reversal::class);
+        $res->getErrorReason()->shouldBeAnInstanceOf(Afterpay\Model\ErrorResponse::class);
     }
 }

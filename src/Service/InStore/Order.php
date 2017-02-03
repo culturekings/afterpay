@@ -3,6 +3,7 @@ namespace CultureKings\Afterpay\Service\InStore;
 
 use CultureKings\Afterpay\Exception\ApiException;
 use CultureKings\Afterpay\Model;
+use DateTime;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -52,8 +53,9 @@ class Order extends AbstractService
     /**
      * @param Model\InStore\Reversal $orderReversal
      * @param HandlerStack|null      $stack
+     * @throws ApiException
      *
-     * @return array|\JMS\Serializer\scalar|object
+     * @return Model\InStore\Reversal
      */
     public function reverse(Model\InStore\Reversal $orderReversal, HandlerStack $stack = null)
     {
@@ -62,11 +64,14 @@ class Order extends AbstractService
 
             $result = $this->getClient()->post('orders/reverse', $params);
 
-            return $this->getSerializer()->deserialize(
+            /** @var Model\InStore\Reversal $reversal */
+            $reversal = $this->getSerializer()->deserialize(
                 (string) $result->getBody(),
                 Model\InStore\Reversal::class,
                 'json'
             );
+
+            return $reversal;
         } catch (BadResponseException $e) {
             throw new ApiException(
                 $this->getSerializer()->deserialize(
@@ -88,13 +93,14 @@ class Order extends AbstractService
      * @param Model\InStore\Reversal|null $orderReversal
      * @param HandlerStack|null           $stack
      *
-     * @return array|\JMS\Serializer\scalar|object
+     * @return Model\InStore\Order|Model\InStore\Reversal|array|\JMS\Serializer\scalar|object
      */
     public function createOrReverse(
         Model\InStore\Order $order,
         Model\InStore\Reversal $orderReversal = null,
         HandlerStack $stack = null
     ) {
+        $errorResponse = null;
         try {
             return $this->create($order, $stack);
         } catch (ApiException $e) {
@@ -104,17 +110,23 @@ class Order extends AbstractService
             if ($e->getErrorResponse()->getErrorCode() == self::ERROR_CONFLICT) {
                 throw $e;
             }
+            $errorResponse = $e->getErrorResponse();
         } catch (RequestException $e) {
             // a timeout or other exception has occurred. attempt a reversal
+            $errorResponse = new Model\ErrorResponse();
+            $errorResponse->setHttpStatusCode($e->getResponse()->getStatusCode());
+            $errorResponse->setMessage($e->getMessage());
         }
 
-        $now = new \DateTime();
         if ($orderReversal === null) {
             $orderReversal = new Model\InStore\Reversal();
             $orderReversal->setReversingRequestId($order->getRequestId());
-            $orderReversal->setRequestedAt($now);
+            $orderReversal->setRequestedAt(new DateTime());
         }
 
-        return $this->reverse($orderReversal, $stack);
+        $reversal = $this->reverse($orderReversal, $stack);
+        $reversal->setErrorReason($errorResponse);
+
+        return $reversal;
     }
 }
