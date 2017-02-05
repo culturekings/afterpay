@@ -1,6 +1,8 @@
 <?php
 namespace CultureKings\Afterpay\Model\InStore;
 
+use CultureKings\Afterpay\Model\ErrorResponse;
+
 /**
  * Class Reversal
  * @package CultureKings\Afterpay\Model\InStore
@@ -23,6 +25,12 @@ class Reversal
      * @var string
      */
     protected $reversingRequestId;
+    /**
+     * The Afterpay error that caused the reversal
+     *
+     * @var ErrorResponse
+     */
+    protected $errorReason;
 
     /**
      * @return string
@@ -100,6 +108,26 @@ class Reversal
     public function setReversingRequestId($reversingRequestId)
     {
         $this->reversingRequestId = $reversingRequestId;
+
+        return $this;
+    }
+
+    /**
+     * @return ErrorResponse
+     */
+    public function getErrorReason()
+    {
+        return $this->errorReason;
+    }
+
+    /**
+     * @param ErrorResponse $reason
+     *
+     * @return Reversal
+     */
+    public function setErrorReason(ErrorResponse $reason)
+    {
+        $this->errorReason = $reason;
 
         return $this;
     }

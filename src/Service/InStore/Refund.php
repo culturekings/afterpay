@@ -93,13 +93,14 @@ class Refund extends AbstractService
      * @param Model\InStore\Reversal|null $refundReversal
      * @param HandlerStack|null           $stack
      *
-     * @return array|\JMS\Serializer\scalar|object
+     * @return Model\InStore\Refund|Model\InStore\Reversal|array|\JMS\Serializer\scalar|object
      */
     public function createOrReverse(
         Model\InStore\Refund $refund,
         Model\InStore\Reversal $refundReversal = null,
         HandlerStack $stack = null
     ) {
+        $errorResponse = null;
         try {
             return $this->create($refund, $stack);
         } catch (ApiException $e) {
@@ -109,8 +110,12 @@ class Refund extends AbstractService
             if ($e->getErrorResponse()->getErrorCode() == self::ERROR_CONFLICT) {
                 throw $e;
             }
+            $errorResponse = $e->getErrorResponse();
         } catch (RequestException $e) {
             // a timeout or other exception has occurred. attempt a reversal
+            $errorResponse = new Model\ErrorResponse();
+            $errorResponse->setHttpStatusCode($e->getResponse()->getStatusCode());
+            $errorResponse->setMessage($e->getMessage());
         }
 
         $now = new \DateTime();
@@ -120,6 +125,9 @@ class Refund extends AbstractService
             $refundReversal->setRequestedAt($now);
         }
 
-        return $this->reverse($refundReversal, $stack);
+        $reversal = $this->reverse($refundReversal, $stack);
+        $reversal->setErrorReason($errorResponse);
+
+        return $reversal;
     }
 }

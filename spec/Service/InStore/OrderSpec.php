@@ -199,7 +199,6 @@ class OrderSpec extends ObjectBehavior
      * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator             $serializer
      * @param Afterpay\Model\ErrorResponse|\PhpSpec\Wrapper\Collaborator    $errorResponse
      * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator    $order
-     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $orderReversal
      * @param Stream|\PhpSpec\Wrapper\Collaborator                          $stream
      * @param Response|\PhpSpec\Wrapper\Collaborator                        $reversalResponse
      */
@@ -208,10 +207,11 @@ class OrderSpec extends ObjectBehavior
         SerializerInterface $serializer,
         Afterpay\Model\ErrorResponse $errorResponse,
         Afterpay\Model\InStore\Order $order,
-        Afterpay\Model\InStore\Reversal $orderReversal,
         Stream $stream,
         Response $reversalResponse
     ) {
+        $orderReversal = new Afterpay\Model\InStore\Reversal();
+
         $errorResponse->getErrorCode()->shouldBeCalled()->willReturn(Afterpay\Service\InStore\Order::ERROR_DECLINED);
         $request = new Request('get', 'test');
         $response = new Response('400');
@@ -235,21 +235,20 @@ class OrderSpec extends ObjectBehavior
         $res = $this->createOrReverse($order, $orderReversal);
 
         $res->shouldBeAnInstanceOf(Afterpay\Model\InStore\Reversal::class);
+        $res->getErrorReason()->shouldBeAnInstanceOf(Afterpay\Model\ErrorResponse::class);
     }
 
     /**
-     * @param Client|\PhpSpec\Wrapper\Collaborator                          $client
-     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator             $serializer
-     * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator    $order
-     * @param Afterpay\Model\InStore\Reversal|\PhpSpec\Wrapper\Collaborator $orderReversal
-     * @param Stream|\PhpSpec\Wrapper\Collaborator                          $stream
-     * @param Response|\PhpSpec\Wrapper\Collaborator                        $reversalResponse
+     * @param Client|\PhpSpec\Wrapper\Collaborator                       $client
+     * @param SerializerInterface|\PhpSpec\Wrapper\Collaborator          $serializer
+     * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator $order
+     * @param Stream|\PhpSpec\Wrapper\Collaborator                       $stream
+     * @param Response|\PhpSpec\Wrapper\Collaborator                     $reversalResponse
      */
     function it_will_attempt_a_reversal_when_a_server_error_is_returned_with_createOrReverse(
         Client $client,
         SerializerInterface $serializer,
         Afterpay\Model\InStore\Order $order,
-        Afterpay\Model\InStore\Reversal $orderReversal,
         Stream $stream,
         Response $reversalResponse
     ) {
@@ -261,6 +260,8 @@ class OrderSpec extends ObjectBehavior
         $client->post('orders', Argument::any())->willThrow($exception);
 
         $json = file_get_contents(__DIR__ . '/../../expectations/order_reverse_response.json');
+
+        $orderReversal = new Afterpay\Model\InStore\Reversal();
 
         $serializer->serialize($orderReversal, 'json')->shouldBeCalled();
         $serializer->deserialize($json, Afterpay\Model\InStore\Reversal::class, 'json')->shouldBeCalled()->willReturn($orderReversal);
@@ -274,5 +275,6 @@ class OrderSpec extends ObjectBehavior
         $res = $this->createOrReverse($order, $orderReversal);
 
         $res->shouldBeAnInstanceOf(Afterpay\Model\InStore\Reversal::class);
+        $res->getErrorReason()->shouldBeAnInstanceOf(Afterpay\Model\ErrorResponse::class);
     }
 }
