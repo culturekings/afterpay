@@ -100,7 +100,6 @@ class Refund extends AbstractService
         Model\InStore\Reversal $refundReversal = null,
         HandlerStack $stack = null
     ) {
-        $errorResponse = null;
         try {
             return $this->create($refund, $stack);
         } catch (ApiException $e) {

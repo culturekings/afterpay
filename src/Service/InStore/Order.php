@@ -100,7 +100,6 @@ class Order extends AbstractService
         Model\InStore\Reversal $orderReversal = null,
         HandlerStack $stack = null
     ) {
-        $errorResponse = null;
         try {
             return $this->create($order, $stack);
         } catch (ApiException $e) {
