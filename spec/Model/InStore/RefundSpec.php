@@ -41,6 +41,16 @@ class RefundSpec extends ObjectBehavior
         $this->getRequestedAt()->shouldReturn($requestedAt);
     }
 
+    /**
+     * @param \DateTime|\PhpSpec\Wrapper\Collaborator $refundedAt
+     */
+    function its_refunded_at_is_mutable(\DateTime $refundedAt)
+    {
+        $this->getRefundedAt()->shouldReturn(null);
+        $this->setRefundedAt($refundedAt)->shouldReturn($this);
+        $this->getRefundedAt()->shouldReturn($refundedAt);
+    }
+
     function its_merchant_reference_is_mutable()
     {
         $this->getMerchantReference()->shouldReturn(null);

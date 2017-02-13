@@ -2,6 +2,7 @@
 namespace CultureKings\Afterpay\Model\InStore;
 
 use CultureKings\Afterpay\Model\Money;
+use DateTimeInterface;
 
 /**
  * Class Refund
@@ -14,9 +15,13 @@ class Refund
      */
     protected $requestId;
     /**
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     protected $requestedAt;
+    /**
+     * @var DateTimeInterface
+     */
+    protected $refundedAt;
     /**
      * @var string
      */
@@ -55,7 +60,7 @@ class Refund
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
     public function getRequestedAt()
     {
@@ -63,13 +68,33 @@ class Refund
     }
 
     /**
-     * @param \DateTimeInterface $requestedAt
+     * @param DateTimeInterface $requestedAt
      *
      * @return Refund
      */
-    public function setRequestedAt(\DateTimeInterface $requestedAt)
+    public function setRequestedAt(DateTimeInterface $requestedAt)
     {
         $this->requestedAt = $requestedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getRefundedAt()
+    {
+        return $this->refundedAt;
+    }
+
+    /**
+     * @param DateTimeInterface $refundedAt
+     *
+     * @return Refund
+     */
+    public function setRefundedAt(DateTimeInterface $refundedAt)
+    {
+        $this->refundedAt = $refundedAt;
 
         return $this;
     }

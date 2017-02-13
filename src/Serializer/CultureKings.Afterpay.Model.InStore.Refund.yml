@@ -7,6 +7,9 @@ CultureKings\Afterpay\Model\InStore\Refund:
     requestedAt:
       type: DateTime<'Y-m-d\TH:i:s.uO'>
       serialized_name: requestedAt
+    refundedAt:
+      type: DateTime<'Y-m-d\TH:i:s.uO'>
+      serialized_name: refundedAt
     merchantReference:
       type: string
       serialized_name: merchantReference
