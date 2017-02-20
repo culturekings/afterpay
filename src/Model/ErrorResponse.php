@@ -36,6 +36,7 @@ class ErrorResponse
 
     /**
      * @param string $errorCode
+     *
      * @return $this
      */
     public function setErrorCode($errorCode)
@@ -55,6 +56,7 @@ class ErrorResponse
 
     /**
      * @param string $errorId
+     *
      * @return $this
      */
     public function setErrorId($errorId)
@@ -74,6 +76,7 @@ class ErrorResponse
 
     /**
      * @param string $message
+     *
      * @return $this
      */
     public function setMessage($message)
@@ -93,6 +96,7 @@ class ErrorResponse
 
     /**
      * @param string $httpStatusCode
+     *
      * @return $this
      */
     public function setHttpStatusCode($httpStatusCode)

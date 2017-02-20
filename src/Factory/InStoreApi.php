@@ -6,14 +6,13 @@ use CultureKings\Afterpay\Service;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
 use JMS\Serializer\SerializerInterface;
 
 /**
  * Class InStoreApi
  * @package CultureKings\Afterpay\Factory
  */
-class InStoreApi
+class InStoreApi extends Api
 {
     /**
      * @param Authorization            $authorization

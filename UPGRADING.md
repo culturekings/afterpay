@@ -1,5 +1,9 @@
 # UPGRADING
 
+## v1.1.3 -> v2.0.0
+
+* `CultureKings\Afterpay\Factory\Api` is now an abstract base class. Please use the relevant merchant or instore factories instead.
+
 ## v0.1.5 -> v1.0.0
 
 * Guzzle has been updated to require guzzlehttp/guzzle 6.0
