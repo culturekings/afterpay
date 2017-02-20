@@ -9,8 +9,10 @@ use CultureKings\Afterpay\Contacts\AuthorizationInterface;
  */
 class Authorization implements AuthorizationInterface
 {
-    const PRODUCTION_URI = 'https://posapi.secure-afterpay.com.au/v1/';
-    const SANDBOX_URI = 'https://posapi-sandbox.secure-afterpay.com.au/v1/';
+    const PRODUCTION_BASE_URI = 'https://posapi.secure-afterpay.com.au/';
+    const PRODUCTION_URI = self::PRODUCTION_BASE_URI.'v1/';
+    const SANDBOX_BASE_URI = 'https://posapi-sandbox.secure-afterpay.com.au/';
+    const SANDBOX_URI = self::SANDBOX_BASE_URI.'v1/';
     const REQUEST_TIMEOUT_SECONDS = 30;
 
     /**

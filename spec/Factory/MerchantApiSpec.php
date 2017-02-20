@@ -2,6 +2,7 @@
 
 namespace spec\CultureKings\Afterpay\Factory;
 
+use CultureKings\Afterpay\Factory\Api;
 use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Service;
 use PhpSpec\ObjectBehavior;
@@ -12,6 +13,14 @@ use PhpSpec\ObjectBehavior;
  */
 class MerchantApiSpec extends ObjectBehavior
 {
+    /**
+     *
+     */
+    public function it_can_initialise_ping() {
+        $this->beConstructedThrough('ping', ['test uri']);
+        $this->shouldBeAnInstanceOf(Service\Ping::class);
+    }
+
     public function it_can_initialise_configuration(Authorization $auth)
     {
         $this->beConstructedThrough('configuration', [$auth]);
@@ -28,5 +37,12 @@ class MerchantApiSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('orders', [$auth]);
         $this->shouldBeAnInstanceOf(Service\Merchant\Orders::class);
+    }
+
+    /**
+     *
+     */
+    public function it_extends_api() {
+        $this->shouldBeAnInstanceOf(Api::class);
     }
 }

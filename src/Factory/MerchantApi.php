@@ -13,7 +13,7 @@ use JMS\Serializer\SerializerInterface;
  * Class MerchantApi
  * @package CultureKings\Afterpay\Factory
  */
-class MerchantApi
+class MerchantApi extends Api
 {
     /**
      * @param Authorization            $authorization

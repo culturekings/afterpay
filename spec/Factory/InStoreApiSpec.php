@@ -2,6 +2,7 @@
 
 namespace spec\CultureKings\Afterpay\Factory;
 
+use CultureKings\Afterpay\Factory\Api;
 use CultureKings\Afterpay\Model\InStore\Authorization;
 use CultureKings\Afterpay\Service;
 use PhpSpec\ObjectBehavior;
@@ -12,6 +13,14 @@ use PhpSpec\ObjectBehavior;
  */
 class InStoreApiSpec extends ObjectBehavior
 {
+    /**
+     *
+     */
+    public function it_can_initialise_ping() {
+        $this->beConstructedThrough('ping', ['test uri']);
+        $this->shouldBeAnInstanceOf(Service\Ping::class);
+    }
+
     /**
      * @param Authorization|\PhpSpec\Wrapper\Collaborator $auth
      */
@@ -55,5 +64,12 @@ class InStoreApiSpec extends ObjectBehavior
     {
         $this->beConstructedThrough('customer', [$auth]);
         $this->shouldBeAnInstanceOf(Service\InStore\Customer::class);
+    }
+
+    /**
+     *
+     */
+    public function it_extends_api() {
+        $this->shouldBeAnInstanceOf(Api::class);
     }
 }
