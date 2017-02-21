@@ -31,10 +31,10 @@ class Ping
     {
         try {
             $this->getClient()->get('ping');
+
             return true;
         } catch (Exception $e) {
             return false;
         }
     }
-
 }

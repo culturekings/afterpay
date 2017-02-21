@@ -10,10 +10,10 @@ use GuzzleHttp\ClientInterface;
  * Class Api
  * @package CultureKings\Afterpay\Factory
  */
-abstract class Api
+class Api
 {
     /**
-     * @param                      $endpoint
+     * @param string               $endpoint
      * @param ClientInterface|null $client
      *
      * @return Ping
@@ -25,6 +25,7 @@ abstract class Api
         AnnotationRegistry::registerLoader('class_exists');
 
         $afterpayClient = $client ?: new Client([ 'base_uri' => $endpoint ]);
+
         return new Ping($afterpayClient);
     }
 }
