@@ -5,7 +5,7 @@ use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Service\Merchant\Configuration as ConfigurationService;
 use CultureKings\Afterpay\Service\Merchant\Payments as PaymentsService;
 use CultureKings\Afterpay\Service\Merchant\Orders as OrdersService;
-use CultureKings\Afterpay\Service\Merchant\Ping;
+use CultureKings\Afterpay\Service\Merchant\Ping as PingService;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -90,6 +90,6 @@ class MerchantApi extends Api
 
         $afterpayClient = $client ?: new Client([ 'base_uri' => $endpoint ]);
 
-        return new Ping($afterpayClient);
+        return new PingService($afterpayClient);
     }
 }
