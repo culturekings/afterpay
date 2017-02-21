@@ -11,7 +11,9 @@ use CultureKings\Afterpay\Contacts\AuthorizationInterface;
 class Authorization implements AuthorizationInterface
 {
     const PRODUCTION_URI = 'https://api.secure-afterpay.com.au/v1/';
+    const PRODUCTION_BASE_URI = 'https://api.secure-afterpay.com.au';
     const SANDBOX_URI = 'https://api-sandbox.secure-afterpay.com.au/v1/';
+    const SANDBOX_BASE_URL = 'https://api-sandbox.secure-afterpay.com.au';
 
     /**
      * @var string
