@@ -113,4 +113,21 @@ class InStoreApi extends Api
 
         return new Service\InStore\Customer($authorization, $afterpayClient, $afterpaySerializer);
     }
+
+    /**
+     * @param string               $endpoint
+     * @param ClientInterface|null $client
+     *
+     * @return Service\InStore\Ping
+     */
+    public static function ping(
+        $endpoint,
+        ClientInterface $client = null
+    ) {
+        AnnotationRegistry::registerLoader('class_exists');
+
+        $afterpayClient = $client ?: new Client([ 'base_uri' => $endpoint ]);
+
+        return new Service\InStore\Ping($afterpayClient);
+    }
 }
