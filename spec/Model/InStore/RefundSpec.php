@@ -24,6 +24,13 @@ class RefundSpec extends ObjectBehavior
         $this->shouldHaveType(Refund::class);
     }
 
+    function its_refund_id_is_mutable()
+    {
+        $this->getRefundId()->shouldReturn(null);
+        $this->setRefundId(122)->shouldReturn($this);
+        $this->getRefundId()->shouldReturn(122);
+    }
+
     function its_request_id_is_mutable()
     {
         $this->getRequestId()->shouldReturn(null);
