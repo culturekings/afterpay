@@ -1,6 +1,9 @@
 CultureKings\Afterpay\Model\InStore\Refund:
   exclusion_policy: ALL
   properties:
+    refundId:
+      type: string
+      serialized_name: refundId
     requestId:
       type: string
       serialized_name: requestId
