@@ -11,6 +11,10 @@ use DateTimeInterface;
 class Refund
 {
     /**
+     * @var int
+     */
+    protected $refundId;
+    /**
      * @var string
      */
     protected $requestId;
@@ -38,6 +42,26 @@ class Refund
      * @var Money
      */
     protected $amount;
+
+    /**
+     * @return int
+     */
+    public function getRefundId()
+    {
+        return $this->refundId;
+    }
+
+    /**
+     * @param int $refundId
+     *
+     * @return Refund
+     */
+    public function setRefundId($refundId)
+    {
+        $this->refundId = $refundId;
+
+        return $this;
+    }
 
     /**
      * @return string
