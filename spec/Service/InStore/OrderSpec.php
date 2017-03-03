@@ -282,7 +282,7 @@ class OrderSpec extends ObjectBehavior
      * @param Client|\PhpSpec\Wrapper\Collaborator                       $client
      * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator $order
      */
-    function it_will_throw_an_exception_when_a_reversal_fails(
+    function it_will_throw_an_order_exception_when_a_reversal_fails(
         Client $client,
         Afterpay\Model\InStore\Order $order
     ) {
@@ -300,5 +300,29 @@ class OrderSpec extends ObjectBehavior
         $client->post('orders/reverse', Argument::any())->willThrow($reversalException);
 
         $this->shouldThrow($orderException)->duringCreateOrReverse($order);
+    }
+
+    /**
+     * @param Client|\PhpSpec\Wrapper\Collaborator                       $client
+     * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator $order
+     */
+    function it_will_throw_an_order_reversal_exception_when_a_reversal_fails(
+        Client $client,
+        Afterpay\Model\InStore\Order $order
+    ) {
+        $request = new Request('get', 'test');
+        $response = new Response('400');
+
+        $orderException = new RequestException('ddssda', $request, $response);
+
+        $errorCode = new Afterpay\Model\ErrorResponse();
+        $errorCode->setErrorCode('not_precondition_failed');
+
+        $reversalException = new Afterpay\Exception\ApiException($errorCode);
+
+        $client->post('orders', Argument::any())->willThrow($orderException);
+        $client->post('orders/reverse', Argument::any())->willThrow($reversalException);
+
+        $this->shouldThrow($reversalException)->duringCreateOrReverse($order);
     }
 }
