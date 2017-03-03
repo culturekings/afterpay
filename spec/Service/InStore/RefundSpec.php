@@ -275,4 +275,52 @@ class RefundSpec extends ObjectBehavior
         $res->shouldBeAnInstanceOf(Afterpay\Model\InStore\Reversal::class);
         $res->getErrorReason()->shouldBeAnInstanceOf(Afterpay\Model\ErrorResponse::class);
     }
+
+    /**
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator $refund
+     */
+    function it_will_throw_a_refund_exception_when_a_reversal_fails(
+        Client $client,
+        Afterpay\Model\InStore\Refund $refund
+    ) {
+        $request = new Request('get', 'test');
+        $response = new Response('400');
+
+        $orderException = new RequestException('ddssda', $request, $response);
+
+        $errorCode = new Afterpay\Model\ErrorResponse();
+        $errorCode->setErrorCode(Afterpay\Service\InStore\Refund::ERROR_MSG_PRECONDITION_FAILED);
+
+        $reversalException = new Afterpay\Exception\ApiException($errorCode);
+
+        $client->post('refunds', Argument::any())->willThrow($orderException);
+        $client->post('refunds/reverse', Argument::any())->willThrow($reversalException);
+
+        $this->shouldThrow($orderException)->duringCreateOrReverse($refund);
+    }
+
+    /**
+     * @param Client|\PhpSpec\Wrapper\Collaborator                        $client
+     * @param Afterpay\Model\InStore\Refund|\PhpSpec\Wrapper\Collaborator $refund
+     */
+    function it_will_throw_a_refund_reversal_exception_when_a_reversal_fails(
+        Client $client,
+        Afterpay\Model\InStore\Refund $refund
+    ) {
+        $request = new Request('get', 'test');
+        $response = new Response('400');
+
+        $orderException = new RequestException('ddssda', $request, $response);
+
+        $errorCode = new Afterpay\Model\ErrorResponse();
+        $errorCode->setErrorCode('not_precondition_failed');
+
+        $reversalException = new Afterpay\Exception\ApiException($errorCode);
+
+        $client->post('refunds', Argument::any())->willThrow($orderException);
+        $client->post('refunds/reverse', Argument::any())->willThrow($reversalException);
+
+        $this->shouldThrow($reversalException)->duringCreateOrReverse($refund);
+    }
 }
