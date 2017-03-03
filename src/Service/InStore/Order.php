@@ -19,6 +19,7 @@ class Order extends AbstractService
     const ERROR_EXCEED_PREAPPROVAL = 402;
     const ERROR_CONFLICT = 409;
     const ERROR_INVALID_CODE = 412;
+    const ERROR_MSG_PRECONDITION_FAILED = 'precondition_failed';
 
     /**
      * @param Model\InStore\Order $order
@@ -102,19 +103,19 @@ class Order extends AbstractService
     ) {
         try {
             return $this->create($order, $stack);
-        } catch (ApiException $e) {
+        } catch (ApiException $orderException) {
             // http://docs.afterpay.com.au/instore-api-v1.html#create-order
             // Should a success or error response (with exception to 409 conflict) not be received,
             // the POS should queue the request ID for reversal
-            if ($e->getErrorResponse()->getErrorCode() == self::ERROR_CONFLICT) {
-                throw $e;
+            if ($orderException->getErrorResponse()->getErrorCode() === self::ERROR_CONFLICT) {
+                throw $orderException;
             }
-            $errorResponse = $e->getErrorResponse();
-        } catch (RequestException $e) {
+            $errorResponse = $orderException->getErrorResponse();
+        } catch (RequestException $orderException) {
             // a timeout or other exception has occurred. attempt a reversal
             $errorResponse = new Model\ErrorResponse();
-            $errorResponse->setHttpStatusCode($e->getResponse()->getStatusCode());
-            $errorResponse->setMessage($e->getMessage());
+            $errorResponse->setHttpStatusCode($orderException->getResponse()->getStatusCode());
+            $errorResponse->setMessage($orderException->getMessage());
         }
 
         if ($orderReversal === null) {
@@ -123,9 +124,19 @@ class Order extends AbstractService
             $orderReversal->setRequestedAt(new DateTime());
         }
 
-        $reversal = $this->reverse($orderReversal, $stack);
-        $reversal->setErrorReason($errorResponse);
+        try {
+            $reversal = $this->reverse($orderReversal, $stack);
+            $reversal->setErrorReason($errorResponse);
 
-        return $reversal;
+            return $reversal;
+        } catch (ApiException $reversalException) {
+            $reversalErrorResponse = $reversalException->getErrorResponse();
+            if ($reversalErrorResponse->getErrorCode() === self::ERROR_MSG_PRECONDITION_FAILED) {
+                // there was trouble reversing probably because the order failed
+                throw $orderException;
+            }
+
+            throw $reversalException;
+        }
     }
 }

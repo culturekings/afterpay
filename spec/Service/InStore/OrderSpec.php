@@ -277,4 +277,28 @@ class OrderSpec extends ObjectBehavior
         $res->shouldBeAnInstanceOf(Afterpay\Model\InStore\Reversal::class);
         $res->getErrorReason()->shouldBeAnInstanceOf(Afterpay\Model\ErrorResponse::class);
     }
+
+    /**
+     * @param Client|\PhpSpec\Wrapper\Collaborator                       $client
+     * @param Afterpay\Model\InStore\Order|\PhpSpec\Wrapper\Collaborator $order
+     */
+    function it_will_throw_an_exception_when_a_reversal_fails(
+        Client $client,
+        Afterpay\Model\InStore\Order $order
+    ) {
+        $request = new Request('get', 'test');
+        $response = new Response('400');
+
+        $orderException = new RequestException('ddssda', $request, $response);
+
+        $errorCode = new Afterpay\Model\ErrorResponse();
+        $errorCode->setErrorCode(Afterpay\Service\InStore\Order::ERROR_MSG_PRECONDITION_FAILED);
+
+        $reversalException = new Afterpay\Exception\ApiException($errorCode);
+
+        $client->post('orders', Argument::any())->willThrow($orderException);
+        $client->post('orders/reverse', Argument::any())->willThrow($reversalException);
+
+        $this->shouldThrow($orderException)->duringCreateOrReverse($order);
+    }
 }

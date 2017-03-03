@@ -17,6 +17,7 @@ class Refund extends AbstractService
     const ERROR_INVALID_ORDER_MERCHANT_REFERENCE = 412;
     const ERROR_PRECONDITION_FAILED = 412;
     const ERROR_INVALID_AMOUNT = 412;
+    const ERROR_MSG_PRECONDITION_FAILED = 'precondition_failed';
 
     /**
      * @param Model\InStore\Refund $refund
@@ -102,19 +103,19 @@ class Refund extends AbstractService
     ) {
         try {
             return $this->create($refund, $stack);
-        } catch (ApiException $e) {
+        } catch (ApiException $refundException) {
             // http://docs.afterpay.com.au/instore-api-v1.html#create-refund
             // Should a success or error response (with exception to 409 conflict) not be received,
             // the POS should queue the request ID for reversal
-            if ($e->getErrorResponse()->getErrorCode() == self::ERROR_CONFLICT) {
-                throw $e;
+            if ($refundException->getErrorResponse()->getErrorCode() == self::ERROR_CONFLICT) {
+                throw $refundException;
             }
-            $errorResponse = $e->getErrorResponse();
-        } catch (RequestException $e) {
+            $errorResponse = $refundException->getErrorResponse();
+        } catch (RequestException $refundException) {
             // a timeout or other exception has occurred. attempt a reversal
             $errorResponse = new Model\ErrorResponse();
-            $errorResponse->setHttpStatusCode($e->getResponse()->getStatusCode());
-            $errorResponse->setMessage($e->getMessage());
+            $errorResponse->setHttpStatusCode($refundException->getResponse()->getStatusCode());
+            $errorResponse->setMessage($refundException->getMessage());
         }
 
         $now = new \DateTime();
@@ -124,9 +125,19 @@ class Refund extends AbstractService
             $refundReversal->setRequestedAt($now);
         }
 
-        $reversal = $this->reverse($refundReversal, $stack);
-        $reversal->setErrorReason($errorResponse);
+        try {
+            $reversal = $this->reverse($refundReversal, $stack);
+            $reversal->setErrorReason($errorResponse);
 
-        return $reversal;
+            return $reversal;
+        } catch (ApiException $reversalException) {
+            $reversalErrorResponse = $reversalException->getErrorResponse();
+            if ($reversalErrorResponse->getErrorCode() === self::ERROR_MSG_PRECONDITION_FAILED) {
+                // there was trouble reversing probably because the refund failed
+                throw $refundException;
+            }
+
+            throw $reversalException;
+        }
     }
 }
