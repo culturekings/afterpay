@@ -17,6 +17,7 @@ class Refund extends AbstractService
     const ERROR_INVALID_ORDER_MERCHANT_REFERENCE = 412;
     const ERROR_PRECONDITION_FAILED = 412;
     const ERROR_INVALID_AMOUNT = 412;
+    const ERROR_INTERNAL_ERROR = 500;
     const ERROR_MSG_PRECONDITION_FAILED = 'precondition_failed';
 
     /**
@@ -114,7 +115,9 @@ class Refund extends AbstractService
         } catch (RequestException $refundException) {
             // a timeout or other exception has occurred. attempt a reversal
             $errorResponse = new Model\ErrorResponse();
-            $errorResponse->setHttpStatusCode($refundException->getResponse()->getStatusCode());
+            $errorResponse->setHttpStatusCode(
+                $refundException->getResponse() ? $refundException->getResponse()->getStatusCode() : self::ERROR_INTERNAL_ERROR
+            );
             $errorResponse->setMessage($refundException->getMessage());
         }
 

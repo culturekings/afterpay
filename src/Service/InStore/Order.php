@@ -19,6 +19,7 @@ class Order extends AbstractService
     const ERROR_EXCEED_PREAPPROVAL = 402;
     const ERROR_CONFLICT = 409;
     const ERROR_INVALID_CODE = 412;
+    const ERROR_INTERNAL_ERROR = 500;
     const ERROR_MSG_PRECONDITION_FAILED = 'precondition_failed';
 
     /**
@@ -114,7 +115,11 @@ class Order extends AbstractService
         } catch (RequestException $orderException) {
             // a timeout or other exception has occurred. attempt a reversal
             $errorResponse = new Model\ErrorResponse();
-            $errorResponse->setHttpStatusCode($orderException->getResponse()->getStatusCode());
+
+            $errorResponse->setHttpStatusCode(
+                $orderException->getResponse() ? $orderException->getResponse()->getStatusCode() : self::ERROR_INTERNAL_ERROR
+            );
+
             $errorResponse->setMessage($orderException->getMessage());
         }
 
