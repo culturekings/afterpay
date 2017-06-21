@@ -46,7 +46,6 @@ jobs:
             - composer-{{ checksum "composer.json" }}
             - composer-
       - run: mkdir -p build/tests/phpcs
-      - run: vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
       - run: vendor/bin/phpcs --report-junit=build/tests/phpcs/junit.xml
       - store_artifacts:
           path: build/tests/phpcs
