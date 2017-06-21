@@ -31,7 +31,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - composer-{{ checksum "server/composer.json" }}
+            - composer-{{ checksum "composer.json" }}
             - composer-
       - run: mkdir -p build/tests/phpspec
       - run: vendor/bin/phpspec run --format=junit > build/tests/phpspec/junit.xml
@@ -43,7 +43,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - composer-{{ checksum "server/composer.json" }}
+            - composer-{{ checksum "composer.json" }}
             - composer-
       - run: mkdir -p build/tests/phpcs
       - run: vendor/bin/phpcs --config-set installed_paths vendor/culturekings/symfony2-coding-standard
