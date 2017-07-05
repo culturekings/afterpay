@@ -1,10 +1,13 @@
 <?php
 namespace CultureKings\Afterpay\Service\Merchant;
 
+use CultureKings\Afterpay\Exception\ApiException;
+use CultureKings\Afterpay\Model\ErrorResponse;
 use CultureKings\Afterpay\Model\Merchant\Authorization;
 use CultureKings\Afterpay\Model\Merchant\Configuration as ConfigurationModel;
 use CultureKings\Afterpay\Traits;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\BadResponseException;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -40,15 +43,26 @@ class Configuration
      */
     public function get()
     {
-        $result = $this->getClient()->get(
-            'configuration',
-            [
-                'auth' => [
-                    $this->getAuthorization()->getMerchantId(),
-                    $this->getAuthorization()->getSecret(),
-                ],
-            ]
-        );
+        try {
+            $result = $this->getClient()->get(
+                'configuration',
+                [
+                    'auth' => [
+                        $this->getAuthorization()->getMerchantId(),
+                        $this->getAuthorization()->getSecret(),
+                    ],
+                ]
+            );
+        } catch (BadResponseException $exception) {
+            throw new ApiException(
+                $this->getSerializer()->deserialize(
+                    (string) $exception->getResponse()->getBody(),
+                    ErrorResponse::class,
+                    'json'
+                ),
+                $exception
+            );
+        }
 
         return $this->getSerializer()->deserialize(
             (string) $result->getBody(),
