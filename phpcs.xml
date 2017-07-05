@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="OpenStyle">
-    <description>Open Style PHP Code Sniffer standard.</description>
+<ruleset name="afterpay">
+    <description>PHP Code Sniffer standard.</description>
 
     <file>src</file>
 
@@ -9,5 +9,4 @@
     <arg value="np"/>
 
     <rule ref="PSR2"/>
-    <rule ref="Symfony2"/>
 </ruleset>
