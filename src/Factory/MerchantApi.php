@@ -31,7 +31,7 @@ class MerchantApi extends Api
 
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint(), 'defaults' => [ 'headers' => ['User-Agent' => $authorization->getUserAgent() ] ] ]);
+        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint(), 'headers' => ['User-Agent' => $authorization->getUserAgent() ] ]);
         $afterpaySerializer = $serializer ? : SerializerFactory::getSerializer();
 
         return new ConfigurationService($afterpayClient, $authorization, $afterpaySerializer);
@@ -51,7 +51,7 @@ class MerchantApi extends Api
 
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint(), 'defaults' => [ 'headers' => ['User-Agent' => $authorization->getUserAgent() ] ] ]);
+        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint(), 'headers' => ['User-Agent' => $authorization->getUserAgent() ] ]);
         $afterpaySerializer = $serializer ? : SerializerFactory::getSerializer();
 
         return new PaymentsService($afterpayClient, $authorization, $afterpaySerializer);
@@ -70,7 +70,7 @@ class MerchantApi extends Api
     ) {
         AnnotationRegistry::registerLoader('class_exists');
 
-        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint(), 'defaults' => [ 'headers' => ['User-Agent' => $authorization->getUserAgent() ] ] ]);
+        $afterpayClient = $client ? : new Client([ 'base_uri' => $authorization->getEndpoint(), 'headers' => ['User-Agent' => $authorization->getUserAgent() ] ]);
         $afterpaySerializer = $serializer ? : SerializerFactory::getSerializer();
 
         return new OrdersService($afterpayClient, $authorization, $afterpaySerializer);
