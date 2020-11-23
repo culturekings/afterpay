@@ -27,6 +27,10 @@ class Authorization implements AuthorizationInterface
      * @var string
      */
     protected $secret;
+    /**
+     * @var string
+     */
+    protected $user_agent;
 
     /**
      * Authorization constructor.
@@ -97,4 +101,24 @@ class Authorization implements AuthorizationInterface
 
         return $this;
     }
+
+
+    /**
+     * @param string $user_agent
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        $this->user_agent = $user_agent;
+
+        return $this;
+    }
+    /**
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->user_agent;
+    }
 }
+
